@@ -1,54 +1,46 @@
 import React from "react";
-import { ChevronRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
   return (
     <motion.nav
-      className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-lg"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      className="fixed w-full bg-white/80 backdrop-blur-md z-50 shadow-md"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      <div className="max-w-6xl mx-auto px-4 py-4">
-        <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Nawfel Boulkroune
-          </h1>
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Nawfel Boulkroune
+        </h1>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
-            <a href="#about" className="hover:text-blue-600 transition-colors">
-              About
-            </a>
-            <a
-              href="#projects"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Projects
-            </a>
-            <a
-              href="#contact"
-              className="hover:text-blue-600 transition-colors"
-            >
-              Contact
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X /> : <Menu />}
-          </button>
+        {/* Desktop Links */}
+        <div className="hidden md:flex space-x-6">
+          <a href="#about" className="hover:text-blue-600 transition">
+            About
+          </a>
+          <a href="#projects" className="hover:text-blue-600 transition">
+            Projects
+          </a>
+          <a href="#contact" className="hover:text-blue-600 transition">
+            Contact
+          </a>
         </div>
+
+        {/* Mobile Menu */}
+        <button
+          className="md:hidden"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Dropdown */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t">
-          <div className="flex flex-col space-y-4 px-4 py-6">
+        <div className="bg-white md:hidden border-t shadow-lg">
+          <div className="flex flex-col space-y-4 px-6 py-6">
             <a href="#about" className="hover:text-blue-600">
               About
             </a>
