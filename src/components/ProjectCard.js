@@ -12,19 +12,17 @@ const ProjectCard = ({ project }) => {
   useEffect(() => {
     const generateFixedTilts = () => {
       const fixedTilts = project.images.map((_, index) => {
-        let tilt, position;
+        let tilt;
 
         if (index === 0) {
-          tilt = 3;
+          tilt = 3; // Slight right tilt
         } else if (index === 2) {
-          tilt = -3; // Tilt 7 degrees to the left
+          tilt = -3; // Slight left tilt
         } else {
-          tilt = 0;
+          tilt = 0; // No tilt for center
         }
 
-        position = 0;
-
-        return { tilt, position };
+        return { tilt };
       });
 
       setTilts(fixedTilts);
@@ -34,9 +32,9 @@ const ProjectCard = ({ project }) => {
   }, [project.images]);
 
   const getImageStyle = (index) => {
-    const { tilt, position } = tilts[index] || { tilt: 0, position: 0 };
+    const { tilt } = tilts[index] || { tilt: 0 };
     return {
-      transform: `rotate(${tilt}deg) translateY(${position}px)`,
+      transform: `rotate(${tilt}deg)`,
       zIndex: index === 1 ? 2 : 1,
     };
   };
@@ -63,10 +61,6 @@ const ProjectCard = ({ project }) => {
     setModalImage(null);
   };
 
-  const navigateToPlayStore = () => {
-    window.open(project.playStoreUrl, "_blank");
-  };
-
   return (
     <motion.div
       className="w-full min-h-[600px] bg-white rounded-xl shadow-lg overflow-hidden"
@@ -76,7 +70,7 @@ const ProjectCard = ({ project }) => {
     >
       <div className="flex flex-col md:flex-row h-full">
         {/* Left Content */}
-        <div className="w-full md:w-1/2 p-8 flex flex-col justify-center items-center text-center space-y-6">
+        <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center items-center text-center space-y-6">
           <span className="px-6 py-3 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
             {project.category}
           </span>
@@ -120,21 +114,21 @@ const ProjectCard = ({ project }) => {
         </div>
 
         {/* Right Content */}
-        <div className="w-full md:w-1/2 bg-gray-50 p-8 relative">
-          <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-0.5 justify-center">
+        <div className="w-full md:w-1/2 bg-gray-50 p-6 md:p-8 relative">
+          {/* Desktop View */}
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-x-2 justify-center">
             {project.images.map((image, index) => (
               <div
                 key={index}
-                className="relative w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center -ml-1"
+                className="relative w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center"
                 style={getImageStyle(index)}
-                onClick={() => openModal(image)} // Make images clickable
+                onClick={() => openModal(image)}
               >
                 <div className="w-full h-full rounded-[32px] overflow-hidden relative">
                   <img
                     src={image}
                     alt={`Screenshot ${index + 1}`}
                     className="w-full h-full object-cover rounded-[32px]"
-                    onClick={() => openModal(image)}
                   />
                 </div>
               </div>
@@ -142,28 +136,34 @@ const ProjectCard = ({ project }) => {
           </div>
 
           {/* Mobile View */}
-          <div className="block md:hidden relative flex items-center justify-center">
-            <button
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full w-10 h-10 flex items-center justify-center"
-              onClick={prevImage}
-            >
-              &lt;
-            </button>
-            <div className="w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center">
+          <div className="block md:hidden relative flex flex-col items-center justify-center">
+            {/* Display current image */}
+            <div className="relative w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center">
               <div className="w-full h-full rounded-[32px] overflow-hidden relative">
                 <img
                   src={project.images[currentIndex]}
                   alt={`Screenshot ${currentIndex + 1}`}
                   className="w-full h-full object-cover rounded-[32px]"
+                  onClick={() => openModal(project.images[currentIndex])}
                 />
               </div>
             </div>
-            <button
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full w-10 h-10 flex items-center justify-center"
-              onClick={nextImage}
-            >
-              &gt;
-            </button>
+
+            {/* Navigation buttons */}
+            <div className="flex justify-between w-full px-4 mt-4">
+              <button
+                className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-600"
+                onClick={prevImage}
+              >
+                &lt;
+              </button>
+              <button
+                className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-600"
+                onClick={nextImage}
+              >
+                &gt;
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -171,7 +171,7 @@ const ProjectCard = ({ project }) => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="relative max-w-4xl w-full">
+          <div className="relative max-w-xl w-full">
             <button
               onClick={closeModal}
               className="absolute -top-12 right-0 text-white hover:text-gray-300"

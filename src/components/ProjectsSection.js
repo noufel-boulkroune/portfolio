@@ -28,13 +28,13 @@ const ProjectsSection = ({ projects }) => {
           <motion.div
             key={index}
             className="mb-12"
-            initial={{ opacity: 0, y: 50 }} // Start from opacity 0 and y offset
-            whileInView={{ opacity: 1, y: 0 }} // When in view, animate to final state
+            initial={{ opacity: 0, y: 15 }} // Start from a smaller y offset
+            whileInView={{ opacity: 1, y: 0 }} // Animate to final state
             transition={{
-              delay: 0.2 * index, // Delay for staggered animation
-              duration: 1,
+              delay: 0.1 * index, // Reduced delay for quicker appearance
+              duration: 0.5, // Shorter duration for faster animation
             }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.2 }} // Trigger sooner in the viewport
           >
             <ProjectCard project={project} />
           </motion.div>
