@@ -14,7 +14,7 @@ const projects = [
       "Utilized Git and GitHub for efficient version control and collaboration.",
     ],
     images: [
-      "/images/snay3i.png",
+      "/images/snay3i.jpg",
       "/images/snay3i1.png",
       "/images/snay3i2.png",
     ],
@@ -33,7 +33,7 @@ const projects = [
       "Implemented user signaling for safety and secure transactions.",
       "Expanded package options and enriched profiles for better user engagement.",
     ],
-    images: ["/images/mziya1.jpg", "/images/mziya3.jpg", "/images/mziya2.jpg"],
+    images: ["/images/mziya3.jpg", "/images/mziya1.jpg", "/images/mziya2.jpg"],
   },
   {
     title: "Laffaiire",
@@ -51,8 +51,8 @@ const projects = [
     ],
     images: [
       "/images/laffaiire1.png",
-      "/images/laffaiire2.png",
       "/images/laffaiire3.png",
+      "/images/laffaiire2.png",
     ],
   },
   {
@@ -70,8 +70,9 @@ const projects = [
       "Enhanced app deployment and management using Firebase tools.",
     ],
     images: [
-      "/images/laffaiire_tech.png",
       "/images/laffaiire_tech3.png",
+
+      "/images/laffaiire_tech.png",
       "/images/laffaiire_tech2.png",
     ],
   },
