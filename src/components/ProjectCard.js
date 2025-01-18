@@ -134,11 +134,32 @@ const ProjectCard = ({ project }) => {
               </div>
             ))}
           </div>
-
           {/* Mobile View */}
-          <div className="block md:hidden relative flex flex-col items-center justify-center">
+          <div className="block md:hidden relative flex items-center justify-center">
+            {/* Previous Button */}
+            <button
+              className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-600"
+              onClick={prevImage}
+            >
+              {/* Replace the &lt; with an icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
             {/* Display current image */}
-            <div className="relative w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center">
+            <div className="relative w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center mx-4">
               <div className="w-full h-full rounded-[32px] overflow-hidden relative">
                 <img
                   src={project.images[currentIndex]}
@@ -149,21 +170,27 @@ const ProjectCard = ({ project }) => {
               </div>
             </div>
 
-            {/* Navigation buttons */}
-            <div className="flex justify-between w-full px-4 mt-4">
-              <button
-                className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-600"
-                onClick={prevImage}
+            {/* Next Button */}
+            <button
+              className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-600"
+              onClick={nextImage}
+            >
+              {/* Replace the &gt; with an icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-5 h-5"
               >
-                &lt;
-              </button>
-              <button
-                className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-600"
-                onClick={nextImage}
-              >
-                &gt;
-              </button>
-            </div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>

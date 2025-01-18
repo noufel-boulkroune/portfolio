@@ -181,19 +181,48 @@ const LearningProjectsSection = () => {
                   <>
                     <button
                       onClick={() => handlePreviousImage(projectIndex)}
-                      className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2"
+                      className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2 flex items-center justify-center"
                     >
-                      &#8592;
+                      {/* Left Arrow Icon */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15 19l-7-7 7-7"
+                        />
+                      </svg>
                     </button>
                     <button
                       onClick={() => handleNextImage(projectIndex)}
-                      className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2"
+                      className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2 flex items-center justify-center"
                     >
-                      &#8594;
+                      {/* Right Arrow Icon */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
                     </button>
                   </>
                 )}
               </div>
+
               <div className="p-5">
                 <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
                 <p className="text-gray-700 mb-4">{project.description}</p>
