@@ -70,7 +70,7 @@ const ProjectCard = ({ project }) => {
             {project.category}
           </span>
 
-          <h3 className="text-4xl font-extrabold bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">
+          <h3 className="text-4xl font-extrabold bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
             {project.title}
           </h3>
 
@@ -98,7 +98,7 @@ const ProjectCard = ({ project }) => {
                 href={project.playStoreUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-primary hover:text-orange-500 transition-colors duration-300"
+                className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300"
               >
                 <FaGooglePlay size={24} />
                 <span className="ml-2">Get it on Play Store</span>
@@ -130,12 +130,11 @@ const ProjectCard = ({ project }) => {
             ))}
           </div>
           {/* Mobile View */}
-          <div className="block md:hidden relative flex items-center justify-center">
+          <div className="block md:hidden relative flex items-center justify-center min-h-[700px]">
             <button
-              className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300"
+              className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300 absolute left-0 z-10"
               onClick={prevImage}
             >
-              {/* Left Arrow Icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -152,20 +151,21 @@ const ProjectCard = ({ project }) => {
               </svg>
             </button>
 
-            <div className="relative w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center mx-4">
-              <img
-                src={project.images[currentIndex]}
-                alt={`Screenshot ${currentIndex + 1}`}
-                className="w-full h-full object-cover rounded-[32px]"
-                onClick={() => openModal(project.images[currentIndex])}
-              />
+            <div className="relative w-[280px] h-[700] bg-black rounded-[40px] p-3 shadow-xl mx-4">
+              <div className="w-full h-full overflow-hidden rounded-[32px]">
+                <img
+                  src={project.images[currentIndex]}
+                  alt={`Screenshot ${currentIndex + 1}`}
+                  className="w-full h-full object-contain rounded-[32px]"
+                  onClick={() => openModal(project.images[currentIndex])}
+                />
+              </div>
             </div>
 
             <button
-              className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300"
+              className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300 absolute right-0 z-10"
               onClick={nextImage}
             >
-              {/* Right Arrow Icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -191,7 +191,7 @@ const ProjectCard = ({ project }) => {
           <div className="relative max-w-xl w-full">
             <button
               onClick={closeModal}
-              className="absolute -top-12 right-0 text-primary hover:text-orange-500 transition-colors duration-300"
+              className="absolute -top-12 right-0 text-primary hover:text-orange-300 transition-colors duration-300"
             >
               <X className="w-8 h-8" />
             </button>
