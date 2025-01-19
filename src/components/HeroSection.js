@@ -65,7 +65,7 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Text Content */}
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
               Nawfel Boulkroune
             </h1>
             <p className="text-xl sm:text-2xl text-light mb-6">
@@ -152,7 +152,7 @@ const HeroSection = () => {
 
         {/* Skills Section */}
         <div className="mt-16">
-          <h2 className="text-3xl font-semibold mb-6 text-center lg:text-left bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-semibold mb-6 text-center lg:text-left bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
             Skills
           </h2>
 
@@ -197,6 +197,25 @@ const HeroSection = () => {
           </div>
         </div>
       </motion.div>
+      <style jsx global>{`
+        @keyframes infinite-scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-infinite-scroll {
+          animation: infinite-scroll 40s linear infinite;
+        }
+        .animate-infinite-scroll:hover {
+          animation-play-state: paused;
+        }
+        .overflow-hidden::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 };

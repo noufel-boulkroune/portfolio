@@ -9,12 +9,12 @@ const ProjectsSection = ({ projects }) => {
       className="py-20 bg-gradient-to-bl from-dark via-black to-dark"
     >
       <motion.div
-        className="max-w-full mx-auto px-4"
+        className="max-w-full mx-auto px-4 sm:px-16 md:px-8 lg:px-64"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">
+        <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
           Featured Projects
         </h2>
         <motion.p
@@ -50,7 +50,7 @@ const ProjectsSection = ({ projects }) => {
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-10 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-40 h-40 bg-orange-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 left-10 w-40 h-40 bg-orange-300/5 rounded-full blur-3xl"></div>
       </div>
     </section>
   );
