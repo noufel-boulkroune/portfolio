@@ -12,7 +12,6 @@ const projectsData = [
     images: [
       "images/doctors2.png",
       "images/doctors.png",
-
       "images/doctors3.png",
       "images/doctors4.png",
       "images/doctors5.png",
@@ -147,7 +146,10 @@ const LearningProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="py-20 text-gray-900">
+    <section
+      id="projects"
+      className="py-20 text-white bg-gradient-to-br from-dark via-black to-dark"
+    >
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold mb-10 text-center">My Projects</h2>
         <motion.p
@@ -160,12 +162,10 @@ const LearningProjectsSection = () => {
           recruitment tests, and challenge tasks.
         </motion.p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-          {" "}
-          {/* Increased gap to gap-12 */}
           {projectsData.map((project, projectIndex) => (
             <motion.div
               key={project.id}
-              className="bg-white rounded-lg overflow-hidden shadow-[0px_4px_10px_rgba(0,0,0,0.2)] transform hover:scale-105 transition-all"
+              className="w-full min-h-[600px] bg-dark rounded-xl shadow-lg overflow-hidden border-2 border-primary/20 hover:border-primary/60 transition-colors duration-300 transform hover:scale-105 transition-all"
               variants={projectVariants}
               initial="hidden"
               whileInView="visible"
@@ -175,15 +175,14 @@ const LearningProjectsSection = () => {
                 <img
                   src={project.images[currentImageIndex[projectIndex]]}
                   alt={project.title}
-                  className="w-full h-full object-cover bg-gray-200"
+                  className="w-full h-full object-cover bg-gray-700"
                 />
                 {project.images.length > 1 && (
                   <>
                     <button
                       onClick={() => handlePreviousImage(projectIndex)}
-                      className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2 flex items-center justify-center"
+                      className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-primary/70 text-gray-700 rounded-full p-2 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors duration-300"
                     >
-                      {/* Left Arrow Icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -201,9 +200,8 @@ const LearningProjectsSection = () => {
                     </button>
                     <button
                       onClick={() => handleNextImage(projectIndex)}
-                      className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 text-white rounded-full p-2 flex items-center justify-center"
+                      className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-primary/70 text-gray-700 rounded-full p-2 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors duration-300"
                     >
-                      {/* Right Arrow Icon */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -224,13 +222,15 @@ const LearningProjectsSection = () => {
               </div>
 
               <div className="p-5">
-                <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
-                <p className="text-gray-700 mb-4">{project.description}</p>
+                <h3 className="text-2xl font-semibold mb-3 text-white">
+                  {project.title}
+                </h3>
+                <p className="text-gray-400 mb-4">{project.description}</p>
                 <ul className="mb-4 flex flex-wrap justify-center items-center">
                   {project.technologies.map((tech, index) => (
                     <li
                       key={index}
-                      className="inline-block bg-gray-200 text-sm text-gray-900 py-1 px-3 rounded-full mr-2 mb-2"
+                      className="inline-block bg-gray-700 text-sm text-white py-1 px-3 rounded-full mr-2 mb-2"
                     >
                       {tech}
                     </li>
@@ -244,7 +244,7 @@ const LearningProjectsSection = () => {
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-800 hover:text-blue-500 flex items-center"
+                        className="text-gray-200 hover:text-blue-500 flex items-center"
                       >
                         <FaGithub className="mr-2" /> View on GitHub
                       </a>

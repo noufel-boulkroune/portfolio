@@ -13,21 +13,17 @@ const ProjectCard = ({ project }) => {
     const generateFixedTilts = () => {
       const fixedTilts = project.images.map((_, index) => {
         let tilt;
-
         if (index === 0) {
-          tilt = 3; // Slight right tilt
+          tilt = 3;
         } else if (index === 2) {
-          tilt = -3; // Slight left tilt
+          tilt = -3;
         } else {
-          tilt = 0; // No tilt for center
+          tilt = 0;
         }
-
         return { tilt };
       });
-
       setTilts(fixedTilts);
     };
-
     generateFixedTilts();
   }, [project.images]);
 
@@ -52,8 +48,8 @@ const ProjectCard = ({ project }) => {
   };
 
   const openModal = (image) => {
-    // setModalImage(image);
-    // setShowModal(true);
+    setModalImage(image);
+    setShowModal(true);
   };
 
   const closeModal = () => {
@@ -63,48 +59,46 @@ const ProjectCard = ({ project }) => {
 
   return (
     <motion.div
-      className="w-full min-h-[600px] bg-white rounded-xl shadow-lg overflow-hidden"
+      className="w-full min-h-[600px] bg-dark rounded-xl shadow-lg overflow-hidden border border-primary/20 hover:border-primary/60 transition-colors duration-300"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex flex-col md:flex-row h-full">
-        {/* Left Content */}
-        <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center items-center text-center space-y-6">
-          <span className="px-6 py-3 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
+      <div className="flex flex-col md:flex-row h-full bg-black/50">
+        <div className="w-full md:w-1/2 bg-zinc-900 p-6 md:p-8 flex flex-col justify-center items-center text-center space-y-6">
+          <span className="px-6 py-3 bg-primary/10 text-primary rounded-full text-sm font-medium">
             {project.category}
           </span>
 
-          <h3 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h3 className="text-4xl font-extrabold bg-gradient-to-r from-primary to-orange-500 bg-clip-text text-transparent">
             {project.title}
           </h3>
 
-          <p className="text-gray-600 leading-relaxed text-lg">
+          <p className="text-light leading-relaxed text-lg">
             {project.description}
           </p>
 
           <div className="space-y-4">
-            <h4 className="text-xl font-semibold text-gray-800">
+            <h4 className="text-xl font-semibold text-primary">
               Key Features:
             </h4>
-            <ul className="space-y-3 text-gray-600">
+            <ul className="space-y-3 text-light">
               {project.tasks.map((task, index) => (
                 <li key={index} className="flex items-start space-x-2">
-                  <span className="text-blue-500 mt-1">•</span>
+                  <span className="text-primary mt-1">•</span>
                   <span>{task}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Play Store Link */}
           {project.playStoreUrl && (
             <div className="flex items-center space-x-2 mt-6">
               <a
                 href={project.playStoreUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-blue-600 hover:text-blue-700"
+                className="flex items-center text-primary hover:text-orange-500 transition-colors duration-300"
               >
                 <FaGooglePlay size={24} />
                 <span className="ml-2">Get it on Play Store</span>
@@ -113,9 +107,10 @@ const ProjectCard = ({ project }) => {
           )}
         </div>
 
-        {/* Right Content */}
-        <div className="w-full md:w-1/2 bg-gray-50 p-6 md:p-8 relative">
-          {/* Desktop View */}
+        {/* Phone Mockup Area */}
+        <div className="w-full md:w-1/2 bg-zinc-900 p-6 md:p-8 relative">
+          {" "}
+          {/* Changed to bg-gray-800 */}
           <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-x-2 justify-center">
             {project.images.map((image, index) => (
               <div
@@ -136,12 +131,11 @@ const ProjectCard = ({ project }) => {
           </div>
           {/* Mobile View */}
           <div className="block md:hidden relative flex items-center justify-center">
-            {/* Previous Button */}
             <button
-              className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-600"
+              className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300"
               onClick={prevImage}
             >
-              {/* Replace the &lt; with an icon */}
+              {/* Left Arrow Icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -158,24 +152,20 @@ const ProjectCard = ({ project }) => {
               </svg>
             </button>
 
-            {/* Display current image */}
             <div className="relative w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center mx-4">
-              <div className="w-full h-full rounded-[32px] overflow-hidden relative">
-                <img
-                  src={project.images[currentIndex]}
-                  alt={`Screenshot ${currentIndex + 1}`}
-                  className="w-full h-full object-cover rounded-[32px]"
-                  onClick={() => openModal(project.images[currentIndex])}
-                />
-              </div>
+              <img
+                src={project.images[currentIndex]}
+                alt={`Screenshot ${currentIndex + 1}`}
+                className="w-full h-full object-cover rounded-[32px]"
+                onClick={() => openModal(project.images[currentIndex])}
+              />
             </div>
 
-            {/* Next Button */}
             <button
-              className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-blue-600"
+              className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300"
               onClick={nextImage}
             >
-              {/* Replace the &gt; with an icon */}
+              {/* Right Arrow Icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -195,13 +185,13 @@ const ProjectCard = ({ project }) => {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal for Enlarged Image */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
           <div className="relative max-w-xl w-full">
             <button
               onClick={closeModal}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300"
+              className="absolute -top-12 right-0 text-primary hover:text-orange-500 transition-colors duration-300"
             >
               <X className="w-8 h-8" />
             </button>
