@@ -51,7 +51,11 @@ const HeroSection = () => {
     { name: "Linux", icon: "/images/SVG/Linux-icon.svg", class: "icon-linux" },
     { name: "VS Code", icon: "/images/SVG/VS-code-icon.svg" },
     { name: "Xcode", icon: "/images/SVG/Xcode-icon.svg", class: "icon-xcode" },
-    { name: "Android Studio", icon: "/images/SVG/android-studio-icon.svg" },
+    {
+      name: "Android Studio",
+      icon: "/images/SVG/android-studio-icon.svg",
+      class: "icon-android-studio",
+    },
   ];
 
   return (
