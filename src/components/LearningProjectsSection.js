@@ -151,7 +151,9 @@ const LearningProjectsSection = () => {
       className="py-20 text-white bg-gradient-to-br from-dark via-black to-dark"
     >
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-10 text-center">My Projects</h2>
+        <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
+          My Projects
+        </h2>
         <motion.p
           className="text-lg text-center mb-16"
           initial={{ opacity: 0 }}
@@ -161,11 +163,11 @@ const LearningProjectsSection = () => {
           Here are projects I've built as part of my learning journey,
           recruitment tests, and challenge tasks.
         </motion.p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24">
           {projectsData.map((project, projectIndex) => (
             <motion.div
               key={project.id}
-              className="w-full min-h-[600px] bg-dark rounded-xl shadow-lg overflow-hidden border-2 border-primary/20 hover:border-primary/60 transition-colors duration-300 transform hover:scale-105 transition-all"
+              className="w-full min-h-[500px] bg-dark rounded-xl shadow-lg overflow-hidden border-2 border-primary/20 hover:border-primary/60 transition-colors duration-300 transform hover:scale-105 transition-all flex flex-col"
               variants={projectVariants}
               initial="hidden"
               whileInView="visible"
@@ -221,35 +223,38 @@ const LearningProjectsSection = () => {
                 )}
               </div>
 
-              <div className="p-5">
+              <div className="p-5 flex flex-col flex-grow">
                 <h3 className="text-2xl font-semibold mb-3 text-white">
                   {project.title}
                 </h3>
                 <p className="text-gray-400 mb-4">{project.description}</p>
-                <ul className="mb-4 flex flex-wrap justify-center items-center">
-                  {project.technologies.map((tech, index) => (
-                    <li
-                      key={index}
-                      className="inline-block bg-gray-700 text-sm text-white py-1 px-3 rounded-full mr-2 mb-2"
-                    >
-                      {tech}
-                    </li>
-                  ))}
-                </ul>
-                {project.link &&
-                  project.link !== "" &&
-                  project.link !== null && (
-                    <div className="flex justify-center">
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-200 hover:text-blue-500 flex items-center"
+                <div className="flex-grow"></div>
+                <div className="mt-auto">
+                  <ul className="mb-4 flex flex-wrap justify-center items-center">
+                    {project.technologies.map((tech, index) => (
+                      <li
+                        key={index}
+                        className="inline-block bg-gray-700 text-sm text-white py-1 px-3 rounded-full mr-2 mb-2"
                       >
-                        <FaGithub className="mr-2" /> View on GitHub
-                      </a>
-                    </div>
-                  )}
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+                  {project.link &&
+                    project.link !== "" &&
+                    project.link !== null && (
+                      <div className="flex justify-center">
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-200 hover:text-blue-500 flex items-center"
+                        >
+                          <FaGithub className="mr-2" /> View on GitHub
+                        </a>
+                      </div>
+                    )}
+                </div>
               </div>
             </motion.div>
           ))}
