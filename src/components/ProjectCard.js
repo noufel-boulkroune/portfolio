@@ -48,8 +48,8 @@ const ProjectCard = ({ project }) => {
   };
 
   const openModal = (image) => {
-    setModalImage(image);
-    setShowModal(true);
+    // setModalImage(image);
+    // setShowModal(true);
   };
 
   const closeModal = () => {
@@ -65,7 +65,8 @@ const ProjectCard = ({ project }) => {
       transition={{ duration: 0.5 }}
     >
       <div className="flex flex-col md:flex-row h-full bg-black/50">
-        <div className="w-full md:w-1/2 bg-zinc-900 p-6 md:p-8 flex flex-col justify-center items-center text-center space-y-6">
+        {/* Text Area */}
+        <div className="w-full md:w-2/5 bg-zinc-900 p-6 md:p-8 flex flex-col justify-center md:items-center items-center text-center space-y-6">
           <span className="px-6 py-3 bg-primary/10 text-primary rounded-full text-sm font-medium">
             {project.category}
           </span>
@@ -82,7 +83,7 @@ const ProjectCard = ({ project }) => {
             <h4 className="text-xl font-semibold text-primary">
               Key Features:
             </h4>
-            <ul className="space-y-3 text-light">
+            <ul className="space-y-3 text-light text-left md:pl-6">
               {project.tasks.map((task, index) => (
                 <li key={index} className="flex items-start space-x-2">
                   <span className="text-primary mt-1">•</span>
@@ -107,10 +108,8 @@ const ProjectCard = ({ project }) => {
           )}
         </div>
 
-        {/* Phone Mockup Area */}
-        <div className="w-full md:w-1/2 bg-zinc-900 p-6 md:p-8 relative">
-          {" "}
-          {/* Changed to bg-gray-800 */}
+        {/* Image Area */}
+        <div className="w-full md:w-3/5 bg-zinc-900 p-6 md:p-8 relative">
           <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-x-2 justify-center">
             {project.images.map((image, index) => (
               <div
@@ -129,6 +128,7 @@ const ProjectCard = ({ project }) => {
               </div>
             ))}
           </div>
+
           {/* Mobile View */}
           <div className="block md:hidden relative flex items-center justify-center min-h-[700px]">
             <button

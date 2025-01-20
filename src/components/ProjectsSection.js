@@ -9,7 +9,7 @@ const ProjectsSection = ({ projects }) => {
       className="py-20 bg-gradient-to-bl from-dark via-black to-dark"
     >
       <motion.div
-        className="max-w-full mx-auto px-4 sm:px-16 md:px-8 lg:px-64"
+        className="max-w-full mx-auto px-4 sm:px-16 md:px-8 lg:px-32"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}

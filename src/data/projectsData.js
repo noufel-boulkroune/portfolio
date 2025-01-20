@@ -88,7 +88,7 @@ const projects = [
       "Enhanced user engagement with personalized watchlists and notifications.",
       "Utilized Git and GitHub for efficient version control and collaboration.",
     ],
-    images: ["/images/sofa1.png", "/images/sofa.jpg", "/images/sofa2.png"],
+    images: ["/images/sofa2.png", "/images/sofa1.png", "/images/sofa.jpg"],
   },
 ];
 export default projects;
