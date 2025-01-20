@@ -73,6 +73,10 @@
   filter: invert(70%) sepia(54%) saturate(800%) hue-rotate(70deg)
     brightness(110%) contrast(110%);
 }
+.icon-android-studio {
+  filter: invert(70%) sepia(54%) saturate(800%) hue-rotate(90deg)
+    brightness(110%) contrast(110%);
+}
 
 @keyframes rotate {
   0% {
