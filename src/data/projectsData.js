@@ -5,13 +5,17 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.snay3i.app",
     description:
-      "Snay3i revolutionizes how you manage maintenance and repair services for home, automotive, and other needs. Whether you're looking for service providers or offering your services, Snay3i connects users efficiently with trusted professionals.",
+      "Snay3i simplifies how users connect with service providers for home, automotive, and professional needs, leveraging Google Maps for location-based services.",
     tasks: [
-      "Integrated Firebase Authentication and Real-time Database for secure user data management.",
-      "Implemented service categorization and filtering to enhance user navigation.",
-      "Developed features for real-time updates on service requests and status.",
-      "Launched the app on the Play Store with multi-language support in English, French, and Arabic.",
-      "Utilized Git and GitHub for efficient version control and collaboration.",
+      "Integrated Firebase services, including Real-time Database, Authentication, Cloud Functions, Cloud Storage, Cloud Messaging, Crashlytics, and Remote Config.",
+      "Turned Figma designs into a fully functional and user-friendly mobile app.",
+      "Developed intuitive UI features, including login, home screen, chat, and profile management.",
+      "Enhanced user experience with service categorization, real-time updates, and map navigation.",
+      "Implemented multi-language support (English, French, Arabic) to expand accessibility.",
+      "Deployed the app successfully on the Play Store for Android users.",
+      "Added separate development and production environments to streamline the deployment process.",
+      "Utilized Git for efficient version control and seamless collaboration throughout the development process.",
+      "Built a React-based back-office system to manage app operations, monitor service requests, and update content dynamically.",
     ],
     images: [
       "/images/snay3i.jpg",
@@ -25,13 +29,17 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.alamaralabs.mziya",
     description:
-      "Mziya connects shippers with travelers for cost-effective international parcel deliveries. It ensures secure communication and supports diverse package options, providing a safe and seamless experience.",
+      "Mziya is a cost-effective parcel delivery platform that connects shippers with travelers. Users can post items they wish to send to international destinations, or share their travel trajectory to allow senders to contact them for parcel delivery.",
     tasks: [
-      "Developed 'Favorite Trajectory' for efficient route management.",
-      "Integrated real-time notifications for parcel tracking.",
+      "Integrated Firebase services, including Authentication, Crashlytics, push notifications, and Firebase Distribution for streamlined APK deployment",
+      "Redesigned the app and reworked the profile screen, adding new sections for improved user experience and better organization.",
+      "Resolved a Stripe issue, leading to a 15% reduction in operational expenses.",
+
       "Enhanced messaging system for seamless sender-traveler communication.",
+      'Developed the "Favorite Trajectory" feature for efficient route management.',
+      "Implemented real-time notifications for seamless tracking.",
+      "Improved the system to securely store user ratings and comments.",
       "Implemented user signaling for safety and secure transactions.",
-      "Expanded package options and enriched profiles for better user engagement.",
     ],
     images: ["/images/mziya3.jpg", "/images/mziya1.jpg", "/images/mziya2.jpg"],
   },
@@ -41,13 +49,17 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.laffaiire.app",
     description:
-      "Laffaiire is an e-commerce platform for buying and selling clothing items. It offers a user-friendly interface, streamlined listing processes, and powerful search features for an enjoyable shopping experience.",
+      "Laffaiire is an easy-to-use e-commerce platform for buying and selling clothing. With a simple interface and powerful search features, users can find, buy, and sell fashion items effortlessly. Sellers benefit from a seamless listing process, while buyers enjoy quick access to a diverse range of trendy and vintage pieces. Available in English, French, and Arabic, Laffaiire offers a secure and enjoyable shopping experience.",
     tasks: [
+      "Migrated the app to Flutter’s latest version, updated packages, and implemented null safety support for improved performance.",
       "Implemented city and town filtering for seamless product searches.",
-      "Enabled multi-language support in English, French, and Arabic.",
+      "Integrated  multi-language support in English, French, and Arabic.",
       "Integrated secure online payments and Google authentication.",
       "Launched the app on the Play Store with detailed documentation.",
+
       "Enhanced user experience by resolving interaction issues and improving error handling.",
+
+      "Added separate development and production environments.",
     ],
     images: [
       "/images/laffaiire1.png",
@@ -61,17 +73,18 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.laffaiire.tech.app",
     description:
-      "Laffaiire-Tech is a specialized e-commerce platform for buying and selling tech devices, offering a seamless and efficient user experience tailored to tech enthusiasts.",
+      "Laffaiire-Tech is a specialized e-commerce platform for buying and selling tech devices, offering a seamless and efficient user experience tailored to tech enthusiasts. With features like powerful search, multi-shipping options, and user-friendly design, Laffaiire-Tech makes tech shopping easy for all users.",
     tasks: [
-      "Merged app versions and configured environments on Firebase.",
-      "Implemented authentication and developed user account management features.",
-      "Integrated APIs for powerful search and streamlined listing processes.",
-      "Deployed multi-shipping options and user-friendly designs for all proficiency levels.",
-      "Enhanced app deployment and management using Firebase tools.",
+      "Merged the Laffaiire app into Laffaiire-Tech, updating the branding and renaming the app for a clear tech-focused identity.",
+      "Configured separate development and production environments using Flutter's flavor functionality for better management.",
+      "Implemented Google Authentication in the Laffaiire-Tech project on Firebase, ensuring secure user login and account management.",
+      "Integrated RESTful APIs to efficiently manage data retrieval, product listings, and updates.",
+      "Utilized Firebase App Distribution for smooth APK testing and deployment, ensuring continuous app improvement.",
+      "Launched Laffaiire-Tech on the Play Store, managing the publication process and providing detailed documentation.",
+      "Created Android and iOS applications for both development and production environments to cater to different user bases.",
     ],
     images: [
       "/images/laffaiire_tech3.png",
-
       "/images/laffaiire_tech.png",
       "/images/laffaiire_tech2.png",
     ],
@@ -80,13 +93,14 @@ const projects = [
     title: "Sofa",
     category: "Streaming Platform",
     description:
-      "Sofa is a premium streaming platform for movies and TV shows, exclusively available in Algeria. It offers a vibrant entertainment experience with a wide selection of content to enjoy anytime, anywhere.",
+      "Sofa is an exclusive streaming platform offering premium movies and TV shows in Algeria. It provides an immersive entertainment experience, with a rich library of content available anytime, anywhere, and supports multiple languages (Arabic, French, and English). The platform ensures a seamless and responsive viewing experience on both Android and iOS devices.",
     tasks: [
-      "Transformed Figma designs into a fully functional Flutter application.",
-      "Developed features for both Android and iOS using Provider and REST API integration.",
-      "Integrated Firebase Authentication, Realtime Database, and Cloud Messaging.",
-      "Enhanced user engagement with personalized watchlists and notifications.",
-      "Utilized Git and GitHub for efficient version control and collaboration.",
+      "Converted Figma designs into a fully functional Flutter application, ensuring a high-quality user interface.",
+      "Developed the app for both Android and iOS platforms, implementing Provider for state management and integrating REST APIs to fetch movie and TV show data.",
+      "Integrated a video player to play movies and series, with controls for seamless playback and media management.",
+      "Implemented multi-language support (Arabic, French, and English) to cater to a wider audience, enhancing accessibility.",
+      "Ensured responsiveness across different screen sizes, providing an optimal viewing experience on various devices.",
+      "Utilized Git and GitHub for version control and collaboration, enabling efficient development and continuous integration.",
     ],
     images: ["/images/sofa2.png", "/images/sofa1.png", "/images/sofa.jpg"],
   },
