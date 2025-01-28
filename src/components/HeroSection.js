@@ -59,9 +59,9 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="pt-20 sm:pt-32 pb-10 min-h-screen flex items-center justify-center bg-gradient-to-br from-dark via-black to-dark">
+    <section className="pt-20 sm:pt-32 pb-10 min-h-9/10 flex items-center justify-center bg-gradient-to-br from-dark via-black to-dark px-4 sm:px-16 lg:pt-64 lg:pb-64">
       <motion.div
-        className="w-full max-w-6xl mx-auto px-4 sm:px-6"
+        className="w-full max-w-7xl mx-auto px-2 sm:px-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
@@ -72,8 +72,17 @@ const HeroSection = () => {
             <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
               Nawfel Boulkroune
             </h1>
-            <p className="text-xl sm:text-2xl text-light mb-6">
-              Hey there! I’m Nawfel Boulkroune, a Flutter developer with 2 years of experience building mobile apps that work seamlessly on both Android and iOS. I love creating apps that are not only fast and reliable but also a joy to use. My toolkit includes Flutter, Firebase, and REST APIs, and I rely on Provider to keep everything running smoothly behind the scenes. I’ve had the pleasure of launching several apps on the Play Store, each one solving real-world problems. I’m all about clean code, continuous learning, and taking on new challenges in this fast-paced tech world.
+            <p className="text-xl sm:text-1xl text-light mb-6">
+              Hey there! I’m Nawfel Boulkroune, a Flutter developer with 2 years
+              of experience building mobile apps that work seamlessly on both
+              Android and iOS. I love creating apps that are not only fast and
+              reliable but also a joy to use. My toolkit includes Flutter,
+              Firebase, and REST APIs, and I rely on Provider to keep everything
+              running smoothly behind the scenes. I’ve had the pleasure of
+              launching several apps on the Play Store, each one solving
+              real-world problems. I’m all about clean code, continuous
+              learning, and taking on new challenges in this fast-paced tech
+              world.
             </p>
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
               <a
