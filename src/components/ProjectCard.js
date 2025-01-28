@@ -109,7 +109,7 @@ const ProjectCard = ({ project }) => {
         </div>
 
         {/* Image Area */}
-        <div className="w-full md:w-3/5 bg-zinc-900 p-6 md:p-8 relative">
+        <div className="w-full md:w-3/5 bg-zinc-900 p-6 md:p-8 relative flex items-center justify-end">
           <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-x-2 justify-center">
             {project.images.map((image, index) => (
               <div
