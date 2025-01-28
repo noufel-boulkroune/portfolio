@@ -5,7 +5,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.snay3i.app",
     description:
-      "I developed Snay3i from scratch to simplify how users find service providers for home, automotive, and professional needs. The app also allows professionals to showcase their work and connect with potential clients. Using Flutter and Firebase, I built the app with Google Maps integration for location-based services and even created a custom back office to manage everything efficiently",
+      "Snay3i simplifies how users connect with service providers for home, automotive, and professional needs, leveraging Google Maps for location-based services.",
     tasks: [
       "Integrated Firebase services, including Real-time Database, Authentication, Cloud Functions, Cloud Storage, Cloud Messaging, Crashlytics, and Remote Config.",
       "Turned Figma designs into a fully functional and user-friendly mobile app.",
@@ -29,7 +29,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.alamaralabs.mziya",
     description:
-      "Mziya is a cost-effective parcel delivery platform that connects shippers with travelers. Users can post items they wish to send to international destinations, or share their travel trajectory to allow senders to contact them for parcel delivery.",
+      "Mziya is a cost-effective package delivery platform that connects shippers with travelers, both locally and internationally. Whether you’re sending a package across town or across the globe, users can post items they need delivered or share their travel plans to help others send packages along the way. It’s all about making deliveries simpler, faster, and more affordable.",
     tasks: [
       "Integrated Firebase services, including Authentication, Crashlytics, push notifications, and Firebase Distribution for streamlined APK deployment",
       "Redesigned the app and reworked the profile screen, adding new sections for improved user experience and better organization.",
@@ -49,7 +49,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.laffaiire.app",
     description:
-      "Laffaiire is an easy-to-use e-commerce platform for buying and selling clothing. With a simple interface and powerful search features, users can find, buy, and sell fashion items effortlessly. Sellers benefit from a seamless listing process, while buyers enjoy quick access to a diverse range of trendy and vintage pieces. Available in English, French, and Arabic, Laffaiire offers a secure and enjoyable shopping experience.",
+      "Laffaiire is a user-friendly app designed for buying and selling clothing. With its simple interface and powerful search tools, users can discover, buy, and sell fashion items effortlessly. Sellers enjoy a smooth listing process, while buyers get quick access to a wide variety of trendy and vintage pieces. Available in English, French, and Arabic, Laffaiire makes buying and selling clothes secure, fun, and hassle-free.",
     tasks: [
       "Migrated the app to Flutter’s latest version, updated packages, and implemented null safety support for improved performance.",
       "Implemented city and town filtering for seamless product searches.",
