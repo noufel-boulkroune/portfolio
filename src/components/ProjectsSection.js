@@ -23,8 +23,7 @@ const ProjectsSection = ({ projects }) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-          Explore our collection of highlighted works showcasing creativity and
-          innovation.
+          Over my years of professional experience, I’ve been part of exciting and challenging projects. Here are some that highlight my skills and contributions.
         </motion.p>
 
         {projects.map((project, index) => (
