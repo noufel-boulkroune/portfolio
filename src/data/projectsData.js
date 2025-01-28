@@ -5,7 +5,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.snay3i.app",
     description:
-      "Snay3i simplifies how users connect with service providers for home, automotive, and professional needs, leveraging Google Maps for location-based services.",
+      "I developed Snay3i from scratch to simplify how users find service providers for home, automotive, and professional needs. The app also allows professionals to showcase their work and connect with potential clients. Using Flutter and Firebase, I built the app with Google Maps integration for location-based services and even created a custom back office to manage everything efficiently",
     tasks: [
       "Integrated Firebase services, including Real-time Database, Authentication, Cloud Functions, Cloud Storage, Cloud Messaging, Crashlytics, and Remote Config.",
       "Turned Figma designs into a fully functional and user-friendly mobile app.",
