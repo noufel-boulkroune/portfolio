@@ -84,54 +84,56 @@ const HeroSection = () => {
               learning, and taking on new challenges in this fast-paced tech
               world.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <div className="flex flex-nowrap gap-4 overflow-x-auto pb-2 lg:justify-start">
               <a
                 href="#projects"
-                className="px-6 py-3 bg-primary text-black rounded-lg hover:bg-yellow-400 transition flex items-center gap-2"
+                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-black rounded-lg hover:bg-yellow-400 transition flex items-center gap-2 flex-shrink-0"
               >
-                <span>View Projects</span>
+                <span className="whitespace-nowrap">View Projects</span>
                 <ChevronRight className="w-5 h-5" />
               </a>
 
-              <a
-                href="https://github.com/noufel-boulkroune"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 border border-primary rounded-full hover:bg-primary/10 transition"
-              >
-                <FaGithub className="w-6 h-6 text-primary" />
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/nawfelboulkroune/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 border border-primary rounded-full hover:bg-primary/10 transition"
-              >
-                <FaLinkedin className="w-6 h-6 text-primary" />
-              </a>
-
-              <a
-                href="/Doc/Mobile-dev-nawfel_boulkroune_cv.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 border border-primary rounded-full hover:bg-primary/10 transition flex items-center"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="w-6 h-6 text-primary"
+              <div className="flex gap-4 flex-shrink-0">
+                <a
+                  href="https://github.com/noufel-boulkroune"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 sm:p-3 border border-primary rounded-full hover:bg-primary/10 transition flex-shrink-0"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                  />
-                </svg>
-              </a>
+                  <FaGithub className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/nawfelboulkroune/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 sm:p-3 border border-primary rounded-full hover:bg-primary/10 transition flex-shrink-0"
+                >
+                  <FaLinkedin className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                </a>
+
+                <a
+                  href="/Doc/Mobile-dev-nawfel_boulkroune_cv.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 sm:p-3 border border-primary rounded-full hover:bg-primary/10 transition flex items-center flex-shrink-0"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-primary"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                    />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -245,8 +247,12 @@ const HeroSection = () => {
         .animate-infinite-scroll:hover {
           animation-play-state: paused;
         }
-        .overflow-hidden::-webkit-scrollbar {
+        .overflow-x-auto::-webkit-scrollbar {
           display: none;
+        }
+        .overflow-x-auto {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </section>
