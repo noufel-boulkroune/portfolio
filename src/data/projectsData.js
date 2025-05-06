@@ -1,5 +1,23 @@
 const projects = [
   {
+    title: "Sofa",
+    category: "Streaming Platform",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en",
+    description:
+      "Sofa is an exclusive streaming platform offering premium movies and TV shows in Algeria. It provides an immersive entertainment experience, with a rich library of content available anytime, anywhere, and supports multiple languages (Arabic, French, and English). The platform ensures a seamless and responsive viewing experience on both Android and iOS devices.",
+    tasks: [
+      "Converted Figma designs into a fully functional Flutter application, ensuring a high-quality user interface.",
+      "Developed the app for both Android and iOS platforms, implementing Provider for state management and integrating REST APIs to fetch movie and TV show data.",
+      "Build and release sofa to play store",
+      "Integrated a video player to play movies and series, with controls for seamless playback and media management.",
+      "Implemented multi-language support (Arabic, French, and English) to cater to a wider audience, enhancing accessibility.",
+      "Ensured responsiveness across different screen sizes, providing an optimal viewing experience on various devices.",
+      "Utilized Git and GitHub for version control and collaboration, enabling efficient development and continuous integration.",
+    ],
+    images: ["/images/sofa.jpg", "/images/sofa2.jpg", "/images/sofa1.jpg"],
+  },
+  {
     title: "Snay3i",
     category: "Job Marketplace App",
     playStoreUrl:
@@ -34,7 +52,6 @@ const projects = [
       "Integrated Firebase services, including Authentication, Crashlytics, push notifications, and Firebase Distribution for streamlined APK deployment",
       "Redesigned the app and reworked the profile screen, adding new sections for improved user experience and better organization.",
       "Resolved a Stripe issue, leading to a 15% reduction in operational expenses.",
-
       "Enhanced messaging system for seamless sender-traveler communication.",
       'Developed the "Favorite Trajectory" feature for efficient route management.',
       "Implemented real-time notifications for seamless tracking.",
@@ -88,21 +105,6 @@ const projects = [
       "/images/laffaiire_tech.png",
       "/images/laffaiire_tech2.png",
     ],
-  },
-  {
-    title: "Sofa",
-    category: "Streaming Platform",
-    description:
-      "Sofa is an exclusive streaming platform offering premium movies and TV shows in Algeria. It provides an immersive entertainment experience, with a rich library of content available anytime, anywhere, and supports multiple languages (Arabic, French, and English). The platform ensures a seamless and responsive viewing experience on both Android and iOS devices.",
-    tasks: [
-      "Converted Figma designs into a fully functional Flutter application, ensuring a high-quality user interface.",
-      "Developed the app for both Android and iOS platforms, implementing Provider for state management and integrating REST APIs to fetch movie and TV show data.",
-      "Integrated a video player to play movies and series, with controls for seamless playback and media management.",
-      "Implemented multi-language support (Arabic, French, and English) to cater to a wider audience, enhancing accessibility.",
-      "Ensured responsiveness across different screen sizes, providing an optimal viewing experience on various devices.",
-      "Utilized Git and GitHub for version control and collaboration, enabling efficient development and continuous integration.",
-    ],
-    images: ["/images/sofa2.png", "/images/sofa1.png", "/images/sofa.jpg"],
   },
 ];
 export default projects;
