@@ -1,21 +1,23 @@
 const projects = [
   {
-    title: "Sofa",
-    category: "Streaming Platform",
+    title: "Azougui",
+    category: "Grocery Delivery App",
     playStoreUrl:
-      "https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en",
+      "https://play.google.com/store/apps/details?id=com.azougui.mrkt.app&hl=en",
+    appStoreUrl: "https://apps.apple.com/dz/app/azougui/id6746276974",
     description:
-      "Sofa is an exclusive streaming platform offering premium movies and TV shows in Algeria. It provides an immersive entertainment experience, with a rich library of content available anytime, anywhere, and supports multiple languages (Arabic, French, and English). The platform ensures a seamless and responsive viewing experience on both Android and iOS devices.",
+      "Azougui is a modern grocery shopping app built for the Mauritanian market. It allows users to browse products from their favorite stores and supermarkets, place orders online, and receive fast delivery at home. The platform offers a convenient way to shop for groceries, hygiene products, and more—all from trusted vendors.",
     tasks: [
-      "Converted Figma designs into a fully functional Flutter application, ensuring a high-quality user interface.",
-      "Developed the app for both Android and iOS platforms, implementing Provider for state management and integrating REST APIs to fetch movie and TV show data.",
-      "Build and release sofa to play store",
-      "Integrated a video player to play movies and series, with controls for seamless playback and media management.",
-      "Implemented multi-language support (Arabic, French, and English) to cater to a wider audience, enhancing accessibility.",
-      "Ensured responsiveness across different screen sizes, providing an optimal viewing experience on various devices.",
-      "Utilized Git and GitHub for version control and collaboration, enabling efficient development and continuous integration.",
+      "Customized and localized the app to fit Azougui’s branding and target market in Mauritania.",
+      "Implemented product filtering by store to enhance navigation and user shopping experience.",
+      "Integrated Google and Apple authentication for a faster and secure login experience.",
+      "Prepared and published the app on both the Google Play Store and Apple App Store.",
     ],
-    images: ["/images/sofa.jpg", "/images/sofa2.jpg", "/images/sofa1.jpg"],
+    images: [
+      "/images/azougui1.png",
+      "/images/azougui2.png",
+      "/images/azougui3.png",
+    ],
   },
   {
     title: "Snay3i",
@@ -47,7 +49,7 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.alamaralabs.mziya",
     description:
-      "Mziya is a cost-effective package delivery platform that connects shippers with travelers, both locally and internationally. Whether you’re sending a package across town or across the globe, users can post items they need delivered or share their travel plans to help others send packages along the way. It’s all about making deliveries simpler, faster, and more affordable.",
+      "Mziya is a cost-effective package delivery platform that connects shippers with travelers, both locally and internationally. Whether you're sending a package across town or across the globe, users can post items they need delivered or share their travel plans to help others send packages along the way. It's all about making deliveries simpler, faster, and more affordable.",
     tasks: [
       "Integrated Firebase services, including Authentication, Crashlytics, push notifications, and Firebase Distribution for streamlined APK deployment",
       "Redesigned the app and reworked the profile screen, adding new sections for improved user experience and better organization.",
@@ -68,14 +70,12 @@ const projects = [
     description:
       "Laffaiire is a user-friendly app designed for buying and selling clothing. With its simple interface and powerful search tools, users can discover, buy, and sell fashion items effortlessly. Sellers enjoy a smooth listing process, while buyers get quick access to a wide variety of trendy and vintage pieces. Available in English, French, and Arabic, Laffaiire makes buying and selling clothes secure, fun, and hassle-free.",
     tasks: [
-      "Migrated the app to Flutter’s latest version, updated packages, and implemented null safety support for improved performance.",
+      "Migrated the app to Flutter's latest version, updated packages, and implemented null safety support for improved performance.",
       "Implemented city and town filtering for seamless product searches.",
       "Integrated  multi-language support in English, French, and Arabic.",
       "Integrated secure online payments and Google authentication.",
       "Launched the app on the Play Store with detailed documentation.",
-
       "Enhanced user experience by resolving interaction issues and improving error handling.",
-
       "Added separate development and production environments.",
     ],
     images: [
@@ -107,4 +107,5 @@ const projects = [
     ],
   },
 ];
+
 export default projects;

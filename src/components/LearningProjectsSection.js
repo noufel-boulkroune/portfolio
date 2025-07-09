@@ -148,7 +148,7 @@ const LearningProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="py-20 text-white bg-gradient-to-br from-dark via-black to-dark"
+      className="py-20 bg-gradient-to-bl from-dark via-black to-dark"
     >
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">

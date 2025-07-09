@@ -67,7 +67,7 @@ const HeroSection = () => {
         transition={{ duration: 1.5 }}
       >
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Text Content */}
+          {/* Text Content */} 
           <div className="text-center lg:text-left">
             <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
               Nawfel Boulkroune

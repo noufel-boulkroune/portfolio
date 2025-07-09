@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
-import { FaGooglePlay } from "react-icons/fa";
+import { FaGooglePlay, FaAppStore } from "react-icons/fa";
 
 const ProjectCard = ({ project }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -93,17 +93,30 @@ const ProjectCard = ({ project }) => {
             </ul>
           </div>
 
-          {project.playStoreUrl && (
-            <div className="flex items-center space-x-2 mt-6">
-              <a
-                href={project.playStoreUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300"
-              >
-                <FaGooglePlay size={24} />
-                <span className="ml-2">Get it on Play Store</span>
-              </a>
+          {(project.playStoreUrl || project.appStoreUrl) && (
+            <div className="flex items-center justify-center space-x-6 mt-6 flex-wrap">
+              {project.playStoreUrl && (
+                <a
+                  href={project.playStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300"
+                >
+                  <FaGooglePlay size={24} />
+                  <span className="ml-2">Get it on Play Store</span>
+                </a>
+              )}
+              {project.appStoreUrl && (
+                <a
+                  href={project.appStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300"
+                >
+                  <FaAppStore size={24} />
+                  <span className="ml-2">Get it on App Store</span>
+                </a>
+              )}
             </div>
           )}
         </div>

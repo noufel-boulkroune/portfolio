@@ -60,7 +60,7 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="py-20 relative bg-gradient-to-bl from-dark via-black to-dark"
+      className="py-20 text-white bg-gradient-to-br from-dark via-black to-dark"
     >
       <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
         GET IN TOUCH
