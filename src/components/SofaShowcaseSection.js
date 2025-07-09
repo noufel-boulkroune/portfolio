@@ -224,11 +224,11 @@ const SofaShowcaseSection = () => {
   return (
     <section className="py-20 bg-gradient-to-bl from-dark via-black to-dark relative overflow-hidden">
       <div className="mb-24 relative z-10">
-        <h2 className="text-4xl font-bold mb-12 text-start bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
+        <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
           Featured Projects
         </h2>
         <motion.p
-          className="text-lg text-start mb-16 text-light px-4"
+          className="text-lg text-center mb-16 text-light px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
@@ -245,7 +245,7 @@ const SofaShowcaseSection = () => {
         >
           {/* Header */}
           <motion.div
-            className="text-start mb-16"
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
