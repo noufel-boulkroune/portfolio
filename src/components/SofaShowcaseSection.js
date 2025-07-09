@@ -330,7 +330,7 @@ const SofaShowcaseSection = () => {
 
           {/* Download section */}
           <motion.div
-            className="text-start mt-20 pt-16 border-t border-primary/20 px-4"
+            className="text-center mt-20 pt-16 border-t border-primary/20 px-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
