@@ -37,12 +37,16 @@ const SofaShowcaseSection = () => {
         "/images/sofa_tab2.png",
         "/images/sofa_tab3.png",
         "/images/sofa_tab4.png",
+        "/images/sofa_tab13.png",
         "/images/sofa_tab5.png",
+
         "/images/sofa_tab6.png",
         "/images/sofa_tab7.png",
         "/images/sofa_tab8.png",
         "/images/sofa_tab9.png",
         "/images/sofa_tab10.png",
+        "/images/sofa_tab11.png",
+        "/images/sofa_tab12.png",
       ],
       features: ["Enhanced Content Grid", "Better Content Discovery"],
     },
@@ -65,7 +69,6 @@ const SofaShowcaseSection = () => {
       features: [
         "Remote Control Navigation",
         "Voice Search Support",
-
         "Focus Management",
         "TV-Optimized Layout",
       ],
@@ -94,23 +97,23 @@ const SofaShowcaseSection = () => {
 
     return (
       <div className={`relative ${className}`}>
-        {/* Device Frame */}
-        <div className="relative mb-6">
+        {/* Device Frame - Added proper padding for navigation buttons */}
+        <div className="relative mb-6 px-8 sm:px-12 md:px-16">
           {platform === "mobile" && (
             <div className="relative">
               {/* Phone Shadow */}
               <div className="absolute inset-0 bg-black/20 rounded-[2.5rem] blur-xl transform translate-x-2 translate-y-2"></div>
 
               {/* Phone Body */}
-              <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 p-2 rounded-[2.5rem] shadow-2xl border border-gray-700">
+              <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 p-2 rounded-[2.5rem] shadow-2xl border border-gray-700 mx-auto w-fit">
                 {/* Screen Bezel */}
                 <div className="bg-black rounded-[2.2rem] p-1">
                   {/* Screen - Updated dimensions for iPhone 16 Pro Max aspect ratio */}
-                  <div className="w-72 h-[622px] bg-gray-900 rounded-[2rem] overflow-hidden relative">
+                  <div className="w-64 h-[550px] sm:w-72 sm:h-[622px] bg-gray-900 rounded-[2rem] overflow-hidden relative">
                     {/* Notch - Updated for iPhone 16 Pro Max Dynamic Island */}
-                    <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-full z-20"></div>
+                    <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-24 h-5 sm:w-28 sm:h-6 bg-black rounded-full z-20"></div>
 
-                    {/* Screen Content - Updated to fit perfectly without status bar or home indicator */}
+                    {/* Screen Content */}
                     <div className="absolute inset-0">
                       <img
                         src={currentImage}
@@ -129,17 +132,17 @@ const SofaShowcaseSection = () => {
               {/* Tablet Shadow */}
               <div className="absolute inset-0 bg-black/20 rounded-3xl blur-xl transform translate-x-3 translate-y-3"></div>
 
-              {/* Tablet Body - Updated for iPad Pro M4 13-inch */}
-              <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 p-3 rounded-3xl shadow-2xl border border-gray-700">
+              {/* Tablet Body - Made responsive */}
+              <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 p-2 sm:p-3 rounded-3xl shadow-2xl border border-gray-700 mx-auto w-fit">
                 {/* Screen Bezel */}
-                <div className="bg-black rounded-2xl p-2">
-                  {/* Screen - iPad Pro M4 13-inch dimensions (2752 x 2064 aspect ratio) */}
-                  <div className="w-[400px] h-[300px] sm:w-[550px] sm:h-[412px] md:w-[650px] md:h-[487px] lg:w-[750px] lg:h-[562px] bg-gray-900 rounded-xl overflow-hidden relative">
+                <div className="bg-black rounded-2xl p-1 sm:p-2">
+                  {/* Screen - Adjusted to better match 11-inch tablet dimensions */}
+                  <div className="w-[320px] h-[220px] sm:w-[400px] sm:h-[275px] md:w-[500px] md:h-[340px] lg:w-[570px] lg:h-[390px] xl:w-[640px] xl:h-[440px] bg-gray-900 rounded-xl overflow-hidden relative">
                     {/* Screen Content */}
                     <img
                       src={currentImage}
                       alt={`Sofa Tablet ${currentImageIndex[platform] + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                 </div>
@@ -152,12 +155,12 @@ const SofaShowcaseSection = () => {
               {/* TV Shadow */}
               <div className="absolute inset-0 bg-black/30 rounded-xl blur-2xl transform translate-x-4 translate-y-4"></div>
 
-              {/* TV Body */}
-              <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-700 overflow-hidden">
+              {/* TV Body - Made responsive */}
+              <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl shadow-2xl border border-gray-700 overflow-hidden mx-auto w-fit">
                 {/* TV Bezel */}
-                <div className="bg-black p-4 sm:p-6 rounded-xl">
-                  {/* Screen */}
-                  <div className="w-[350px] h-[200px] sm:w-[450px] sm:h-[255px] md:w-[580px] md:h-[330px] lg:w-[700px] lg:h-[400px] xl:w-[800px] xl:h-[450px] 2xl:w-[900px] 2xl:h-[510px] bg-gray-900 rounded-lg overflow-hidden relative border border-gray-800">
+                <div className="bg-black p-3 sm:p-4 md:p-6 rounded-xl">
+                  {/* Screen - Responsive TV dimensions */}
+                  <div className="w-[280px] h-[160px] sm:w-[350px] sm:h-[200px] md:w-[450px] md:h-[255px] lg:w-[580px] lg:h-[330px] xl:w-[700px] xl:h-[400px] 2xl:w-[800px] 2xl:h-[450px] bg-gray-900 rounded-lg overflow-hidden relative border border-gray-800">
                     {/* Screen Reflection */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
 
@@ -172,36 +175,33 @@ const SofaShowcaseSection = () => {
               </div>
 
               {/* TV Stand */}
-              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-24 h-8 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-lg shadow-lg"></div>
-              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-40 h-4 bg-gradient-to-b from-gray-600 to-gray-700 rounded-full shadow-lg"></div>
+              <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 transform -translate-x-1/2 w-16 h-6 sm:w-24 sm:h-8 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-lg shadow-lg"></div>
+              <div className="absolute -bottom-6 sm:-bottom-8 left-1/2 transform -translate-x-1/2 w-24 h-3 sm:w-40 sm:h-4 bg-gradient-to-b from-gray-600 to-gray-700 rounded-full shadow-lg"></div>
             </div>
           )}
 
-          {/* Image Navigation Controls - Moved outside the device frame */}
-          <div
-            className="absolute top-1/2 left-0 right-0 flex justify-between items-center transform -translate-y-1/2 z-30"
-            style={{ left: "-60px", right: "-60px" }}
-          >
+          {/* Image Navigation Controls - Positioned within the padded area */}
+          <div className="absolute top-1/2 left-2 right-2 flex justify-between items-center transform -translate-y-1/2 z-30">
             <motion.button
               onClick={() => prevImage(platform)}
-              className="w-12 h-12 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all duration-200 shadow-lg"
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all duration-200 shadow-lg"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <FaChevronLeft className="w-5 h-5" />
+              <FaChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
             <motion.button
               onClick={() => nextImage(platform)}
-              className="w-12 h-12 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all duration-200 shadow-lg"
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all duration-200 shadow-lg"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <FaChevronRight className="w-5 h-5" />
+              <FaChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
           </div>
         </div>
 
-        {/* Image Indicators - Moved below the device */}
+        {/* Image Indicators */}
         <div className="flex justify-center gap-2">
           {images.map((_, index) => (
             <button
@@ -238,7 +238,7 @@ const SofaShowcaseSection = () => {
           skills and development contributions.
         </motion.p>
         <motion.div
-          className="max-w-full mx-auto px-4 sm:px-16 md:px-8 lg:px-32"
+          className="max-w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
@@ -282,7 +282,7 @@ const SofaShowcaseSection = () => {
                 }}
                 viewport={{ once: true, amount: 0.2 }}
               >
-                {/* Content - Wider on larger screens */}
+                {/* Content */}
                 <div
                   className={`space-y-6 px-4 lg:px-8 xl:px-12 ${
                     index % 2 === 1
@@ -308,9 +308,9 @@ const SofaShowcaseSection = () => {
                   </div>
                 </div>
 
-                {/* Mockup - More space on larger screens */}
+                {/* Mockup */}
                 <motion.div
-                  className={`flex justify-center px-4 lg:px-8 xl:px-12 ${
+                  className={`flex justify-center ${
                     index % 2 === 1
                       ? "xl:col-start-1 xl:col-span-3 lg:col-start-1 lg:col-span-1"
                       : "xl:col-start-3 xl:col-span-3 lg:col-start-3 lg:col-span-1"
