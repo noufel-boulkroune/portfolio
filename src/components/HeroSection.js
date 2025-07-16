@@ -59,7 +59,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="pt-20 sm:pt-32 pb-10 min-h-9/10 flex items-center justify-center bg-gradient-to-br from-dark via-black to-dark px-4 sm:px-16 lg:pt-64 lg:pb-64">
+    <section className="pt-0 pb-10 min-h-screen flex items-center justify-center bg-gradient-to-br from-dark via-black to-dark px-4 sm:px-16">
       <motion.div
         className="w-full max-w-7xl mx-auto px-2 sm:px-4"
         initial={{ opacity: 0 }}
@@ -67,20 +67,20 @@ const HeroSection = () => {
         transition={{ duration: 1.5 }}
       >
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Text Content */} 
+          {/* Text Content */}
           <div className="text-center lg:text-left">
             <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
               Nawfel Boulkroune
             </h1>
             <p className="text-xl sm:text-1xl text-light mb-6">
-              Hey there! I’m Nawfel Boulkroune, a Flutter developer with more
+              Hey there! I'm Nawfel Boulkroune, a Flutter developer with more
               then 2 years of experience building mobile apps that work
               seamlessly on both Android and iOS. I love creating apps that are
               not only fast and reliable but also a joy to use. My toolkit
               includes Flutter, Firebase, and REST APIs, and I rely on Provider
-              to keep everything running smoothly behind the scenes. I’ve had
+              to keep everything running smoothly behind the scenes. I've had
               the pleasure of launching several apps on the Play Store, each one
-              solving real-world problems. I’m all about clean code, continuous
+              solving real-world problems. I'm all about clean code, continuous
               learning, and taking on new challenges in this fast-paced tech
               world.
             </p>
@@ -186,7 +186,7 @@ const HeroSection = () => {
         </div>
 
         {/* Skills Section */}
-        <div className="mt-16">
+        <div className="mt-12">
           <h2 className="text-3xl font-semibold mb-6 text-center lg:text-left bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
             Skills
           </h2>

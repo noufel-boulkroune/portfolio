@@ -11,9 +11,9 @@ const SofaShowcaseSection = () => {
 
   const platforms = {
     mobile: {
-      title: "Mobile Experience",
+      title: "Mobile Implementation",
       description:
-        "The mobile version provides a smooth streaming experience with intuitive touch controls and portrait-optimized interface. All core features are accessible with gesture-based navigation.",
+        "Developed using Flutter and the Provider MVVM pattern, the mobile version includes a custom video player, offline download support, and Google Cast integration. The UI follows clean, professional standards based on Figma designs for a polished user experience.",
       images: [
         "/images/sofa1.png",
         "/images/sofa2.png",
@@ -26,12 +26,17 @@ const SofaShowcaseSection = () => {
         "/images/sofa9.png",
         "/images/sofa10.png",
       ],
-      features: ["Touch-Optimized Interface", "Offline Download Support"],
+      features: [
+        "Custom Video Player",
+        "Multi-language Subtitle Engine",
+        "Offline Content Management",
+        "Google Cast Integration",
+      ],
     },
     tablet: {
-      title: "Tablet Interface",
+      title: "Tablet Optimization",
       description:
-        "Adapted for larger screens with enhanced UI elements and better content discovery. The tablet version takes advantage of the bigger display for improved browsing and viewing experience.",
+        "Custom design for bigger screen with redesigned screens and widgets. Enhanced navigation patterns and tablet-specific gestures for improved content discovery on 10+ inch displays.",
       images: [
         "/images/sofa_tab1.png",
         "/images/sofa_tab2.png",
@@ -39,7 +44,6 @@ const SofaShowcaseSection = () => {
         "/images/sofa_tab4.png",
         "/images/sofa_tab13.png",
         "/images/sofa_tab5.png",
-
         "/images/sofa_tab6.png",
         "/images/sofa_tab7.png",
         "/images/sofa_tab8.png",
@@ -48,12 +52,16 @@ const SofaShowcaseSection = () => {
         "/images/sofa_tab11.png",
         "/images/sofa_tab12.png",
       ],
-      features: ["Enhanced Content Grid", "Better Content Discovery"],
+      features: [
+        "Custom Design for Bigger Screen",
+        "Enhanced Content Discovery",
+        "Adaptive Layout System",
+      ],
     },
     tv: {
-      title: "Android TV Experience",
+      title: "Android TV Platform",
       description:
-        "The TV version delivers a comfortable lean-back experience with remote-friendly navigation and voice search capabilities. Designed specifically for larger screens, it provides intuitive browsing and optimized viewing.",
+        "Rebuilt navigation system for D-pad and remote control using Android TV's focus management. Integrated voice search with speech recognition, new design for TV and animation.",
       images: [
         "/images/sofa_tv4.png",
         "/images/sofa_tv1.png",
@@ -67,10 +75,11 @@ const SofaShowcaseSection = () => {
         "/images/sofa_tv10.png",
       ],
       features: [
-        "Remote Control Navigation",
-        "Voice Search Support",
-        "Focus Management",
-        "TV-Optimized Layout",
+        "Remote Control Navigation & Focus Management",
+        "Voice Search Integration",
+        "Custom TV UI",
+        "Custom TV Animation",
+        "Better UX for TV",
       ],
     },
   };
@@ -233,9 +242,8 @@ const SofaShowcaseSection = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-          Over my years of professional experience, I've been part of exciting
-          and challenging projects. Here are some that highlight my technical
-          skills and development contributions.
+          Technical implementations showcasing cross-platform development
+          expertise.
         </motion.p>
         <motion.div
           className="max-w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32"
@@ -251,18 +259,17 @@ const SofaShowcaseSection = () => {
             transition={{ duration: 0.8 }}
           >
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent px-4">
-              Sofa – Cross-Platform Streaming App
+              Sofa – Cross-Platform Streaming Solution
             </h3>
-            <p className="text-lg md:text-xl text-light max-w-3xl mx-auto px-4">
-              I built a responsive streaming platform for Algeria using Flutter
-              with Provider MVVM architecture. The app features a custom video
-              player with multi-language subtitle support, video quality
-              adjustment controls, Google Cast integration, user preference
-              persistence, and authentication management. The UI was implemented
-              based on a professional Figma design to ensure a visually
-              consistent and user-friendly experience. Successfully released
-              across mobile, tablet, and Android TV platforms on Google Play
-              Store.
+            <p className="text-lg md:text-xl text-light max-w-4xl mx-auto px-4">
+              Sofa is a cross-platform streaming solution built with Flutter,
+              designed to deliver a seamless viewing experience across mobile,
+              tablet, and Android TV. It features a custom video player,
+              multi-language subtitle support, and offline playback. Built on
+              the Provider MVVM architecture, it ensures clean code separation
+              and efficient state management. With Google Cast integration and
+              adaptive streaming, the platform provides consistent performance
+              and follows polished, Figma-based design standards.
             </p>
           </motion.div>
 
@@ -296,7 +303,7 @@ const SofaShowcaseSection = () => {
                   <p className="text-light/80 text-base md:text-lg lg:text-xl leading-relaxed">
                     {platform.description}
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                  <div className="grid grid-cols-1 gap-4 mt-8">
                     {platform.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center space-x-3">
                         <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
@@ -337,11 +344,11 @@ const SofaShowcaseSection = () => {
             viewport={{ once: true }}
           >
             <h4 className="text-xl md:text-2xl font-bold text-light mb-4">
-              Available on Google Play Store
+              Live on Google Play Store
             </h4>
             <p className="text-light/70 mb-8 max-w-2xl mx-auto">
-              Download the app and experience the streaming platform with
-              multi-language support, casting, and optimized video playback.
+              Production-ready streaming application with over 1,000+ downloads,
+              supporting multiple languages and optimized for Algerian market.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
               <motion.a
@@ -353,10 +360,17 @@ const SofaShowcaseSection = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <FaGooglePlay size={24} />
-                <span className="ml-2">Get it on Play Store</span>
+                <span className="ml-2">View on Play Store</span>
               </motion.a>
             </div>
           </motion.div>
+          <motion.div
+            className="mt-20 pt-16 border-t border-primary/20"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          ></motion.div>
         </motion.div>
       </div>
 
