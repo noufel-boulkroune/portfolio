@@ -231,7 +231,10 @@ const SofaShowcaseSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-bl from-dark via-black to-dark relative overflow-hidden">
+    <section
+      id="sofaShowcaseSection"
+      className="py-20 bg-gradient-to-bl from-dark via-black to-dark relative overflow-hidden"
+    >
       <div className="mb-24 relative z-10">
         <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
           Featured Projects

@@ -24,6 +24,12 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
           <a href="#projects" className="hover:text-yellow-400 transition">
             Projects
           </a>
+          <a
+            href="#sofaShowcaseSection"
+            className="hover:text-yellow-400 transition"
+          >
+            Latest Project
+          </a>
           <a href="#contact" className="hover:text-yellow-400 transition">
             Contact
           </a>
@@ -47,6 +53,9 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
             </a>
             <a href="#projects" className="hover:text-yellow-500">
               Projects
+            </a>
+            <a href="#sofaShowcaseSection" className="hover:text-yellow-500">
+              Latest Project
             </a>
             <a href="#contact" className="hover:text-yellow-500">
               Contact
