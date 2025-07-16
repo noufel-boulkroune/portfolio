@@ -236,7 +236,7 @@ const SofaShowcaseSection = () => {
       className="py-20 bg-gradient-to-bl from-dark via-black to-dark relative overflow-hidden"
     >
       <div className="mb-24 relative z-10">
-        <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
+        {/* <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
           Featured Projects
         </h2>
         <motion.p
@@ -247,7 +247,7 @@ const SofaShowcaseSection = () => {
         >
           Technical implementations showcasing cross-platform development
           expertise.
-        </motion.p>
+        </motion.p> */}
         <motion.div
           className="max-w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32"
           initial={{ opacity: 0 }}

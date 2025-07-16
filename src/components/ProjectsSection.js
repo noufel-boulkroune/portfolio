@@ -9,6 +9,18 @@ const ProjectsSection = ({ projects }) => {
       id="projects"
       className="py-20 text-white bg-gradient-to-br from-dark via-black to-dark"
     >
+      <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
+        Featured Projects
+      </h2>
+      <motion.p
+        className="text-lg text-center mb-16 text-light px-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.3 }}
+      >
+        Technical implementations showcasing cross-platform development
+        expertise.
+      </motion.p>
       <motion.div
         className="max-w-full mx-auto px-4 sm:px-16 md:px-8 lg:px-32"
         initial={{ opacity: 0 }}
