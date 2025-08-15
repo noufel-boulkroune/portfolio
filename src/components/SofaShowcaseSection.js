@@ -11,9 +11,7 @@ const SofaShowcaseSection = () => {
 
   const platforms = {
     mobile: {
-      title: "Mobile Implementation",
-      description:
-        "Developed using Flutter and the Provider MVVM pattern, the mobile version includes a custom video player, offline download support, and Google Cast integration. The UI follows clean, professional standards based on Figma designs for a polished user experience.",
+      title: "Mobile - Custom Figma Design Implementation",
       images: [
         "/images/sofa1.png",
         "/images/sofa2.png",
@@ -34,9 +32,7 @@ const SofaShowcaseSection = () => {
       ],
     },
     tablet: {
-      title: "Tablet Optimization",
-      description:
-        "Custom design for bigger screen with redesigned screens and widgets. Enhanced navigation patterns and tablet-specific gestures for improved content discovery on 10+ inch displays.",
+      title: "Tablet - Optimized for Bigger Screens",
       images: [
         "/images/sofa_tab1.png",
         "/images/sofa_tab2.png",
@@ -53,15 +49,13 @@ const SofaShowcaseSection = () => {
         "/images/sofa_tab12.png",
       ],
       features: [
-        "Custom Design for Bigger Screen",
+        "Redesigned Screens & Widgets",
         "Enhanced Content Discovery",
         "Adaptive Layout System",
       ],
     },
     tv: {
-      title: "Android TV Platform",
-      description:
-        "Rebuilt navigation system for D-pad and remote control using Android TV's focus management. Integrated voice search with speech recognition, new design for TV and animation.",
+      title: "Android TV - Remote Control Navigation",
       images: [
         "/images/sofa_tv4.png",
         "/images/sofa_tv1.png",
@@ -75,11 +69,10 @@ const SofaShowcaseSection = () => {
         "/images/sofa_tv10.png",
       ],
       features: [
-        "Remote Control Navigation & Focus Management",
+        "D-pad & Remote Control Focus Management",
         "Voice Search Integration",
-        "Custom TV UI",
-        "Custom TV Animation",
-        "Better UX for TV",
+        "Custom TV UI & Animations",
+        "Optimized TV UX",
       ],
     },
   };
@@ -236,18 +229,6 @@ const SofaShowcaseSection = () => {
       className="py-20 bg-gradient-to-bl from-dark via-black to-dark relative overflow-hidden"
     >
       <div className="mb-24 relative z-10">
-        {/* <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
-          Featured Projects
-        </h2>
-        <motion.p
-          className="text-lg text-center mb-16 text-light px-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-        >
-          Technical implementations showcasing cross-platform development
-          expertise.
-        </motion.p> */}
         <motion.div
           className="max-w-full mx-auto px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32"
           initial={{ opacity: 0 }}
@@ -265,14 +246,14 @@ const SofaShowcaseSection = () => {
               Sofa – Cross-Platform Streaming Solution
             </h3>
             <p className="text-lg md:text-xl text-light max-w-4xl mx-auto px-4">
-              Sofa is a cross-platform streaming solution built with Flutter,
-              designed to deliver a seamless viewing experience across mobile,
-              tablet, and Android TV. It features a custom video player,
-              multi-language subtitle support, and offline playback. Built on
-              the Provider MVVM architecture, it ensures clean code separation
-              and efficient state management. With Google Cast integration and
-              adaptive streaming, the platform provides consistent performance
-              and follows polished, Figma-based design standards.
+              Built Sofa TV, a cross-platform video streaming app with tailored
+              interfaces for mobile, tablet, and Android TV using Flutter.
+              Developed using MVVM architecture with Provider for state
+              management, converted Figma designs into responsive interfaces,
+              and integrated REST APIs with smooth animations. Features include
+              remote navigation, Google Cast, subtitle support, and adaptive
+              video quality. Reduced data load time from 8–10s to under 1s,
+              improving performance by over 80%.
             </p>
           </motion.div>
 
@@ -303,9 +284,6 @@ const SofaShowcaseSection = () => {
                   <h4 className="text-2xl md:text-3xl lg:text-4xl font-bold text-light mb-4">
                     {platform.title}
                   </h4>
-                  <p className="text-light/80 text-base md:text-lg lg:text-xl leading-relaxed">
-                    {platform.description}
-                  </p>
                   <div className="grid grid-cols-1 gap-4 mt-8">
                     {platform.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center space-x-3">
@@ -350,7 +328,7 @@ const SofaShowcaseSection = () => {
               Live on Google Play Store
             </h4>
             <p className="text-light/70 mb-8 max-w-2xl mx-auto">
-              Production-ready streaming application with over 1,000+ downloads,
+              Production-ready streaming application with over 5k+ downloads,
               supporting multiple languages and optimized for Algerian market.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
