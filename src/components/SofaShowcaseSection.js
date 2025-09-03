@@ -246,7 +246,7 @@ const SofaShowcaseSection = () => {
               Sofa – Cross-Platform Streaming Solution
             </h3>
             <p className="text-lg md:text-xl text-light max-w-4xl mx-auto px-4">
-              Built Sofa TV, a cross-platform video streaming app with tailored
+              Built Sofa, a cross-platform video streaming app with tailored
               interfaces for mobile, tablet, and Android TV using Flutter.
               Developed using MVVM architecture with Provider for state
               management, converted Figma designs into responsive interfaces,
