@@ -20,15 +20,15 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
         <div className="hidden md:flex space-x-6">
           <a href="#about" className="hover:text-yellow-400 transition">
             About
-          </a>
-          <a href="#projects" className="hover:text-yellow-400 transition">
-            Projects
-          </a>
+          </a>{" "}
           <a
             href="#sofaShowcaseSection"
             className="hover:text-yellow-400 transition"
           >
             Latest Project
+          </a>
+          <a href="#projects" className="hover:text-yellow-400 transition">
+            Projects
           </a>
           <a href="#contact" className="hover:text-yellow-400 transition">
             Contact
@@ -50,12 +50,12 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
           <div className="flex flex-col space-y-4 px-6 py-6 text-yellow-400">
             <a href="#about" className="hover:text-yellow-500">
               About
+            </a>{" "}
+            <a href="#sofaShowcaseSection" className="hover:text-yellow-500">
+              Latest Project
             </a>
             <a href="#projects" className="hover:text-yellow-500">
               Projects
-            </a>
-            <a href="#sofaShowcaseSection" className="hover:text-yellow-500">
-              Latest Project
             </a>
             <a href="#contact" className="hover:text-yellow-500">
               Contact
