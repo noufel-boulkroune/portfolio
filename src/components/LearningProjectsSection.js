@@ -251,13 +251,15 @@ const LearningProjectsSection = () => {
               whileInView="visible"
               viewport={{ once: true }}
             >
+              {/* Fixed mobile image container with consistent aspect ratio */}
               <div className="relative w-full aspect-[9/16]">
                 <LazyImage
                   key={`project-${project.id}-${currentImageIndex[projectIndex]}`}
                   src={project.images[currentImageIndex[projectIndex]]}
                   alt={project.title}
-                  className="w-full h-full bg-gray-700 object-contain"
+                  className="w-full h-full bg-gray-700"
                   priority={projectIndex < 3} // Prioritize first 3 projects
+                  imageKey={currentImageIndex[projectIndex]} // Add unique key for transitions
                 />
                 {project.images.length > 1 && (
                   <>

@@ -3,12 +3,34 @@ import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import { FaGooglePlay, FaAppStore } from "react-icons/fa";
 
-// Optimized lazy loading image component
-const LazyImage = ({ src, alt, className, priority = false, onClick }) => {
+// Enhanced lazy loading image component with smooth transitions
+const LazyImage = ({
+  src,
+  alt,
+  className,
+  priority = false,
+  onClick,
+  imageKey,
+}) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(priority);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const imgRef = useRef(null);
+
+  // Reset loading state when image changes
+  useEffect(() => {
+    setIsLoaded(false);
+    setIsError(false);
+    setIsTransitioning(true);
+
+    // Small delay to show loading animation
+    const timer = setTimeout(() => {
+      setIsTransitioning(false);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [src, imageKey]);
 
   useEffect(() => {
     if (priority) return; // Skip intersection observer for priority images
@@ -35,10 +57,12 @@ const LazyImage = ({ src, alt, className, priority = false, onClick }) => {
   const handleLoad = useCallback(() => {
     setIsLoaded(true);
     setIsError(false);
+    setIsTransitioning(false);
   }, []);
 
   const handleError = useCallback(() => {
     setIsError(true);
+    setIsTransitioning(false);
     console.error("Failed to load image:", src);
   }, [src]);
 
@@ -55,16 +79,19 @@ const LazyImage = ({ src, alt, className, priority = false, onClick }) => {
       onClick={handleClick}
       style={{ cursor: onClick ? "pointer" : "default" }}
     >
-      {/* Loading placeholder */}
-      {shouldLoad && !isLoaded && !isError && (
-        <div className="absolute inset-0 bg-gray-800 flex items-center justify-center rounded-[32px]">
-          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+      {/* Loading/Transitioning overlay */}
+      {shouldLoad && (!isLoaded || isTransitioning) && !isError && (
+        <div className="absolute inset-0 bg-gray-800 flex items-center justify-center rounded-[32px] z-10">
+          <div className="flex flex-col items-center space-y-2">
+            <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+            <div className="text-primary/80 text-xs">Loading...</div>
+          </div>
         </div>
       )}
 
       {/* Error placeholder */}
       {isError && (
-        <div className="absolute inset-0 bg-gray-700 flex items-center justify-center rounded-[32px]">
+        <div className="absolute inset-0 bg-gray-700 flex items-center justify-center rounded-[32px] z-10">
           <div className="text-gray-400 text-center text-sm">
             <div className="text-2xl mb-2">⚠️</div>
             <div>Image failed to load</div>
@@ -77,8 +104,10 @@ const LazyImage = ({ src, alt, className, priority = false, onClick }) => {
         <img
           src={src}
           alt={alt}
-          className={`w-full h-full object-cover rounded-[32px] transition-opacity duration-300 ${
-            isLoaded ? "opacity-100" : "opacity-0"
+          className={`w-full h-full object-cover rounded-[32px] transition-all duration-500 ${
+            isLoaded && !isTransitioning
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-105"
           }`}
           onLoad={handleLoad}
           onError={handleError}
@@ -173,6 +202,7 @@ const ProjectCard = ({ project }) => {
               className="w-full h-full"
               priority={index === 0} // Prioritize first image
               onClick={() => openModal(image)}
+              imageKey={index} // Add unique key for transitions
             />
           </div>
         </motion.div>
@@ -180,11 +210,11 @@ const ProjectCard = ({ project }) => {
     </div>
   ));
 
-  // Memoized mobile image component
+  // Enhanced mobile image component with smooth transitions
   const MobileImage = React.memo(() => (
-    <div className="block md:hidden relative flex items-center justify-center min-h-[700px]">
+    <div className="block md:hidden relative flex items-center justify-center min-h-[500px]">
       <motion.button
-        className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300 absolute left-0 z-10"
+        className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300 absolute left-0 z-20"
         onClick={prevImage}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -206,26 +236,22 @@ const ProjectCard = ({ project }) => {
         </svg>
       </motion.button>
 
-      <motion.div
-        className="relative w-[280px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl mx-4"
-        key={currentIndex} // Re-render on index change
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="w-full h-full overflow-hidden rounded-[32px]">
+      <div className="relative w-[260px] h-[560px] bg-black rounded-[40px] p-3 shadow-xl mx-4">
+        <div className="w-full h-full object-contain overflow-hidden rounded-[32px] relative">
           <LazyImage
+            key={`mobile-${currentIndex}`} // Force re-render on index change
             src={project.images[currentIndex]}
             alt={`${project.title} Screenshot ${currentIndex + 1}`}
             className="w-full h-full"
             priority={true} // Always prioritize mobile current image
             onClick={() => openModal(project.images[currentIndex])}
+            imageKey={currentIndex} // Add unique key for smooth transitions
           />
         </div>
-      </motion.div>
+      </div>
 
       <motion.button
-        className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300 absolute right-0 z-10"
+        className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300 absolute right-0 z-20"
         onClick={nextImage}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -244,7 +270,7 @@ const ProjectCard = ({ project }) => {
       </motion.button>
 
       {/* Image indicators for mobile */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
         {project.images.map((_, index) => (
           <button
             key={index}

@@ -141,12 +141,14 @@ const SofaShowcaseSection = () => {
     tv: {
       title: "Android TV - Remote Control Navigation",
       images: [
-        "/images/sofa_tv4.png",
         "/images/sofa_tv1.png",
         "/images/sofa_tv2.png",
+        "/images/sofa_tv4.png",
+
         "/images/sofa_tv5.png",
-        "/images/sofa_tv6.png",
         "/images/sofa_tv3.png",
+        "/images/sofa_tv6.png",
+
         "/images/sofa_tv7.png",
         "/images/sofa_tv8.png",
         "/images/sofa_tv9.png",
