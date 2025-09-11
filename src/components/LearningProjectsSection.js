@@ -1,6 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
+
+// Simple lazy loading image component (same as SofaShowcaseSection)
+const LazyImage = ({ src, alt, className, priority = false }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(priority);
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    if (priority) return; // Skip intersection observer for priority images
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoad(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "50px" }
+    );
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [priority]);
+
+  const handleLoad = () => {
+    setIsLoaded(true);
+    setIsError(false);
+  };
+
+  const handleError = () => {
+    setIsError(true);
+    console.error("Failed to load image:", src);
+  };
+
+  return (
+    <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
+      {/* Loading placeholder */}
+      {shouldLoad && !isLoaded && !isError && (
+        <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+        </div>
+      )}
+
+      {/* Error placeholder */}
+      {isError && (
+        <div className="absolute inset-0 bg-gray-700 flex items-center justify-center">
+          <div className="text-gray-400 text-center text-sm">
+            <div>⚠️</div>
+            <div>Image failed</div>
+          </div>
+        </div>
+      )}
+
+      {/* Actual image */}
+      {shouldLoad && (
+        <img
+          src={src}
+          alt={alt}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          onLoad={handleLoad}
+          onError={handleError}
+          loading={priority ? "eager" : "lazy"}
+        />
+      )}
+
+      {/* Placeholder when not loaded yet */}
+      {!shouldLoad && <div className="absolute inset-0 bg-gray-800"></div>}
+    </div>
+  );
+};
 
 const projectsData = [
   {
@@ -173,11 +251,13 @@ const LearningProjectsSection = () => {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <div className="relative">
-                <img
+              <div className="relative w-full aspect-[9/16]">
+                <LazyImage
+                  key={`project-${project.id}-${currentImageIndex[projectIndex]}`}
                   src={project.images[currentImageIndex[projectIndex]]}
                   alt={project.title}
-                  className="w-full h-full object-cover bg-gray-700"
+                  className="w-full h-full bg-gray-700 object-contain"
+                  priority={projectIndex < 3} // Prioritize first 3 projects
                 />
                 {project.images.length > 1 && (
                   <>
@@ -223,18 +303,19 @@ const LearningProjectsSection = () => {
                 )}
               </div>
 
-              <div className="p-5 flex flex-col flex-grow">
+              <div className="p-5 flex flex-col flex-shrink-0">
                 <h3 className="text-2xl font-semibold mb-3 text-white">
                   {project.title}
                 </h3>
-                <p className="text-gray-400 mb-4">{project.description}</p>
-                <div className="flex-grow"></div>
+                <p className="text-gray-400 mb-4 text-sm">
+                  {project.description}
+                </p>
                 <div className="mt-auto">
                   <ul className="mb-4 flex flex-wrap justify-center items-center">
                     {project.technologies.map((tech, index) => (
                       <li
                         key={index}
-                        className="inline-block bg-gray-700 text-sm text-white py-1 px-3 rounded-full mr-2 mb-2"
+                        className="inline-block bg-gray-700 text-xs text-white py-1 px-2 rounded-full mr-2 mb-2"
                       >
                         {tech}
                       </li>
@@ -248,7 +329,7 @@ const LearningProjectsSection = () => {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-gray-200 hover:text-blue-500 flex items-center"
+                          className="text-gray-200 hover:text-blue-500 flex items-center text-sm"
                         >
                           <FaGithub className="mr-2" /> View on GitHub
                         </a>

@@ -1,6 +1,90 @@
-import React, { useState } from "react";
+import React, {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  useMemo,
+} from "react";
 import { motion } from "framer-motion";
 import { FaGooglePlay, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+// Simple lazy loading image component
+const LazyImage = ({ src, alt, className, priority = false }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(priority);
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    if (priority) return; // Skip intersection observer for priority images
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoad(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "50px" }
+    );
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [priority]);
+
+  const handleLoad = () => {
+    setIsLoaded(true);
+    setIsError(false);
+  };
+
+  const handleError = () => {
+    setIsError(true);
+    console.error("Failed to load image:", src);
+  };
+
+  return (
+    <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
+      {/* Loading placeholder */}
+      {shouldLoad && !isLoaded && !isError && (
+        <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+        </div>
+      )}
+
+      {/* Error placeholder */}
+      {isError && (
+        <div className="absolute inset-0 bg-gray-700 flex items-center justify-center">
+          <div className="text-gray-400 text-center text-sm">
+            <div>⚠️</div>
+            <div>Image failed</div>
+          </div>
+        </div>
+      )}
+
+      {/* Actual image */}
+      {shouldLoad && (
+        <img
+          src={src}
+          alt={alt}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          onLoad={handleLoad}
+          onError={handleError}
+          loading={priority ? "eager" : "lazy"}
+        />
+      )}
+
+      {/* Placeholder when not loaded yet */}
+      {!shouldLoad && <div className="absolute inset-0 bg-gray-800"></div>}
+    </div>
+  );
+};
 
 const SofaShowcaseSection = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState({
@@ -77,25 +161,36 @@ const SofaShowcaseSection = () => {
     },
   };
 
-  const nextImage = (platform) => {
-    setCurrentImageIndex((prev) => ({
-      ...prev,
-      [platform]: (prev[platform] + 1) % platforms[platform].images.length,
-    }));
-  };
+  const nextImage = useCallback(
+    (platform) => {
+      setCurrentImageIndex((prev) => ({
+        ...prev,
+        [platform]: (prev[platform] + 1) % platforms[platform].images.length,
+      }));
+    },
+    [platforms]
+  );
 
-  const prevImage = (platform) => {
-    setCurrentImageIndex((prev) => ({
-      ...prev,
-      [platform]:
-        prev[platform] === 0
-          ? platforms[platform].images.length - 1
-          : prev[platform] - 1,
-    }));
-  };
+  const prevImage = useCallback(
+    (platform) => {
+      setCurrentImageIndex((prev) => ({
+        ...prev,
+        [platform]:
+          prev[platform] === 0
+            ? platforms[platform].images.length - 1
+            : prev[platform] - 1,
+      }));
+    },
+    [platforms]
+  );
 
-  const MockupImage = ({ platform, images, className }) => {
+  const goToImage = useCallback((platform, index) => {
+    setCurrentImageIndex((prev) => ({ ...prev, [platform]: index }));
+  }, []);
+
+  const MockupImage = React.memo(({ platform, images, className }) => {
     const currentImage = images[currentImageIndex[platform]];
+    const currentIndex = currentImageIndex[platform];
 
     return (
       <div className={`relative ${className}`}>
@@ -117,10 +212,12 @@ const SofaShowcaseSection = () => {
 
                     {/* Screen Content */}
                     <div className="absolute inset-0">
-                      <img
+                      <LazyImage
+                        key={`mobile-${currentIndex}`}
                         src={currentImage}
-                        alt={`Sofa Mobile ${currentImageIndex[platform] + 1}`}
-                        className="w-full h-full object-cover object-top rounded-[1.8rem]"
+                        alt={`Sofa Mobile ${currentIndex + 1}`}
+                        className="rounded-[1.8rem]"
+                        priority={currentIndex === 0}
                       />
                     </div>
                   </div>
@@ -141,10 +238,12 @@ const SofaShowcaseSection = () => {
                   {/* Screen - Adjusted to better match 11-inch tablet dimensions */}
                   <div className="w-[320px] h-[220px] sm:w-[400px] sm:h-[275px] md:w-[500px] md:h-[340px] lg:w-[570px] lg:h-[390px] xl:w-[640px] xl:h-[440px] bg-gray-900 rounded-xl overflow-hidden relative">
                     {/* Screen Content */}
-                    <img
+                    <LazyImage
+                      key={`tablet-${currentIndex}`}
                       src={currentImage}
-                      alt={`Sofa Tablet ${currentImageIndex[platform] + 1}`}
-                      className="w-full h-full object-contain"
+                      alt={`Sofa Tablet ${currentIndex + 1}`}
+                      className="object-contain"
+                      priority={currentIndex === 0}
                     />
                   </div>
                 </div>
@@ -164,13 +263,15 @@ const SofaShowcaseSection = () => {
                   {/* Screen - Responsive TV dimensions */}
                   <div className="w-[280px] h-[160px] sm:w-[350px] sm:h-[200px] md:w-[450px] md:h-[255px] lg:w-[580px] lg:h-[330px] xl:w-[700px] xl:h-[400px] 2xl:w-[800px] 2xl:h-[450px] bg-gray-900 rounded-lg overflow-hidden relative border border-gray-800">
                     {/* Screen Reflection */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none z-10"></div>
 
                     {/* Screen Content */}
-                    <img
+                    <LazyImage
+                      key={`tv-${currentIndex}`}
                       src={currentImage}
-                      alt={`Sofa TV ${currentImageIndex[platform] + 1}`}
-                      className="w-full h-full object-cover"
+                      alt={`Sofa TV ${currentIndex + 1}`}
+                      className="object-cover"
+                      priority={currentIndex === 0}
                     />
                   </div>
                 </div>
@@ -189,6 +290,7 @@ const SofaShowcaseSection = () => {
               className="w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all duration-200 shadow-lg"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              aria-label="Previous image"
             >
               <FaChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
@@ -197,6 +299,7 @@ const SofaShowcaseSection = () => {
               className="w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all duration-200 shadow-lg"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              aria-label="Next image"
             >
               <FaChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
@@ -204,24 +307,23 @@ const SofaShowcaseSection = () => {
         </div>
 
         {/* Image Indicators */}
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 flex-wrap">
           {images.map((_, index) => (
             <button
               key={index}
-              onClick={() =>
-                setCurrentImageIndex((prev) => ({ ...prev, [platform]: index }))
-              }
+              onClick={() => goToImage(platform, index)}
               className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                currentImageIndex[platform] === index
+                currentIndex === index
                   ? "bg-primary"
-                  : "bg-white/40"
+                  : "bg-white/40 hover:bg-white/60"
               }`}
+              aria-label={`Go to image ${index + 1}`}
             />
           ))}
         </div>
       </div>
     );
-  };
+  });
 
   return (
     <section
@@ -345,13 +447,6 @@ const SofaShowcaseSection = () => {
               </motion.a>
             </div>
           </motion.div>
-          <motion.div
-            className="mt-20 pt-16 border-t border-primary/20"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          ></motion.div>
         </motion.div>
       </div>
 
