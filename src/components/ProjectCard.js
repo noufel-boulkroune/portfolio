@@ -349,13 +349,13 @@ const ProjectCard = ({ project }) => {
           </div>
 
           {(project.playStoreUrl || project.appStoreUrl) && (
-            <div className="flex items-center justify-center space-x-6 mt-6 flex-wrap">
+            <div className="flex items-center justify-center gap-4 md:gap-6 mt-6 flex-wrap">
               {project.playStoreUrl && (
                 <motion.a
                   href={project.playStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300"
+                  className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300 mb-2 md:mb-0"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -368,7 +368,7 @@ const ProjectCard = ({ project }) => {
                   href={project.appStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300"
+                  className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300 mb-2 md:mb-0"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

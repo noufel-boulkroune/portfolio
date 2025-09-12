@@ -196,8 +196,8 @@ const SofaShowcaseSection = () => {
 
     return (
       <div className={`relative ${className}`}>
-        {/* Device Frame - Added proper padding for navigation buttons */}
-        <div className="relative mb-6 px-8 sm:px-12 md:px-16">
+        {/* Device Frame Container - Better responsive padding */}
+        <div className="relative mb-6 px-4 sm:px-8 md:px-12 lg:px-16">
           {platform === "mobile" && (
             <div className="relative">
               {/* Phone Shadow */}
@@ -233,12 +233,12 @@ const SofaShowcaseSection = () => {
               {/* Tablet Shadow */}
               <div className="absolute inset-0 bg-black/20 rounded-3xl blur-xl transform translate-x-3 translate-y-3"></div>
 
-              {/* Tablet Body - Made responsive */}
+              {/* Tablet Body - Better responsive sizing */}
               <div className="relative bg-gradient-to-b from-gray-800 to-gray-900 p-2 sm:p-3 rounded-3xl shadow-2xl border border-gray-700 mx-auto w-fit">
                 {/* Screen Bezel */}
                 <div className="bg-black rounded-2xl p-1 sm:p-2">
-                  {/* Screen - Adjusted to better match 11-inch tablet dimensions */}
-                  <div className="w-[320px] h-[220px] sm:w-[400px] sm:h-[275px] md:w-[500px] md:h-[340px] lg:w-[570px] lg:h-[390px] xl:w-[640px] xl:h-[440px] bg-gray-900 rounded-xl overflow-hidden relative">
+                  {/* Screen - More conservative tablet dimensions for mobile viewing */}
+                  <div className="w-[280px] h-[190px] sm:w-[350px] sm:h-[240px] md:w-[420px] md:h-[290px] lg:w-[500px] lg:h-[340px] xl:w-[600px] xl:h-[410px] bg-gray-900 rounded-xl overflow-hidden relative">
                     {/* Screen Content */}
                     <LazyImage
                       key={`tablet-${currentIndex}`}
@@ -285,8 +285,12 @@ const SofaShowcaseSection = () => {
             </div>
           )}
 
-          {/* Image Navigation Controls - Positioned within the padded area */}
-          <div className="absolute top-1/2 left-2 right-2 flex justify-between items-center transform -translate-y-1/2 z-30">
+          {/* Image Navigation Controls - Better positioning for tablet */}
+          <div
+            className={`absolute top-1/2 transform -translate-y-1/2 z-30 flex justify-between w-full ${
+              platform === "tablet" ? "left-0 px-2" : "left-4 right-4 px-0"
+            }`}
+          >
             <motion.button
               onClick={() => prevImage(platform)}
               className="w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/80 rounded-full flex items-center justify-center text-white backdrop-blur-sm transition-all duration-200 shadow-lg"
