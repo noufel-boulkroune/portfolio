@@ -73,14 +73,14 @@ const HeroSection = () => {
               Nawfel Boulkroune
             </h1>
             <p className="text-xl sm:text-1xl text-light mb-6">
-              Hey there! I'm Nawfel Boulkroune, a Flutter developer with more
-              then 2 years of experience building mobile apps that work
-              seamlessly on both Android and iOS. I love creating apps that are
-              not only fast and reliable but also a joy to use. My toolkit
-              includes Flutter, Firebase, and REST APIs, and I rely on Provider
-              to keep everything running smoothly behind the scenes. I've had
-              the pleasure of launching several apps on the Play Store, each one
-              solving real-world problems. I'm all about clean code, continuous
+              Hey there! I'm Nawfel Boulkroune, a Flutter developer with 3 years
+              of experience building mobile apps that work seamlessly on both
+              Android and iOS. I love creating apps that are not only fast and
+              reliable but also a joy to use. My toolkit includes Flutter,
+              Firebase, and REST APIs, and I rely on Provider to keep everything
+              running smoothly behind the scenes. I've had the pleasure of
+              launching several apps on the Play Store, each one solving
+              real-world problems. I'm all about clean code, continuous
               learning, and taking on new challenges in this fast-paced tech
               world.
             </p>
