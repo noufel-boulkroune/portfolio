@@ -364,7 +364,6 @@ const SofaShowcaseSection = () => {
               improving performance by over 80%.
             </p>
           </motion.div>
-
           {/* Platform sections */}
           <div className="space-y-24 lg:space-y-32">
             {Object.entries(platforms).map(([key, platform], index) => (
@@ -423,36 +422,48 @@ const SofaShowcaseSection = () => {
               </motion.div>
             ))}
           </div>
-
           {/* Download section */}
+          <motion.div
+            className="text-center mt-20 pt-16 border-t border-primary/20 px-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 0, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          ></motion.div>
+          <h4 className="text-xl md:text-2xl font-bold text-light mb-4">
+            Live on Google Play Store
+          </h4>
+          <p className="text-light/70 mb-8 max-w-2xl mx-auto">
+            Production-ready streaming application with over 5k+ downloads,
+            supporting multiple languages and optimized for Algerian market.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
+            <motion.a
+              href="https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaGooglePlay size={24} />
+              <span className="ml-2">View on Play Store</span>
+            </motion.a>
+          </div>{" "}
+          <motion.div
+            className="text-center mt-20 pt-16 border-t border-primary/20 px-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 0, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          ></motion.div>
           <motion.div
             className="text-center mt-20 pt-16 border-t border-primary/20 px-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-          >
-            <h4 className="text-xl md:text-2xl font-bold text-light mb-4">
-              Live on Google Play Store
-            </h4>
-            <p className="text-light/70 mb-8 max-w-2xl mx-auto">
-              Production-ready streaming application with over 5k+ downloads,
-              supporting multiple languages and optimized for Algerian market.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
-              <motion.a
-                href="https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FaGooglePlay size={24} />
-                <span className="ml-2">View on Play Store</span>
-              </motion.a>
-            </div>
-          </motion.div>
+          ></motion.div>
         </motion.div>
       </div>
 
