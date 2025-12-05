@@ -217,8 +217,15 @@ const platforms = [
       "/images/sofa_tab2.png",
       "/images/sofa_tab3.png",
       "/images/sofa_tab4.png",
-      "/images/sofa_tab13.png",
       "/images/sofa_tab5.png",
+      "/images/sofa_tab6.png",
+      "/images/sofa_tab7.png",
+      "/images/sofa_tab8.png",
+      "/images/sofa_tab9.png",
+      "/images/sofa_tab10.png",
+      "/images/sofa_tab11.png",
+      "/images/sofa_tab12.png",
+      "/images/sofa_tab13.png",
     ],
     features: [
       "Redesigned Screens",
@@ -238,6 +245,11 @@ const platforms = [
       "/images/sofa_tv4.png",
       "/images/sofa_tv5.png",
       "/images/sofa_tv3.png",
+      "/images/sofa_tv6.png",
+      "/images/sofa_tv7.png",
+      "/images/sofa_tv8.png",
+      "/images/sofa_tv9.png",
+      "/images/sofa_tv10.png",
     ],
     features: [
       "D-pad Navigation",
@@ -264,21 +276,21 @@ const PlatformCard = memo(({ platform, index }) => {
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       {/* Content */}
-      <motion.div 
+      <motion.div
         className={`${index % 2 === 1 ? "lg:order-2" : ""}`}
         initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2, duration: 0.6 }}
       >
-        <motion.div 
+        <motion.div
           className="flex items-center gap-3 mb-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <motion.div 
+          <motion.div
             className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center"
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -303,7 +315,7 @@ const PlatformCard = memo(({ platform, index }) => {
               viewport={{ once: true }}
               transition={{ delay: 0.4 + idx * 0.1 }}
             >
-              <motion.span 
+              <motion.span
                 className="w-1.5 h-1.5 rounded-full bg-primary"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
@@ -317,7 +329,7 @@ const PlatformCard = memo(({ platform, index }) => {
       </motion.div>
 
       {/* Device Carousel */}
-      <motion.div 
+      <motion.div
         className={`relative ${index % 2 === 1 ? "lg:order-1" : ""}`}
         initial={{ opacity: 0, x: index % 2 === 0 ? 30 : -30 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -342,7 +354,7 @@ const SofaShowcaseSection = () => {
     >
       {/* Background */}
       <div className="absolute inset-0 bg-dark">
-        <motion.div 
+        <motion.div
           className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[150px]"
           animate={{
             x: [0, -50, 0],
@@ -355,7 +367,7 @@ const SofaShowcaseSection = () => {
             ease: "easeInOut",
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]"
           animate={{
             x: [0, 30, 0],
@@ -390,7 +402,7 @@ const SofaShowcaseSection = () => {
             Latest Project
           </motion.span>
 
-          <motion.h2 
+          <motion.h2
             className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -401,7 +413,7 @@ const SofaShowcaseSection = () => {
             <span className="text-light"> – Cross-Platform Streaming</span>
           </motion.h2>
 
-          <motion.p 
+          <motion.p
             className="text-light-300/70 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

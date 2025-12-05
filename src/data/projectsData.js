@@ -14,8 +14,8 @@ const projects = [
       "Prepared and published the app on both the Google Play Store and Apple App Store.",
     ],
     images: [
-      "/images/azougui1.png",
       "/images/azougui2.png",
+      "/images/azougui1.png",
       "/images/azougui3.png",
     ],
   },
@@ -38,8 +38,9 @@ const projects = [
       "Built a React-based back-office system to manage app operations, monitor service requests, and update content dynamically.",
     ],
     images: [
-      "/images/snay3i.jpg",
       "/images/snay3i1.png",
+      "/images/snay3i.jpg",
+
       "/images/snay3i2.png",
     ],
   },
@@ -60,7 +61,7 @@ const projects = [
       "Improved the system to securely store user ratings and comments.",
       "Implemented user signaling for safety and secure transactions.",
     ],
-    images: ["/images/mziya3.jpg", "/images/mziya1.jpg", "/images/mziya2.jpg"],
+    images: ["/images/mziya1.jpg", "/images/mziya3.jpg", "/images/mziya2.jpg"],
   },
   {
     title: "Laffaiire",
@@ -78,9 +79,9 @@ const projects = [
       "Enhanced user experience by resolving interaction issues and improving error handling.",
       "Added separate development and production environments.",
     ],
-    images: [
+    images: ["/images/laffaiire3.png",
       "/images/laffaiire1.png",
-      "/images/laffaiire3.png",
+
       "/images/laffaiire2.png",
     ],
   },
@@ -100,9 +101,9 @@ const projects = [
       "Launched Laffaiire-Tech on the Play Store, managing the publication process and providing detailed documentation.",
       "Created Android and iOS applications for both development and production environments to cater to different user bases.",
     ],
-    images: [
+    images: ["/images/laffaiire_tech.png",
       "/images/laffaiire_tech3.png",
-      "/images/laffaiire_tech.png",
+
       "/images/laffaiire_tech2.png",
     ],
   },

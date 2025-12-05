@@ -67,7 +67,7 @@ body {
   color: #fff;
 }
 
-/* Focus styles */
+/* Focus styles - Enhanced for accessibility */
 *:focus {
   outline: none;
 }
@@ -75,6 +75,38 @@ body {
 *:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+  outline-style: solid;
+}
+
+/* Enhanced interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
+}
+
+/* Smooth transitions for interactive elements */
+button,
+a,
+input,
+textarea,
+select {
+  transition: all 0.2s ease;
+}
+
+/* Hover effects for better interactivity */
+button:hover:not(:disabled),
+a:hover {
+  transform: translateY(-1px);
+}
+
+button:active:not(:disabled),
+a:active {
+  transform: translateY(0);
 }
 
 /* Links */

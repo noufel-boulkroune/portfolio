@@ -75,14 +75,15 @@ const ScrollToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          className="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full bg-primary/90 text-dark flex items-center justify-center shadow-glow hover:bg-primary transition-colors"
+          className="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full bg-primary/90 text-dark flex items-center justify-center shadow-glow hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark transition-colors"
           onClick={scrollToTop}
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.1, y: -2 }}
           whileTap={{ scale: 0.9 }}
-          aria-label="Scroll to top"
+          aria-label="Scroll to top of page"
+          type="button"
         >
           <svg
             className="w-5 h-5"
@@ -128,11 +129,19 @@ const Portfolio = () => {
         animate={{ opacity: isLoading ? 0 : 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
+        {/* Skip to main content link for accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-dark focus:rounded-lg focus:font-semibold focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          Skip to main content
+        </a>
+        
         {/* Navigation */}
         <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
         {/* Main content */}
-        <main>
+        <main id="main-content" tabIndex={-1}>
           {/* Hero Section */}
           <HeroSection />
 

@@ -37,9 +37,9 @@ const LazyImage = ({
       )}
 
       {/* Image - always rendered */}
-      <img
-        src={src}
-        alt={alt}
+        <img
+          src={src}
+          alt={alt}
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
@@ -149,11 +149,14 @@ const ProjectCard = ({ project }) => {
   return (
     <>
       <motion.article
-        className="group relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl overflow-hidden border border-white/5 hover:border-primary/20 transition-all duration-500"
+        className="group relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl overflow-hidden border border-white/5 hover:border-primary/20 focus-within:border-primary/30 focus-within:ring-2 focus-within:ring-primary/20 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-500"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        whileHover={{ y: -4 }}
+        role="article"
+        aria-labelledby={`project-title-${project.title.replace(/\s+/g, '-').toLowerCase()}`}
       >
         {/* Glow effect on hover */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -170,7 +173,10 @@ const ProjectCard = ({ project }) => {
           </motion.span>
 
             {/* Title */}
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-light mb-4 group-hover:gradient-text-static transition-all duration-300">
+            <h3 
+              id={`project-title-${project.title.replace(/\s+/g, '-').toLowerCase()}`}
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-light mb-4 group-hover:gradient-text-static transition-all duration-300"
+            >
             {project.title}
           </h3>
 
@@ -208,13 +214,14 @@ const ProjectCard = ({ project }) => {
                   href={project.playStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-300/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300"
-                  whileHover={{ scale: 1.02, y: -2 }}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-300/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
+                  aria-label={`View ${project.title} on Google Play Store (opens in new tab)`}
                 >
-                  <FaGooglePlay className="w-4 h-4" />
+                  <FaGooglePlay className="w-4 h-4" aria-hidden="true" />
                   <span className="text-sm font-medium">Play Store</span>
-                  <ExternalLink className="w-3 h-3 opacity-50" />
+                  <ExternalLink className="w-3 h-3 opacity-50" aria-hidden="true" />
                 </motion.a>
               )}
               {project.appStoreUrl && (
@@ -222,13 +229,14 @@ const ProjectCard = ({ project }) => {
                   href={project.appStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-300/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300"
-                  whileHover={{ scale: 1.02, y: -2 }}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-300/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
+                  aria-label={`View ${project.title} on App Store (opens in new tab)`}
                 >
-                  <FaAppStore className="w-4 h-4" />
+                  <FaAppStore className="w-4 h-4" aria-hidden="true" />
                   <span className="text-sm font-medium">App Store</span>
-                  <ExternalLink className="w-3 h-3 opacity-50" />
+                  <ExternalLink className="w-3 h-3 opacity-50" aria-hidden="true" />
                 </motion.a>
               )}
             </div>
@@ -239,13 +247,14 @@ const ProjectCard = ({ project }) => {
             <div className="relative flex items-center justify-center">
               {/* Navigation buttons */}
               <motion.button
-                className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300"
+                className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
                 onClick={prevImage}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, x: -2 }}
                 whileTap={{ scale: 0.9 }}
-                aria-label="Previous image"
+                aria-label={`Previous ${project.title} screenshot`}
+                type="button"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-5 h-5" aria-hidden="true" />
               </motion.button>
 
               {/* Phone mockup with images */}
@@ -260,12 +269,21 @@ const ProjectCard = ({ project }) => {
                       animate="center"
                       exit="exit"
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute inset-0 cursor-pointer"
+                      className="absolute inset-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 rounded-lg"
                       onClick={openModal}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          openModal();
+                        }
+                      }}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`View ${project.title} screenshot ${currentIndex + 1} in full screen`}
                     >
                       <LazyImage
                         src={project.images[currentIndex]}
-                        alt={`${project.title} screenshot ${currentIndex + 1}`}
+                        alt={`${project.title} screenshot ${currentIndex + 1} of ${project.images.length}`}
                         className="w-full h-full"
                       />
                     </motion.div>
@@ -274,18 +292,19 @@ const ProjectCard = ({ project }) => {
               </div>
 
               <motion.button
-                className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300"
+                className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
                 onClick={nextImage}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, x: 2 }}
                 whileTap={{ scale: 0.9 }}
-                aria-label="Next image"
+                aria-label={`Next ${project.title} screenshot`}
+                type="button"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-5 h-5" aria-hidden="true" />
               </motion.button>
         </div>
 
             {/* Image indicators */}
-            <div className="flex justify-center gap-2 mt-6">
+            <div className="flex justify-center gap-2 mt-6" role="tablist" aria-label={`${project.title} screenshot navigation`}>
               {project.images.map((_, idx) => (
                 <button
                   key={idx}
@@ -293,12 +312,16 @@ const ProjectCard = ({ project }) => {
                     setDirection(idx > currentIndex ? 1 : -1);
                     setCurrentIndex(idx);
                   }}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 ${
                     idx === currentIndex
                       ? "bg-primary w-6"
-                      : "bg-white/20 hover:bg-white/40"
+                      : "bg-white/20 hover:bg-white/40 hover:scale-125"
                   }`}
-                  aria-label={`Go to image ${idx + 1}`}
+                  aria-label={`Go to ${project.title} screenshot ${idx + 1} of ${project.images.length}`}
+                  role="tab"
+                  aria-selected={idx === currentIndex}
+                  aria-controls={`project-image-${idx}`}
+                  type="button"
                 />
               ))}
             </div>
@@ -315,40 +338,50 @@ const ProjectCard = ({ project }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={closeModal}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+          aria-label={`${project.title} screenshot viewer`}
         >
             {/* Close button */}
             <motion.button
-              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:text-primary hover:border-primary/30 transition-all duration-300 z-10"
+              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:text-primary hover:border-primary/30 hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black/90 transition-all duration-300 z-10"
               onClick={closeModal}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
+              aria-label="Close image viewer"
+              type="button"
             >
-              <X className="w-6 h-6" />
+              <X className="w-6 h-6" aria-hidden="true" />
             </motion.button>
 
             {/* Navigation in modal */}
             <motion.button
-              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300 z-10"
+              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black/90 transition-all duration-300 z-10"
               onClick={(e) => {
                 e.stopPropagation();
                 prevImage();
               }}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, x: -4 }}
               whileTap={{ scale: 0.9 }}
+              aria-label="Previous screenshot"
+              type="button"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-6 h-6" aria-hidden="true" />
             </motion.button>
 
             <motion.button
-              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300 z-10"
+              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black/90 transition-all duration-300 z-10"
               onClick={(e) => {
                 e.stopPropagation();
                 nextImage();
               }}
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1, x: 4 }}
               whileTap={{ scale: 0.9 }}
+              aria-label="Next screenshot"
+              type="button"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-6 h-6" aria-hidden="true" />
             </motion.button>
 
             {/* Modal content */}
@@ -358,7 +391,9 @@ const ProjectCard = ({ project }) => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
+              id="modal-content"
             >
+              <h2 id="modal-title" className="sr-only">{project.title} Screenshot Viewer</h2>
               <PhoneMockup className="w-full max-w-xs mx-auto">
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.div
@@ -370,10 +405,13 @@ const ProjectCard = ({ project }) => {
                     exit="exit"
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="absolute inset-0"
+                    id={`project-image-${currentIndex}`}
+                    role="img"
+                    aria-label={`${project.title} screenshot ${currentIndex + 1} of ${project.images.length}`}
                   >
                     <LazyImage
                       src={project.images[currentIndex]}
-                      alt={`${project.title} screenshot ${currentIndex + 1}`}
+                      alt={`${project.title} screenshot ${currentIndex + 1} of ${project.images.length}`}
                       className="w-full h-full"
                     />
                   </motion.div>
@@ -381,7 +419,7 @@ const ProjectCard = ({ project }) => {
               </PhoneMockup>
 
               {/* Modal indicators */}
-              <div className="flex justify-center gap-2 mt-6">
+              <div className="flex justify-center gap-2 mt-6" role="tablist" aria-label="Screenshot navigation">
                 {project.images.map((_, idx) => (
                   <button
                     key={idx}
@@ -389,12 +427,16 @@ const ProjectCard = ({ project }) => {
                       setDirection(idx > currentIndex ? 1 : -1);
                       setCurrentIndex(idx);
                     }}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black/90 ${
                       idx === currentIndex
                         ? "bg-primary w-6"
-                        : "bg-white/30 hover:bg-white/50"
+                        : "bg-white/30 hover:bg-white/50 hover:scale-125"
                     }`}
-                    aria-label={`Go to image ${idx + 1}`}
+                    aria-label={`Go to screenshot ${idx + 1} of ${project.images.length}`}
+                    role="tab"
+                    aria-selected={idx === currentIndex}
+                    aria-controls={`project-image-${idx}`}
+                    type="button"
                   />
                 ))}
             </div>

@@ -176,8 +176,8 @@ const ContactSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl p-6 sm:p-8 border border-white/5 shadow-xl">
-          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl p-6 sm:p-8 border border-white/5 shadow-xl focus-within:border-primary/20 focus-within:ring-2 focus-within:ring-primary/10 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-300">
+          <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form" noValidate>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* First Name */}
                   <div className="relative">
@@ -197,8 +197,11 @@ const ContactSection = () => {
                       onKeyDown={(e) => handleKeyDown(e, lastNameRef)}
                       required
                       placeholder="John"
-                      className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300"
+                      aria-required="true"
+                      aria-describedby="firstName-description"
+                      className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300"
                 />
+                <span id="firstName-description" className="sr-only">Required field</span>
               </div>
 
                   {/* Last Name */}
@@ -241,8 +244,12 @@ const ContactSection = () => {
                     onKeyDown={(e) => handleKeyDown(e, messageRef)}
                     required
                     placeholder="john@example.com"
-                    className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300"
+                    aria-required="true"
+                    aria-describedby="email-description"
+                    autoComplete="email"
+                    className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300"
               />
+              <span id="email-description" className="sr-only">Required field, must be a valid email address</span>
             </div>
 
                 {/* Message */}
@@ -262,26 +269,31 @@ const ContactSection = () => {
                     required
                     rows={5}
                     placeholder="Tell me about your project..."
-                    className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 resize-none"
+                    aria-required="true"
+                    aria-describedby="message-description"
+                    className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300 resize-none"
               />
+              <span id="message-description" className="sr-only">Required field</span>
             </div>
 
                 <motion.button
               type="submit"
               disabled={isSubmitting}
-                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-dark font-semibold rounded-xl hover:shadow-glow disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300"
-                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-dark font-semibold rounded-xl hover:shadow-glow hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300"
+                  whileHover={{ scale: isSubmitting ? 1 : 1.05, y: -2 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  aria-label={isSubmitting ? "Sending message" : "Submit contact form"}
+                  aria-busy={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Sending...
+                      <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
+                      <span>Sending...</span>
                     </>
                   ) : (
                     <>
-                      Send Message
-                      <Send className="w-5 h-5" />
+                      <span>Send Message</span>
+                      <Send className="w-5 h-5" aria-hidden="true" />
                     </>
                   )}
                 </motion.button>
@@ -292,6 +304,9 @@ const ContactSection = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
+                    role="alert"
+                    aria-live="polite"
+                    aria-atomic="true"
                     className={`flex items-center gap-3 p-4 rounded-xl ${
                       submitStatus === "success"
                         ? "bg-accent/10 border border-accent/20 text-accent"
@@ -300,12 +315,12 @@ const ContactSection = () => {
                   >
                     {submitStatus === "success" ? (
                       <>
-                        <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                        <CheckCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
                         <span>Message sent successfully! I'll get back to you soon.</span>
                       </>
                     ) : (
                       <>
-                        <XCircle className="w-5 h-5 flex-shrink-0" />
+                        <XCircle className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
                         <span>Failed to send message. Please try again or email me directly.</span>
                       </>
                     )}

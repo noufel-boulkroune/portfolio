@@ -172,7 +172,7 @@ const ProjectCardMini = ({ project, index }) => {
 
   return (
     <motion.article
-      className="group relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-2xl overflow-hidden border border-white/5 hover:border-primary/20 transition-all duration-500"
+      className="group relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-2xl overflow-hidden border border-white/5 hover:border-primary/20 transition-all duration-500 h-full flex flex-col"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -182,7 +182,7 @@ const ProjectCardMini = ({ project, index }) => {
       {/* Gradient overlay */}
       <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-      <div className="relative p-4 sm:p-5">
+      <div className="relative p-4 sm:p-5 flex flex-col flex-1">
         {/* Phone mockup with image carousel */}
         <div className="relative mb-4">
           <div className="relative flex items-center justify-center">
@@ -255,17 +255,17 @@ const ProjectCardMini = ({ project, index }) => {
         </div>
 
         {/* Content */}
-        <div className="text-center">
+        <div className="text-center flex flex-col flex-1">
           <h3 className="text-lg font-bold text-light mb-2 group-hover:gradient-text-static transition-all">
             {project.title}
           </h3>
 
-          <p className="text-sm text-light-300/60 mb-4 line-clamp-2">
+          <p className="text-sm text-light-300/60 mb-4 line-clamp-2 flex-shrink-0">
             {project.description}
           </p>
 
           {/* Tech tags */}
-          <div className="flex flex-wrap justify-center gap-1.5 mb-4">
+          <div className="flex flex-wrap justify-center gap-1.5 mb-4 flex-shrink-0">
             {project.technologies.slice(0, 3).map((tech, idx) => (
               <span
                 key={idx}
@@ -276,22 +276,24 @@ const ProjectCardMini = ({ project, index }) => {
             ))}
           </div>
 
-          {/* GitHub link */}
-          {project.link && (
-            <motion.a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-300/80 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 transition-all text-sm"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <FaGithub className="w-4 h-4" />
-              View Code
-              <ExternalLink className="w-3 h-3 opacity-50" />
-            </motion.a>
-          )}
+          {/* GitHub link - Always reserve space for consistent height */}
+          <div className="mt-auto min-h-[40px] flex items-center justify-center">
+            {project.link && (
+              <motion.a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-300/80 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 transition-all text-sm"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <FaGithub className="w-4 h-4" />
+                View Code
+                <ExternalLink className="w-3 h-3 opacity-50" />
+              </motion.a>
+            )}
+          </div>
         </div>
       </div>
     </motion.article>
@@ -402,7 +404,7 @@ const LearningProjectsSection = () => {
 
         {/* Projects Grid */}
         <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -412,6 +414,7 @@ const LearningProjectsSection = () => {
             <motion.div 
               key={project.id} 
               variants={cardVariants}
+              className="flex"
               animate={{
                 y: [0, -6, 0],
               }}
