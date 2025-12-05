@@ -1,366 +1,220 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { motion } from "framer-motion";
-import { X } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { FaGooglePlay, FaAppStore } from "react-icons/fa";
 
-// Enhanced lazy loading image component with smooth transitions
+// Simple image component - no lazy loading complexity
 const LazyImage = ({
   src,
   alt,
   className,
-  priority = false,
   onClick,
-  imageKey,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [shouldLoad, setShouldLoad] = useState(priority);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const imgRef = useRef(null);
-
-  // Reset loading state when image changes
-  useEffect(() => {
-    setIsLoaded(false);
-    setIsError(false);
-    setIsTransitioning(true);
-
-    // Small delay to show loading animation
-    const timer = setTimeout(() => {
-      setIsTransitioning(false);
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, [src, imageKey]);
-
-  useEffect(() => {
-    if (priority) return; // Skip intersection observer for priority images
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShouldLoad(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "50px" }
-    );
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [priority]);
-
-  const handleLoad = useCallback(() => {
-    setIsLoaded(true);
-    setIsError(false);
-    setIsTransitioning(false);
-  }, []);
-
-  const handleError = useCallback(() => {
-    setIsError(true);
-    setIsTransitioning(false);
-    console.error("Failed to load image:", src);
-  }, [src]);
-
-  const handleClick = useCallback(() => {
-    if (onClick && isLoaded && !isError) {
-      onClick();
-    }
-  }, [onClick, isLoaded, isError]);
 
   return (
     <div
-      ref={imgRef}
-      className={`relative overflow-hidden ${className}`}
-      onClick={handleClick}
+      className={`relative overflow-hidden bg-dark-200 ${className}`}
+      onClick={onClick}
       style={{ cursor: onClick ? "pointer" : "default" }}
     >
-      {/* Loading/Transitioning overlay */}
-      {shouldLoad && (!isLoaded || isTransitioning) && !isError && (
-        <div className="absolute inset-0 bg-gray-800 flex items-center justify-center rounded-[32px] z-10">
-          <div className="flex flex-col items-center space-y-2">
-            <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
-            <div className="text-primary/80 text-xs">Loading...</div>
-          </div>
+      {/* Loading spinner */}
+      {!isLoaded && !isError && (
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
         </div>
       )}
 
-      {/* Error placeholder */}
+      {/* Error state */}
       {isError && (
-        <div className="absolute inset-0 bg-gray-700 flex items-center justify-center rounded-[32px] z-10">
-          <div className="text-gray-400 text-center text-sm">
-            <div className="text-2xl mb-2">⚠️</div>
-            <div>Image failed to load</div>
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="text-light-300/40 text-center text-sm">
+            <span className="text-2xl">📱</span>
+            <p className="mt-2">Failed to load</p>
           </div>
         </div>
       )}
 
-      {/* Actual image */}
-      {shouldLoad && (
-        <img
-          src={src}
-          alt={alt}
-          className={`w-full h-full object-cover rounded-[32px] transition-all duration-500 ${
-            isLoaded && !isTransitioning
-              ? "opacity-100 scale-100"
-              : "opacity-0 scale-105"
-          }`}
-          onLoad={handleLoad}
-          onError={handleError}
-          loading={priority ? "eager" : "lazy"}
-        />
-      )}
-
-      {/* Placeholder when not loaded yet */}
-      {!shouldLoad && (
-        <div className="absolute inset-0 bg-gray-800 rounded-[32px] flex items-center justify-center">
-          <div className="text-gray-500 text-sm">Loading...</div>
-        </div>
-      )}
+      {/* Image - always rendered */}
+      <img
+        src={src}
+        alt={alt}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        onLoad={() => setIsLoaded(true)}
+        onError={() => setIsError(true)}
+      />
     </div>
   );
 };
 
+// Phone mockup component (clean, no notch)
+const PhoneMockup = ({ children, className = "" }) => (
+  <div className={`relative ${className}`}>
+    {/* Phone shadow */}
+    <div className="absolute inset-0 bg-black/30 rounded-[3rem] blur-2xl transform translate-y-4 scale-95" />
+    
+    {/* Phone body */}
+    <div className="relative bg-gradient-to-b from-dark-300 to-dark-400 rounded-[2.5rem] p-2 shadow-phone">
+      {/* Inner bezel */}
+      <div className="bg-black rounded-[2.2rem] p-1 relative overflow-hidden">
+        {/* Screen */}
+        <div className="relative rounded-[2rem] overflow-hidden aspect-[9/19.5] bg-dark-200">
+          {children}
+        </div>
+      </div>
+      
+      {/* Side buttons */}
+      <div className="absolute right-[-2px] top-28 w-1 h-12 bg-dark-400 rounded-l-sm" />
+      <div className="absolute left-[-2px] top-20 w-1 h-8 bg-dark-400 rounded-r-sm" />
+      <div className="absolute left-[-2px] top-32 w-1 h-16 bg-dark-400 rounded-r-sm" />
+    </div>
+  </div>
+);
+
 const ProjectCard = ({ project }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const [modalImage, setModalImage] = useState(null);
-  const [tilts, setTilts] = useState([]);
-
-  // Memoize the tilts calculation
-  const generateFixedTilts = useCallback(() => {
-    const fixedTilts = project.images.map((_, index) => {
-      let tilt;
-      if (index === 0) {
-        tilt = 3;
-      } else if (index === 2) {
-        tilt = -3;
-      } else {
-        tilt = 0;
-      }
-      return { tilt };
-    });
-    setTilts(fixedTilts);
-  }, [project.images]);
-
-  useEffect(() => {
-    generateFixedTilts();
-  }, [generateFixedTilts]);
-
-  const getImageStyle = useCallback(
-    (index) => {
-      const { tilt } = tilts[index] || { tilt: 0 };
-      return {
-        transform: `rotate(${tilt}deg)`,
-        zIndex: index === 1 ? 2 : 1,
-      };
-    },
-    [tilts]
-  );
+  const [direction, setDirection] = useState(0);
 
   const nextImage = useCallback(() => {
+    setDirection(1);
     setCurrentIndex((prev) =>
       prev + 1 >= project.images.length ? 0 : prev + 1
     );
   }, [project.images.length]);
 
   const prevImage = useCallback(() => {
+    setDirection(-1);
     setCurrentIndex((prev) =>
       prev - 1 < 0 ? project.images.length - 1 : prev - 1
     );
   }, [project.images.length]);
 
-  const openModal = useCallback((image) => {
-    setModalImage(image);
+  const openModal = useCallback(() => {
     setShowModal(true);
+    document.body.style.overflow = "hidden";
   }, []);
 
   const closeModal = useCallback(() => {
     setShowModal(false);
-    setModalImage(null);
+    document.body.style.overflow = "auto";
   }, []);
 
-  // Memoized desktop images component
-  const DesktopImages = React.memo(() => (
-    <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-x-2 justify-center">
-      {project.images.map((image, index) => (
-        <motion.div
-          key={index}
-          className="relative w-[330px] h-[700px] bg-black rounded-[40px] p-3 shadow-xl flex justify-center items-center"
-          style={getImageStyle(index)}
-          whileHover={{ scale: 1.02, y: -5 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="w-full h-full rounded-[32px] overflow-hidden relative">
-            <LazyImage
-              src={image}
-              alt={`${project.title} Screenshot ${index + 1}`}
-              className="w-full h-full"
-              priority={index === 0} // Prioritize first image
-              onClick={() => openModal(image)}
-              imageKey={index} // Add unique key for transitions
-            />
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  ));
-
-  // Enhanced mobile image component with smooth transitions
-  const MobileImage = React.memo(() => (
-    <div className="block md:hidden relative flex items-center justify-center min-h-[500px]">
-      <motion.button
-        className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300 absolute left-0 z-20"
-        onClick={prevImage}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        aria-label="Previous image"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="w-5 h-5"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-      </motion.button>
-
-      <div className="relative w-[260px] h-[560px] bg-black rounded-[40px] p-3 shadow-xl mx-4">
-        <div className="w-full h-full object-contain overflow-hidden rounded-[32px] relative">
-          <LazyImage
-            key={`mobile-${currentIndex}`} // Force re-render on index change
-            src={project.images[currentIndex]}
-            alt={`${project.title} Screenshot ${currentIndex + 1}`}
-            className="w-full h-full"
-            priority={true} // Always prioritize mobile current image
-            onClick={() => openModal(project.images[currentIndex])}
-            imageKey={currentIndex} // Add unique key for smooth transitions
-          />
-        </div>
-      </div>
-
-      <motion.button
-        className="bg-primary/20 text-primary rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/30 transition-colors duration-300 absolute right-0 z-20"
-        onClick={nextImage}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        aria-label="Next image"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="w-5 h-5"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </motion.button>
-
-      {/* Image indicators for mobile */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-        {project.images.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-200 ${
-              currentIndex === index
-                ? "bg-primary"
-                : "bg-white/40 hover:bg-white/60"
-            }`}
-            aria-label={`Go to image ${index + 1}`}
-          />
-        ))}
-      </div>
-    </div>
-  ));
-
-  // Preload next/previous images for smoother transitions
+  // Preload adjacent images
   useEffect(() => {
     const preloadImages = () => {
-      const nextIndex = (currentIndex + 1) % project.images.length;
-      const prevIndex =
-        currentIndex === 0 ? project.images.length - 1 : currentIndex - 1;
+      const nextIdx = (currentIndex + 1) % project.images.length;
+      const prevIdx = currentIndex === 0 ? project.images.length - 1 : currentIndex - 1;
 
-      [nextIndex, prevIndex].forEach((index) => {
+      [nextIdx, prevIdx].forEach((idx) => {
         const img = new Image();
-        img.src = project.images[index];
+        img.src = project.images[idx];
       });
     };
 
     preloadImages();
   }, [currentIndex, project.images]);
 
+  // Keyboard navigation for modal
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!showModal) return;
+      if (e.key === "Escape") closeModal();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showModal, closeModal, nextImage, prevImage]);
+
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+    }),
+  };
+
   return (
-    <motion.div
-      className="w-full min-h-[600px] bg-dark rounded-xl shadow-lg overflow-hidden border border-primary/20 hover:border-primary/60 transition-colors duration-300"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex flex-col md:flex-row h-full bg-black/50">
-        {/* Text Area */}
-        <div className="w-full md:w-2/5 bg-zinc-900 p-6 md:p-8 flex flex-col justify-center md:items-center items-center text-center space-y-6">
+    <>
+      <motion.article
+        className="group relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl overflow-hidden border border-white/5 hover:border-primary/20 transition-all duration-500"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {/* Glow effect on hover */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        <div className="relative flex flex-col lg:flex-row">
+          {/* Content Side */}
+          <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center order-2 lg:order-1">
+            {/* Category badge */}
           <motion.span
-            className="px-6 py-3 bg-primary/10 text-primary rounded-full text-sm font-medium"
+              className="inline-flex items-center self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-4"
             whileHover={{ scale: 1.05 }}
           >
             {project.category}
           </motion.span>
 
-          <h3 className="text-4xl font-extrabold bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
+            {/* Title */}
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-light mb-4 group-hover:gradient-text-static transition-all duration-300">
             {project.title}
           </h3>
 
-          <p className="text-light leading-relaxed text-lg">
+            {/* Description */}
+            <p className="text-light-300/70 leading-relaxed mb-6 text-sm sm:text-base">
             {project.description}
           </p>
 
-          <div className="space-y-4">
-            <h4 className="text-xl font-semibold text-primary">
-              Key Features:
+            {/* Features */}
+            <div className="mb-6">
+              <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">
+                Key Features
             </h4>
-            <ul className="space-y-3 text-light text-left md:pl-6">
-              {project.tasks.map((task, index) => (
+              <ul className="space-y-2">
+                {project.tasks.slice(0, 4).map((task, idx) => (
                 <motion.li
-                  key={index}
-                  className="flex items-start space-x-2"
+                    key={idx}
+                    className="flex items-start gap-3 text-sm text-light-300/80"
                   initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
                 >
-                  <span className="text-primary mt-1">•</span>
-                  <span>{task}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                    <span className="line-clamp-2">{task}</span>
                 </motion.li>
               ))}
             </ul>
           </div>
 
-          {(project.playStoreUrl || project.appStoreUrl) && (
-            <div className="flex items-center justify-center gap-4 md:gap-6 mt-6 flex-wrap">
+            {/* Store Links */}
+            <div className="flex flex-wrap gap-3 mt-auto">
               {project.playStoreUrl && (
                 <motion.a
                   href={project.playStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300 mb-2 md:mb-0"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-300/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <FaGooglePlay size={24} />
-                  <span className="ml-2">Get it on Play Store</span>
+                  <FaGooglePlay className="w-4 h-4" />
+                  <span className="text-sm font-medium">Play Store</span>
+                  <ExternalLink className="w-3 h-3 opacity-50" />
                 </motion.a>
               )}
               {project.appStoreUrl && (
@@ -368,62 +222,187 @@ const ProjectCard = ({ project }) => {
                   href={project.appStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-primary hover:text-orange-300 transition-colors duration-300 mb-2 md:mb-0"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-300/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  <FaAppStore size={24} />
-                  <span className="ml-2">Get it on App Store</span>
+                  <FaAppStore className="w-4 h-4" />
+                  <span className="text-sm font-medium">App Store</span>
+                  <ExternalLink className="w-3 h-3 opacity-50" />
                 </motion.a>
               )}
             </div>
-          )}
+          </div>
+
+          {/* Phone Mockup Side */}
+          <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-10 order-1 lg:order-2">
+            <div className="relative flex items-center justify-center">
+              {/* Navigation buttons */}
+              <motion.button
+                className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300"
+                onClick={prevImage}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </motion.button>
+
+              {/* Phone mockup with images */}
+              <div className="mx-12 sm:mx-16">
+                <PhoneMockup className="w-48 sm:w-56 md:w-64">
+                  <AnimatePresence mode="wait" custom={direction}>
+                    <motion.div
+                      key={currentIndex}
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="absolute inset-0 cursor-pointer"
+                      onClick={openModal}
+                    >
+                      <LazyImage
+                        src={project.images[currentIndex]}
+                        alt={`${project.title} screenshot ${currentIndex + 1}`}
+                        className="w-full h-full"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </PhoneMockup>
+              </div>
+
+              <motion.button
+                className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300"
+                onClick={nextImage}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
         </div>
 
-        {/* Image Area */}
-        <div className="w-full md:w-3/5 bg-zinc-900 p-6 md:p-8 relative flex items-center justify-end">
-          <DesktopImages />
-          <MobileImage />
+            {/* Image indicators */}
+            <div className="flex justify-center gap-2 mt-6">
+              {project.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setDirection(idx > currentIndex ? 1 : -1);
+                    setCurrentIndex(idx);
+                  }}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === currentIndex
+                      ? "bg-primary w-6"
+                      : "bg-white/20 hover:bg-white/40"
+                  }`}
+                  aria-label={`Go to image ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      </motion.article>
 
-      {/* Enhanced Modal for Enlarged Image */}
-      {showModal && modalImage && (
+      {/* Modal for enlarged image */}
+      <AnimatePresence>
+        {showModal && (
         <motion.div
-          className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={closeModal}
         >
-          <motion.div
-            className="relative max-w-xl w-full"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()}
-          >
+            {/* Close button */}
             <motion.button
+              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:text-primary hover:border-primary/30 transition-all duration-300 z-10"
               onClick={closeModal}
-              className="absolute -top-12 right-0 text-primary hover:text-orange-300 transition-colors duration-300 bg-black/50 rounded-full p-2"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              aria-label="Close modal"
             >
               <X className="w-6 h-6" />
             </motion.button>
-            <div className="bg-black rounded-lg overflow-hidden">
-              <LazyImage
-                src={modalImage}
-                alt="Enlarged project screenshot"
-                className="w-full h-auto"
-                priority={true}
-              />
+
+            {/* Navigation in modal */}
+            <motion.button
+              className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300 z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </motion.button>
+
+            <motion.button
+              className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-dark-200/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all duration-300 z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </motion.button>
+
+            {/* Modal content */}
+            <motion.div
+              className="relative max-w-sm w-full"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <PhoneMockup className="w-full max-w-xs mx-auto">
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={currentIndex}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    <LazyImage
+                      src={project.images[currentIndex]}
+                      alt={`${project.title} screenshot ${currentIndex + 1}`}
+                      className="w-full h-full"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </PhoneMockup>
+
+              {/* Modal indicators */}
+              <div className="flex justify-center gap-2 mt-6">
+                {project.images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setDirection(idx > currentIndex ? 1 : -1);
+                      setCurrentIndex(idx);
+                    }}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      idx === currentIndex
+                        ? "bg-primary w-6"
+                        : "bg-white/30 hover:bg-white/50"
+                    }`}
+                    aria-label={`Go to image ${idx + 1}`}
+                  />
+                ))}
             </div>
           </motion.div>
         </motion.div>
       )}
-    </motion.div>
+      </AnimatePresence>
+    </>
   );
 };
 

@@ -1,61 +1,144 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
-// import SofaShowcaseSection from "./SofaShowcaseSection";
 
 const ProjectsSection = ({ projects }) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 60, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
   return (
     <section
       id="projects"
-      className="py-20 text-white bg-gradient-to-br from-dark via-black to-dark"
+      className="relative py-20 lg:py-32 overflow-hidden"
     >
-      <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
-        Featured Projects
-      </h2>
-      <motion.p
-        className="text-lg text-center mb-16 text-light px-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.3 }}
-      >
-        Technical implementations showcasing cross-platform development
-        expertise.
-      </motion.p>
-      <motion.div
-        className="max-w-full mx-auto px-4 sm:px-16 md:px-8 lg:px-32"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        {/* Sofa Showcase Section
-        <SofaShowcaseSection /> */}
-        {/* Other Projects */}
-        {projects
-          .filter((project) => project.title !== "Sofa")
-          .map((project, index) => (
-            <motion.div
-              key={index}
-              className="mb-12"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.1 * index,
-                duration: 0.5,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <ProjectCard
-                project={project}
-                className="bg-dark border border-primary/20 hover:border-primary/40 transition-colors duration-300"
-              />
-            </motion.div>
-          ))}
-      </motion.div>
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-dark">
+        <motion.div 
+          className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]"
+          animate={{
+            x: [0, 40, -30, 0],
+            y: [0, -30, 40, 0],
+            scale: [1, 1.2, 0.9, 1],
+            opacity: [0.5, 0.8, 0.6, 0.5],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[120px]"
+          animate={{
+            x: [0, -30, 40, 0],
+            y: [0, 50, -40, 0],
+            scale: [1, 1.3, 0.95, 1],
+            opacity: [0.5, 0.7, 0.6, 0.5],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+        />
+      </div>
 
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-10 right-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-40 h-40 bg-orange-300/5 rounded-full blur-3xl"></div>
+      <div className="container relative z-10">
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-16 lg:mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.span
+            className="inline-block px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-6"
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+          >
+            Featured Work
+          </motion.span>
+
+          <motion.h2 
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <span className="text-light">Professional </span>
+            <span className="gradient-text-static">Projects</span>
+          </motion.h2>
+
+          <motion.p 
+            className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            Real-world mobile applications I've built and published, showcasing
+            cross-platform development expertise with Flutter.
+          </motion.p>
+        </motion.div>
+
+        {/* Projects Grid */}
+        <motion.div 
+          className="space-y-8 lg:space-y-12"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {projects
+            .filter((project) => project.title !== "Sofa")
+            .map((project, index) => (
+              <motion.div
+                key={project.title}
+                variants={itemVariants}
+                animate={{
+                  y: [0, -8, 0],
+                }}
+                transition={{
+                  duration: 5 + index * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.4,
+                }}
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -4,
+                  transition: { duration: 0.3 }
+                }}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+        </motion.div>
       </div>
     </section>
   );

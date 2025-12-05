@@ -1,260 +1,525 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Download, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import "./HeroSection.css";
+import { useState } from "react";
 
 const HeroSection = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const skills = [
     { name: "Flutter", icon: "/images/SVG/flutter-icon.svg" },
     { name: "Dart", icon: "/images/SVG/dart-icon.svg" },
     { name: "Firebase", icon: "/images/SVG/firebase-icon.svg" },
-    {
-      name: "REST API",
-      icon: "/images/SVG/rest-api-icon.svg",
-      class: "icon-rest-api",
-    },
-    {
-      name: "GitHub",
-      icon: "/images/SVG/github-icon.svg",
-      class: "icon-github",
-    },
+    { name: "REST API", icon: "/images/SVG/rest-api-icon.svg" },
+    { name: "GitHub", icon: "/images/SVG/github-icon.svg" },
     { name: "Stripe", icon: "/images/SVG/stripe-icon.svg" },
-    {
-      name: "Flutter flavors",
-      icon: "/images/SVG/flavors-icon.svg",
-      class: "icon-flavors",
-    },
-    {
-      name: "Provider",
-      icon: "/images/SVG/state-managment.svg",
-      class: "icon-state-management-provider",
-    },
-    {
-      name: "GetX",
-      icon: "/images/SVG/state-managment.svg",
-      class: "icon-state-management-getX",
-    },
-    { name: "IOS", icon: "/images/SVG/ios-icon.svg", class: "icon-ios" },
-    {
-      name: "Android",
-      icon: "/images/SVG/android-icon.svg",
-      class: "icon-android",
-    },
+    { name: "Provider", icon: "/images/SVG/state-managment.svg" },
+    { name: "GetX", icon: "/images/SVG/state-managment.svg" },
+    { name: "iOS", icon: "/images/SVG/ios-icon.svg" },
+    { name: "Android", icon: "/images/SVG/android-icon.svg" },
     { name: "Kotlin", icon: "/images/SVG/kotlin-icon.svg" },
     { name: "GCP", icon: "/images/SVG/gcp-icon.svg" },
-    {
-      name: "Windows",
-      icon: "/images/SVG/Windows-icon.svg",
-      class: "icon-windows",
-    },
-    { name: "MacOs", icon: "/images/SVG/MacOs-icon.svg", class: "icon-macos" },
-    { name: "Linux", icon: "/images/SVG/Linux-icon.svg", class: "icon-linux" },
-    { name: "VS Code", icon: "/images/SVG/VS-code-icon.svg" },
-    { name: "Xcode", icon: "/images/SVG/Xcode-icon.svg", class: "icon-xcode" },
-    {
-      name: "Android Studio",
-      icon: "/images/SVG/android-studio-icon.svg",
-      class: "icon-android-studio",
-    },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
   return (
-    <section className="pt-0 pb-10 min-h-screen flex items-center justify-center bg-gradient-to-br from-dark via-black to-dark px-4 sm:px-16">
+    <section
+      id="about"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20"
+    >
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-dark">
+        {/* Gradient orbs with continuous animation */}
+        <motion.div 
+          className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]"
+          animate={{
+            x: [0, 50, -30, 0],
+            y: [0, -40, 30, 0],
+            scale: [1, 1.2, 0.9, 1],
+            opacity: [0.3, 0.5, 0.4, 0.3],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px]"
+          animate={{
+            x: [0, -40, 30, 0],
+            y: [0, 50, -30, 0],
+            scale: [1, 1.1, 1.3, 1],
+            opacity: [0.3, 0.6, 0.4, 0.3],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+        />
+        <motion.div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]"
+          animate={{
+            x: [0, 30, -20, 0],
+            y: [0, -30, 20, 0],
+            scale: [1, 1.15, 0.95, 1],
+            opacity: [0.2, 0.4, 0.3, 0.2],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 4,
+          }}
+        />
+        
+        {/* Grid pattern with subtle movement */}
+        <motion.div 
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '100px 100px'
+          }}
+          animate={{
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      </div>
+
+      <div className="container relative z-10">
       <motion.div
-        className="w-full max-w-7xl mx-auto px-2 sm:px-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      >
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {/* Text Content */}
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
-              Nawfel Boulkroune
-            </h1>
-            <p className="text-xl sm:text-1xl text-light mb-6">
-              Hey there! I'm Nawfel Boulkroune, a Flutter developer with 3 years
-              of experience building mobile apps that work seamlessly on both
-              Android and iOS. I love creating apps that are not only fast and
-              reliable but also a joy to use. My toolkit includes Flutter,
-              Firebase, and REST APIs, and I rely on Provider to keep everything
-              running smoothly behind the scenes. I've had the pleasure of
-              launching several apps on the Play Store, each one solving
-              real-world problems. I'm all about clean code, continuous
-              learning, and taking on new challenges in this fast-paced tech
-              world.
-            </p>
-            <div className="flex flex-nowrap gap-4 overflow-x-auto pb-2 lg:justify-start">
-              <a
-                href="#projects"
-                className="px-4 py-2 sm:px-6 sm:py-3 bg-primary text-black rounded-lg hover:bg-yellow-400 transition flex items-center gap-2 flex-shrink-0"
+          <div className="text-center lg:text-left order-2 lg:order-1">
+            {/* Greeting Badge */}
+            <motion.div
+              variants={itemVariants}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-200/80 border border-white/10 mb-6"
+              animate={{
+                y: [0, -5, 0],
+                scale: [1, 1.02, 1],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
               >
-                <span className="whitespace-nowrap">View Projects</span>
-                <ChevronRight className="w-5 h-5" />
-              </a>
+                <Sparkles className="w-4 h-4 text-primary" />
+              </motion.div>
+              <span className="text-sm font-medium text-light-300">
+                Available for new projects
+              </span>
+            </motion.div>
 
-              <div className="flex gap-4 flex-shrink-0">
-                <a
-                  href="https://github.com/noufel-boulkroune"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 sm:p-3 border border-primary rounded-full hover:bg-primary/10 transition flex-shrink-0"
-                >
-                  <FaGithub className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-                </a>
+            {/* Main Heading */}
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+            >
+              <span className="text-light">Hi, I'm </span>
+              <span className="gradient-text-static">Nawfel</span>
+              <br />
+              <span className="text-light-300">Mobile App Developer</span>
+            </motion.h1>
 
-                <a
-                  href="https://www.linkedin.com/in/nawfelboulkroune/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 sm:p-3 border border-primary rounded-full hover:bg-primary/10 transition flex-shrink-0"
-                >
-                  <FaLinkedin className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-                </a>
+            {/* Description */}
+            <motion.p
+              variants={itemVariants}
+              className="text-lg text-light-300/80 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+            >
+              Hey there! I'm Nawfel Boulkroune, a mobile app developer with <span className="text-primary font-semibold drop-shadow-[0_0_8px_rgba(0,212,255,0.6)]">3 years</span> of experience 
+              crafting beautiful and high-performance applications. I specialize in building apps that work seamlessly on both 
+              <span className="text-secondary font-semibold drop-shadow-[0_0_8px_rgba(124,58,237,0.6)]">Android and iOS</span> using <span className="text-accent font-semibold drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]">Flutter</span>, allowing me to deliver 
+              cross-platform solutions from a single codebase. My toolkit includes Flutter, Firebase, REST APIs, and Provider 
+              for state management. I've successfully launched several apps on the Play Store and App Store, 
+              each solving real-world problems with clean code and user-focused design. I'm passionate about continuous learning 
+              and always ready to take on new challenges in this fast-paced tech world.
+            </motion.p>
 
-                <a
-                  href="/Doc/Mobile-dev-nawfel_boulkroune_cv.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 sm:p-3 border border-primary rounded-full hover:bg-primary/10 transition flex items-center flex-shrink-0"
+            {/* Stats */}
+            <motion.div
+              variants={itemVariants}
+              className="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto lg:mx-0"
+            >
+              {[
+                { value: "3+", label: "Years Exp" },
+                { value: "10+", label: "Projects" },
+                { value: "5+", label: "Play Store Apps" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center p-4 rounded-2xl bg-dark-200/50 border border-white/5"
+                  animate={{
+                    y: [0, -8, 0],
+                    scale: [1, 1.02, 1],
+                  }}
+                  transition={{
+                    duration: 3 + index * 0.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.3,
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -4,
+                    borderColor: "rgba(0, 212, 255, 0.3)",
+                    transition: { duration: 0.3 },
+                  }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="w-5 h-5 sm:w-6 sm:h-6 text-primary"
+                  <motion.div 
+                    className="text-2xl sm:text-3xl font-bold gradient-text-static"
+                    animate={{
+                      scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.2,
+                    }}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
+                    {stat.value}
+                  </motion.div>
+                  <div className="text-xs sm:text-sm text-light-300/60 mt-1">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-wrap justify-center lg:justify-start gap-4"
+            >
+              <motion.a
+                href="#projects"
+                className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-dark font-semibold rounded-xl hover:shadow-glow transition-all duration-300"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                View Projects
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+
+              <motion.a
+                href="/Doc/Mobile-dev-nawfel_boulkroune_cv.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                className="flex items-center gap-2 px-6 py-3 bg-transparent border border-white/20 text-light font-medium rounded-xl hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Download className="w-5 h-5" />
+                Resume
+              </motion.a>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div
+              variants={itemVariants}
+              className="flex justify-center lg:justify-start gap-4 mt-8"
+            >
+              {[
+                {
+                  href: "https://github.com/noufel-boulkroune",
+                  icon: FaGithub,
+                  label: "GitHub",
+                },
+                {
+                  href: "https://www.linkedin.com/in/nawfelboulkroune/",
+                  icon: FaLinkedin,
+                  label: "LinkedIn",
+                },
+              ].map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 flex items-center justify-center rounded-xl bg-dark-200/80 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
+                  animate={{
+                    y: [0, -3, 0],
+                  }}
+                  transition={{
+                    duration: 2.5 + index * 0.3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: index * 0.5,
+                  }}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={social.label}
+                >
+                  <motion.div
+                    animate={{ rotate: [0, 5, -5, 0] }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.5,
+                    }}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </motion.div>
+                </motion.a>
+              ))}
+            </motion.div>
           </div>
 
           {/* Image Section */}
-          <div className="flex justify-center lg:justify-end mt-8 lg:mt-0">
             <motion.div
-              className="relative w-[320px] sm:w-[450px] h-[320px] sm:h-[450px] mx-auto flex items-center justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
-            >
-              {/* Blob Background */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg
-                  className="w-full h-full"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 200 200"
-                >
-                  <circle cx="100" cy="100" fill="#FFD700" r="80" />
-                  <g>
-                    <path
-                      fill="#FFA50066"
-                      d="M40.4,-70.6C50.5,-64,55.8,-49.6,62.2,-36.6C68.6,-23.5,76.2,-11.8,76.1,0C76.1,11.7,68.5,23.4,60.4,33.5C52.2,43.6,43.6,52.1,33.5,57.1C23.3,62,11.7,63.5,-1.9,66.8C-15.5,70.1,-31,75.3,-43,71.4C-55,67.5,-63.5,54.5,-69.3,41.1C-75.1,27.7,-78.1,13.9,-77.9,0.1C-77.7,-13.6,-74.2,-27.2,-67.8,-39.5C-61.3,-51.7,-51.9,-62.6,-40.1,-68.2C-28.3,-73.8,-14.2,-74.1,0.5,-74.9C15.1,-75.7,30.2,-77.1,40.4,-70.6Z"
-                      className="top"
-                    />
-                    <path
-                      fill="#FFD70066"
-                      d="M44.9,-75.5C57.4,-70.6,66.1,-56.9,74.2,-42.8C82.3,-28.8,89.7,-14.4,88,-1C86.2,12.3,75.2,24.7,64.7,34.6C54.2,44.4,44.2,51.8,33.5,57.5C22.8,63.2,11.4,67.2,-1.6,70C-14.6,72.8,-29.2,74.4,-41.6,69.6C-54,64.9,-64.2,54,-71.2,41.3C-78.1,28.7,-81.7,14.3,-81.7,0C-81.8,-14.4,-78.3,-28.8,-71.6,-41.7C-64.8,-54.7,-54.8,-66.2,-42.4,-71.1C-29.9,-76,-14.9,-74.4,0.6,-75.5C16.2,-76.6,32.4,-80.4,44.9,-75.5Z"
-                      className="middle"
-                    />
-                    <path
-                      fill="#FF450066"
-                      d="M39.1,-66.7C53.2,-59.6,69,-54.3,75.5,-43.5C82,-32.6,79.1,-16.3,74.4,-2.7C69.8,10.9,63.3,21.9,56.1,31.4C48.9,40.9,40.9,49,31.5,57.9C22,66.8,11,76.4,-1.4,78.7C-13.7,81.1,-27.5,76.2,-40.7,69.6C-54,62.9,-66.8,54.4,-71.9,42.6C-77,30.7,-74.3,15.3,-74.5,-0.1C-74.7,-15.6,-77.8,-31.1,-71.7,-41.3C-65.7,-51.5,-50.4,-56.2,-37,-63.7C-23.5,-71.1,-11.7,-81.3,0.4,-81.9C12.5,-82.6,25,-73.7,39.1,-66.7Z"
-                      className="bottom"
-                    />
-                  </g>
-                </svg>
-              </div>
+            className="flex justify-center lg:justify-end order-1 lg:order-2"
+            variants={itemVariants}
+          >
+            <div className="relative">
+              {/* Decorative elements */}
+              <motion.div
+                className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 rounded-full blur-2xl"
+                animate={{
+                  scale: [1, 1.05, 1],
+                  opacity: [0.5, 0.8, 0.5],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              {/* Rotating ring */}
+              <motion.div
+                className="absolute -inset-8 border border-primary/20 rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+              <motion.div
+                className="absolute -inset-12 border border-secondary/10 rounded-full"
+                animate={{ rotate: -360 }}
+                transition={{
+                  duration: 30,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+
+              {/* Profile Image Container */}
+              <motion.div 
+                className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96"
+                animate={{
+                  y: [0, -15, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                {/* Image placeholder/loading state */}
+                {!imageLoaded && (
+                  <div className="absolute inset-0 rounded-full bg-dark-200 animate-pulse" />
+                )}
 
               {/* Profile Image */}
-              <div className="relative z-10 overflow-hidden rounded-full w-[240px] sm:w-[340px] h-[240px] sm:h-[340px]">
+                <motion.div
+                  className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 shadow-2xl"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
                 <img
                   src="/images/myImage.jpg"
                   alt="Nawfel Boulkroune"
-                  className="w-full h-full object-cover transform transition-all duration-500 hover:scale-105"
-                />
+                    className={`w-full h-full object-cover transition-all duration-500 ${
+                      imageLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                    onLoad={() => setImageLoaded(true)}
+                  />
+                  
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/30 to-transparent" />
+                </motion.div>
+
+                {/* Floating badges */}
+                <motion.div
+                  className="absolute -right-4 top-8 px-4 py-2 bg-dark-100/90 backdrop-blur-sm rounded-xl border border-white/10 shadow-lg"
+                  animate={{ 
+                    y: [0, -12, 0],
+                    x: [0, 3, 0],
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="flex items-center gap-2">
+                    <motion.div 
+                      className="w-2 h-2 bg-accent rounded-full"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [1, 0.7, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                    <span className="text-sm font-medium text-light">Mobile Dev</span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="absolute -left-4 bottom-12 px-4 py-2 bg-dark-100/90 backdrop-blur-sm rounded-xl border border-white/10 shadow-lg"
+                  animate={{ 
+                    y: [0, 12, 0],
+                    x: [0, -3, 0],
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                >
+                  <div className="flex items-center gap-2">
+                    <motion.span 
+                      className="text-xl"
+                      animate={{
+                        rotate: [0, 15, -15, 0],
+                        scale: [1, 1.1, 1],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      🚀
+                    </motion.span>
+                    <span className="text-sm font-medium text-light">3+ Years</span>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
+          </motion.div>
+        </motion.div>
 
         {/* Skills Section */}
-        <div className="mt-12">
-          <h2 className="text-3xl font-semibold mb-6 text-center lg:text-left bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
-            Skills
+        <motion.div
+          className="mt-20 lg:mt-32"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">
+              Tech Stack
           </h2>
-
-          {/* Mobile Grid */}
-          <div className="grid grid-cols-3 gap-4 place-items-center md:hidden">
-            {skills.map((skill, index) => (
-              <div
-                key={`grid-${skill.name}-${index}`}
-                className="flex flex-col items-center p-2"
-              >
-                <img
-                  src={skill.icon}
-                  alt={skill.name}
-                  className={`w-8 h-8 sm:w-10 sm:h-10 ${skill.class || ""}`}
-                />
-                <span className="text-sm sm:text-base mt-2 text-center text-light">
-                  {skill.name}
-                </span>
-              </div>
-            ))}
+            <p className="text-light-300/60">Technologies I work with</p>
           </div>
 
-          {/* Desktop Infinite Scroll */}
-          <div className="hidden md:block relative w-full overflow-hidden">
-            <div className="flex space-x-8 animate-infinite-scroll">
+          {/* Marquee container */}
+          <div className="marquee-container">
+            <div className="flex gap-8 animate-marquee">
               {[...skills, ...skills].map((skill, index) => (
-                <div
-                  key={`scroll-${skill.name}-${index}`}
-                  className="flex flex-col items-center flex-shrink-0"
+                <motion.div
+                  key={index}
+                  className="flex flex-col items-center gap-3 flex-shrink-0 px-4 py-3 rounded-2xl bg-dark-200/50 border border-white/5 hover:border-primary/20 hover:bg-dark-200 transition-all duration-300 group cursor-pointer"
+                  animate={{
+                    y: [0, -6, 0],
+                  }}
+                  transition={{
+                    duration: 4 + (index % 3) * 0.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: (index % 3) * 0.3,
+                  }}
+                  whileHover={{ y: -4, scale: 1.05 }}
+                >
+                  <motion.div 
+                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-dark-300/50 group-hover:bg-primary/10 transition-colors"
+                    animate={{
+                      rotate: [0, 5, -5, 0],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.1,
+                    }}
                 >
                   <img
                     src={skill.icon}
                     alt={skill.name}
-                    className={`w-10 h-10 ${skill.class || ""}`}
+                      className="w-6 h-6 object-contain"
                   />
-                  <span className="text-lg mt-2 whitespace-nowrap text-light">
+                  </motion.div>
+                  <span className="text-sm text-light-300/80 whitespace-nowrap group-hover:text-light transition-colors">
                     {skill.name}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
+        </motion.div>
         </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
+        <motion.div
+          className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <motion.div
+            className="w-1.5 h-1.5 bg-primary rounded-full"
+            animate={{ opacity: [1, 0, 1], y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
       </motion.div>
-      <style jsx global>{`
-        @keyframes infinite-scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        .animate-infinite-scroll {
-          animation: infinite-scroll 40s linear infinite;
-        }
-        .animate-infinite-scroll:hover {
-          animation-play-state: paused;
-        }
-        .overflow-x-auto::-webkit-scrollbar {
-          display: none;
-        }
-        .overflow-x-auto {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 };

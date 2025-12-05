@@ -1,347 +1,431 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import { FaGithub } from "react-icons/fa";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaGithub, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { ExternalLink, Code2 } from "lucide-react";
 
-// Simple lazy loading image component (same as SofaShowcaseSection)
-const LazyImage = ({ src, alt, className, priority = false }) => {
+// Simple image component
+const LazyImage = ({ src, alt, className }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [shouldLoad, setShouldLoad] = useState(priority);
-  const imgRef = useRef(null);
-
-  useEffect(() => {
-    if (priority) return; // Skip intersection observer for priority images
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShouldLoad(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "50px" }
-    );
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [priority]);
-
-  const handleLoad = () => {
-    setIsLoaded(true);
-    setIsError(false);
-  };
-
-  const handleError = () => {
-    setIsError(true);
-    console.error("Failed to load image:", src);
-  };
 
   return (
-    <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
-      {/* Loading placeholder */}
-      {shouldLoad && !isLoaded && !isError && (
-        <div className="absolute inset-0 bg-gray-800 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+    <div className={`relative overflow-hidden bg-dark-200 ${className}`}>
+      {!isLoaded && !isError && (
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
         </div>
       )}
 
-      {/* Error placeholder */}
       {isError && (
-        <div className="absolute inset-0 bg-gray-700 flex items-center justify-center">
-          <div className="text-gray-400 text-center text-sm">
-            <div>⚠️</div>
-            <div>Image failed</div>
-          </div>
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <span className="text-light-300/40 text-2xl">📱</span>
         </div>
       )}
 
-      {/* Actual image */}
-      {shouldLoad && (
-        <img
-          src={src}
-          alt={alt}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
-            isLoaded ? "opacity-100" : "opacity-0"
-          }`}
-          onLoad={handleLoad}
-          onError={handleError}
-          loading={priority ? "eager" : "lazy"}
-        />
-      )}
-
-      {/* Placeholder when not loaded yet */}
-      {!shouldLoad && <div className="absolute inset-0 bg-gray-800"></div>}
+      <img
+        src={src}
+        alt={alt}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        onLoad={() => setIsLoaded(true)}
+        onError={() => setIsError(true)}
+      />
     </div>
   );
 };
 
+// Phone mockup for cards
+const MiniPhoneMockup = ({ children }) => (
+  <div className="relative">
+    <div className="absolute inset-0 bg-black/20 rounded-[1.5rem] blur-lg transform translate-y-2 scale-95" />
+    <div className="relative bg-gradient-to-b from-dark-300 to-dark-400 rounded-[1.3rem] p-1 shadow-lg">
+      <div className="bg-black rounded-[1.1rem] p-0.5 relative overflow-hidden">
+        <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-12 h-3 bg-black rounded-full z-20" />
+        <div className="relative rounded-[1rem] overflow-hidden aspect-[9/19.5] bg-dark-200">
+          {children}
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 const projectsData = [
   {
     id: 1,
-    title: "Doctors App Design Test",
-    description:
-      "A design for a doctor appointment booking app with Flutter, Dart, MVVM, Provider, and REST API integration. It allows users to search for doctors, schedule appointments, and track health data.",
-    technologies: ["Flutter", "Dart", "MVVM", "Provider", "REST API"],
+    title: "Doctors App",
+    description: "Doctor appointment booking app with Flutter, featuring user search, scheduling, and health tracking.",
+    technologies: ["Flutter", "MVVM", "Provider", "REST API"],
     images: [
-      "images/doctors2.png",
-      "images/doctors.png",
-      "images/doctors3.png",
-      "images/doctors4.png",
-      "images/doctors5.png",
-      "images/doctors6.png",
-      "images/doctors7.png",
-      "images/doctors8.png",
+      "/images/doctors2.png",
+      "/images/doctors.png",
+      "/images/doctors3.png",
+      "/images/doctors4.png",
+      "/images/doctors5.png",
+      "/images/doctors6.png",
     ],
     link: "https://github.com/noufel-boulkroune/DoctorOFM",
+    color: "from-blue-500/20 to-cyan-500/20",
   },
   {
     id: 2,
     title: "MyShop App",
-    description:
-      "A complete e-commerce app designed with Flutter, integrating Firebase for the backend, with authentication, notifications, and a real-time database.",
-    technologies: [
-      "Flutter",
-      "Dart",
-      "Firebase",
-      "Auth",
-      "Notifications",
-      "Design",
-    ],
+    description: "Complete e-commerce app with Firebase backend, authentication, and real-time notifications.",
+    technologies: ["Flutter", "Firebase", "Auth", "Notifications"],
     images: [
-      "images/myShop2.jpg",
-      "images/myShop.jpg",
-      "images/myShop1.jpg",
-      "images/myShop3.jpg",
-      "images/myShop4.jpg",
-      "images/myShop5.jpg",
+      "/images/myShop2.jpg",
+      "/images/myShop.jpg",
+      "/images/myShop1.jpg",
+      "/images/myShop3.jpg",
     ],
     link: "https://github.com/noufel-boulkroune/E-commerce-shop-app",
+    color: "from-orange-500/20 to-yellow-500/20",
   },
   {
     id: 3,
-    title: "Weather Design App",
-    description:
-      "A weather forecast app design created with Flutter and Dart, featuring a static data display for weather updates.",
-    technologies: ["Flutter", "Dart"],
-    images: ["images/wether.jpg", "images/wether1.jpg", "images/wether2.jpg"],
+    title: "Weather App",
+    description: "Beautiful weather forecast app with modern UI and smooth animations.",
+    technologies: ["Flutter", "Dart", "Design"],
+    images: ["/images/wether.jpg", "/images/wether1.jpg", "/images/wether2.jpg"],
     link: "",
+    color: "from-purple-500/20 to-pink-500/20",
   },
   {
     id: 4,
     title: "Multi Store App",
-    description:
-      "A multi-store app built with Flutter, allowing users to shop across various stores or create their own store and sell products. The app supports user accounts, product listings, and order management, with Firebase serving as the backend for user authentication and data storage.",
-    technologies: ["Flutter", "Dart", "MVVM", "Provider", "Firebase"],
-    images: [
-      "images/ms.jpg",
-      "images/ms1.jpg",
-      "images/ms2.jpg",
-      "images/ms3.jpg",
-    ],
+    description: "Multi-vendor marketplace allowing users to shop across stores or create their own.",
+    technologies: ["Flutter", "MVVM", "Provider", "Firebase"],
+    images: ["/images/ms.jpg", "/images/ms1.jpg", "/images/ms2.jpg", "/images/ms3.jpg"],
     link: "https://github.com/noufel-boulkroune/Multi-Store-App",
+    color: "from-green-500/20 to-emerald-500/20",
   },
   {
     id: 5,
-    title: "Social Media App Test Design",
-    description:
-      "A social media app design created with Flutter and Dart, featuring a REST API integration for user interactions such as liking and favoriting posts.",
+    title: "Social Media UI",
+    description: "Social media app design with REST API integration for likes and favorites.",
     technologies: ["Flutter", "Dart", "REST API"],
-    images: ["images/mobile_test1.png", "images/mobile_test2.png"],
+    images: ["/images/mobile_test1.png", "/images/mobile_test2.png"],
     link: "https://github.com/noufel-boulkroune/DeveloperTestUI",
+    color: "from-rose-500/20 to-red-500/20",
   },
   {
     id: 6,
-    title: "Recipes App Design",
-    description:
-      "A recipe app design built with Flutter and Dart, utilizing Firebase for backend",
-    technologies: ["Flutter", "Dart", "Firebase"],
-    images: ["images/meal.jpg", "images/meal1.jpg", "images/meal2.jpg"],
+    title: "Recipes App",
+    description: "Recipe discovery app with Firebase backend for storing and sharing recipes.",
+    technologies: ["Flutter", "Firebase", "Design"],
+    images: ["/images/meal.jpg", "/images/meal1.jpg", "/images/meal2.jpg"],
     link: "",
+    color: "from-amber-500/20 to-orange-500/20",
   },
   {
     id: 7,
     title: "Auth Design",
-    description:
-      "A Flutter and Dart-based design showcasing a user authentication screen, including login, registration, and social login with Facebook, Twitter, and Google icons.",
-    technologies: ["Flutter", "Dart"],
-    images: ["images/auth.jpg", "images/auth1.jpg", "images/auth2.jpg"],
+    description: "Authentication screen designs with social login options for Facebook, Twitter, and Google.",
+    technologies: ["Flutter", "Dart", "UI/UX"],
+    images: ["/images/auth.jpg", "/images/auth1.jpg", "/images/auth2.jpg"],
     link: "",
+    color: "from-indigo-500/20 to-blue-500/20",
   },
   {
     id: 8,
-    title: "Market App Design",
-    description:
-      "A Flutter-based market app design that uses MVVM architecture. Users can browse and purchase products with smooth navigation and user-friendly UI.",
+    title: "Market App",
+    description: "MVVM architecture market app with smooth navigation and product browsing.",
     technologies: ["Flutter", "Dart", "MVVM"],
-    images: ["images/market.jpg", "images/market1.jpg", "images/market2.jpg"],
+    images: ["/images/market.jpg", "/images/market1.jpg", "/images/market2.jpg"],
     link: "https://github.com/noufel-boulkroune/MVVM-Shop-App",
+    color: "from-teal-500/20 to-cyan-500/20",
   },
   {
     id: 9,
-    title: "High Weight Ratio (App Design)",
-    description:
-      "A fitness tracking app designed with Flutter and Dart, focusing on weight and health management.",
-    technologies: ["Flutter", "Dart"],
-    images: ["images/h_w.jpg", "images/h_w1.jpg", "images/h_w2.jpg"],
+    title: "Fitness Tracker",
+    description: "Weight and health management app with tracking and goal-setting features.",
+    technologies: ["Flutter", "Dart", "Health"],
+    images: ["/images/h_w.jpg", "/images/h_w1.jpg", "/images/h_w2.jpg"],
     link: "",
+    color: "from-lime-500/20 to-green-500/20",
   },
 ];
 
-const LearningProjectsSection = () => {
-  const projectVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+const ProjectCardMini = ({ project, index }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setDirection(1);
+    setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
   };
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(
-    projectsData.map(() => 0)
-  );
-
-  const handleNextImage = (projectIndex) => {
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setDirection(-1);
     setCurrentImageIndex((prev) =>
-      prev.map((index, idx) =>
-        idx === projectIndex
-          ? (index + 1) % projectsData[projectIndex].images.length
-          : index
-      )
+      prev === 0 ? project.images.length - 1 : prev - 1
     );
   };
 
-  const handlePreviousImage = (projectIndex) => {
-    setCurrentImageIndex((prev) =>
-      prev.map((index, idx) =>
-        idx === projectIndex
-          ? (index - 1 + projectsData[projectIndex].images.length) %
-            projectsData[projectIndex].images.length
-          : index
-      )
-    );
+  const slideVariants = {
+    enter: (dir) => ({ x: dir > 0 ? 30 : -30, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir) => ({ x: dir < 0 ? 30 : -30, opacity: 0 }),
   };
 
   return (
-    <section
-      id="projects"
-      className="py-20 bg-gradient-to-bl from-dark via-black to-dark"
+    <motion.article
+      className="group relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-2xl overflow-hidden border border-white/5 hover:border-primary/20 transition-all duration-500"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.05, duration: 0.5 }}
+      whileHover={{ y: -4 }}
     >
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary to-orange-300 bg-clip-text text-transparent">
-          My Projects
-        </h2>
-        <motion.p
-          className="text-lg text-center mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-        >
-          Here are projects I've built as part of my learning journey,
-          recruitment tests, and challenge tasks.
-        </motion.p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24">
-          {projectsData.map((project, projectIndex) => (
-            <motion.div
-              key={project.id}
-              className="w-full min-h-[500px] bg-dark rounded-xl shadow-lg overflow-hidden border-2 border-primary/20 hover:border-primary/60 transition-colors duration-300 transform hover:scale-105 transition-all flex flex-col"
-              variants={projectVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {/* Fixed mobile image container with consistent aspect ratio */}
-              <div className="relative w-full aspect-[9/16]">
-                <LazyImage
-                  key={`project-${project.id}-${currentImageIndex[projectIndex]}`}
-                  src={project.images[currentImageIndex[projectIndex]]}
-                  alt={project.title}
-                  className="w-full h-full bg-gray-700"
-                  priority={projectIndex < 3} // Prioritize first 3 projects
-                  imageKey={currentImageIndex[projectIndex]} // Add unique key for transitions
-                />
-                {project.images.length > 1 && (
-                  <>
-                    <button
-                      onClick={() => handlePreviousImage(projectIndex)}
-                      className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-primary/70 text-gray-700 rounded-full p-2 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors duration-300"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-5 h-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15 19l-7-7 7-7"
-                        />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => handleNextImage(projectIndex)}
-                      className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-primary/70 text-gray-700 rounded-full p-2 flex items-center justify-center hover:bg-yellow-500 hover:text-black transition-colors duration-300"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="w-5 h-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </button>
-                  </>
-                )}
-              </div>
+      {/* Gradient overlay */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
-              <div className="p-5 flex flex-col flex-shrink-0">
-                <h3 className="text-2xl font-semibold mb-3 text-white">
-                  {project.title}
-                </h3>
-                <p className="text-gray-400 mb-4 text-sm">
-                  {project.description}
-                </p>
-                <div className="mt-auto">
-                  <ul className="mb-4 flex flex-wrap justify-center items-center">
-                    {project.technologies.map((tech, index) => (
-                      <li
-                        key={index}
-                        className="inline-block bg-gray-700 text-xs text-white py-1 px-2 rounded-full mr-2 mb-2"
-                      >
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
-                  {project.link &&
-                    project.link !== "" &&
-                    project.link !== null && (
-                      <div className="flex justify-center">
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-200 hover:text-blue-500 flex items-center text-sm"
-                        >
-                          <FaGithub className="mr-2" /> View on GitHub
-                        </a>
-                      </div>
-                    )}
-                </div>
-              </div>
+      <div className="relative p-4 sm:p-5">
+        {/* Phone mockup with image carousel */}
+        <div className="relative mb-4">
+          <div className="relative flex items-center justify-center">
+            {/* Navigation buttons */}
+            {project.images.length > 1 && (
+              <>
+                <motion.button
+                  onClick={prevImage}
+                  className="absolute left-0 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:text-primary transition-all opacity-0 group-hover:opacity-100"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaChevronLeft className="w-3 h-3" />
+                </motion.button>
+                <motion.button
+                  onClick={nextImage}
+                  className="absolute right-0 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:text-primary transition-all opacity-0 group-hover:opacity-100"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaChevronRight className="w-3 h-3" />
+                </motion.button>
+              </>
+            )}
+
+            <div className="w-32 sm:w-36 mx-8">
+              <MiniPhoneMockup>
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={currentImageIndex}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.2 }}
+                    className="absolute inset-0"
+                  >
+                    <LazyImage
+                      src={project.images[currentImageIndex]}
+                      alt={`${project.title} screenshot`}
+                      className="w-full h-full"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </MiniPhoneMockup>
+            </div>
+          </div>
+
+          {/* Indicators */}
+          {project.images.length > 1 && (
+            <div className="flex justify-center gap-1 mt-3">
+              {project.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDirection(idx > currentImageIndex ? 1 : -1);
+                    setCurrentImageIndex(idx);
+                  }}
+                  className={`w-1 h-1 rounded-full transition-all ${
+                    idx === currentImageIndex
+                      ? "bg-primary w-3"
+                      : "bg-white/20"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div className="text-center">
+          <h3 className="text-lg font-bold text-light mb-2 group-hover:gradient-text-static transition-all">
+            {project.title}
+          </h3>
+
+          <p className="text-sm text-light-300/60 mb-4 line-clamp-2">
+            {project.description}
+          </p>
+
+          {/* Tech tags */}
+          <div className="flex flex-wrap justify-center gap-1.5 mb-4">
+            {project.technologies.slice(0, 3).map((tech, idx) => (
+              <span
+                key={idx}
+                className="px-2 py-1 text-xs rounded-md bg-dark-300/80 text-light-300/80 border border-white/5"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {/* GitHub link */}
+          {project.link && (
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-300/80 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 transition-all text-sm"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <FaGithub className="w-4 h-4" />
+              View Code
+              <ExternalLink className="w-3 h-3 opacity-50" />
+            </motion.a>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  );
+};
+
+const LearningProjectsSection = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      },
+    },
+  };
+
+  return (
+    <section className="relative py-20 lg:py-32 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-dark">
+        <motion.div 
+          className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]"
+          animate={{
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-0 right-1/3 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[120px]"
+          animate={{
+            x: [0, -30, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3,
+          }}
+        />
+      </div>
+
+      <div className="container relative z-10">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.span
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-accent/10 text-accent border border-accent/20 mb-6"
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+          >
+            <Code2 className="w-3.5 h-3.5" />
+            Learning Journey
+          </motion.span>
+
+          <motion.h2 
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <span className="text-light">Practice </span>
+            <span className="gradient-text-static">Projects</span>
+          </motion.h2>
+
+          <motion.p 
+            className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            Projects built during my learning journey, including recruitment tests, 
+            design implementations, and personal challenges.
+          </motion.p>
+        </motion.div>
+
+        {/* Projects Grid */}
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {projectsData.map((project, index) => (
+            <motion.div 
+              key={project.id} 
+              variants={cardVariants}
+              animate={{
+                y: [0, -6, 0],
+              }}
+              transition={{
+                duration: 4 + (index % 3) * 0.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: (index % 3) * 0.2,
+              }}
+            >
+              <ProjectCardMini project={project} index={index} />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
