@@ -4,18 +4,17 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const HeroSection = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  // Check if mobile using media query (no state changes)
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if mobile on mount and resize
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    // Only run once on mount
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mediaQuery.matches);
+    
+    const handler = (e) => setIsMobile(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
   // Main skills focused on core stack
@@ -244,27 +243,20 @@ const HeroSection = () => {
 
               {/* Profile Image Container */}
               <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                {/* Image placeholder/loading state */}
-                {!imageLoaded && !imageError && (
-                  <div className="absolute inset-0 rounded-full bg-dark-200 animate-pulse z-10" />
-                )}
-
-                {/* Profile Image */}
+                {/* Profile Image - no JS state for loading, pure CSS */}
                 <div
-                  className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 shadow-2xl"
+                  className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 shadow-2xl bg-dark-200"
                 >
                   <img
                     src="/images/myImage.jpg"
                     alt="Nawfel Boulkroune"
-                    className={`w-full h-full object-cover transition-opacity duration-300 ${
-                      imageLoaded ? "opacity-100" : "opacity-0"
-                    }`}
-                    onLoad={() => setImageLoaded(true)}
-                    onError={() => setImageError(true)}
+                    className="w-full h-full object-cover"
+                    decoding="async"
+                    fetchpriority="high"
                   />
                   
                   {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/30 to-transparent pointer-events-none" />
                 </div>
 
                 {/* Floating badges - static on mobile */}
