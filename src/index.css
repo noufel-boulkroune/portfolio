@@ -120,14 +120,14 @@ a {
 img {
   max-width: 100%;
   height: auto;
-  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-img[loading] {
+img.lazy-load {
   opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-img.loaded {
+img.lazy-load.loaded {
   opacity: 1;
 }
 
@@ -390,6 +390,9 @@ img.loaded {
   gap: 1.5rem;
   animation: skills-scroll 25s linear infinite;
   width: max-content;
+  will-change: transform;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .skills-marquee:hover {
@@ -398,16 +401,24 @@ img.loaded {
 
 @keyframes skills-scroll {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(calc(-100% / 3));
+    transform: translate3d(calc(-100% / 3), 0, 0);
   }
 }
 
 @media (max-width: 768px) {
   .skills-marquee {
-    animation-duration: 18s;
+    animation-duration: 20s;
+    gap: 1rem;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .skills-marquee {
+    animation: none;
   }
 }
 
