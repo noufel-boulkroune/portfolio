@@ -161,9 +161,8 @@ const ContactSection = () => {
             <span className="gradient-text-static">Together</span>
       </h2>
 
-          <p className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg">
-            Have a project in mind or want to collaborate? I'd love to hear from you. 
-            Drop me a message and let's create something amazing.
+          <p className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg text-justify">
+            Got a project idea or want to team up? I'd love to hear from you. Send me a message and let's build something great together.
           </p>
         </motion.div>
 
@@ -432,9 +431,8 @@ const ContactSection = () => {
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 <span className="text-sm font-medium text-accent">Available for hire</span>
               </div>
-              <p className="text-light-300/70 text-sm">
-                Currently open to freelance projects and full-time opportunities. 
-                Let's discuss how I can help bring your mobile app idea to life.
+              <p className="text-light-300/70 text-sm text-justify">
+                I'm open to freelance work and full-time jobs. Let's talk about how I can help turn your app idea into reality.
               </p>
             </motion.div>
           </motion.div>
@@ -449,7 +447,7 @@ const ContactSection = () => {
           transition={{ delay: 0.6 }}
         >
           <p className="text-light-300/50 text-sm">
-            © {new Date().getFullYear()} Nawfel Boulkroune. Built with React & Tailwind CSS.
+            © {new Date().getFullYear()} Nawfel Boulkroune
           </p>
         </motion.div>
       </div>

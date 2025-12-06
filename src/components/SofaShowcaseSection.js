@@ -298,10 +298,10 @@ const PlatformCard = memo(({ platform, index }) => {
             <Icon className="w-5 h-5 text-primary" />
           </motion.div>
           <div>
-            <h3 className="text-xl sm:text-2xl font-bold text-light">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-light">
               {platform.title}
             </h3>
-            <p className="text-sm text-light-300/60">{platform.subtitle}</p>
+            <p className="text-sm lg:text-base text-light-300/60">{platform.subtitle}</p>
           </div>
         </motion.div>
 
@@ -316,13 +316,13 @@ const PlatformCard = memo(({ platform, index }) => {
               transition={{ delay: 0.4 + idx * 0.1 }}
             >
               <motion.span
-                className="w-1.5 h-1.5 rounded-full bg-primary"
+                className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 + idx * 0.1, type: "spring" }}
               />
-              <span className="text-sm">{feature}</span>
+              <span className="text-sm lg:text-base">{feature}</span>
             </motion.div>
           ))}
         </div>
@@ -414,15 +414,13 @@ const SofaShowcaseSection = () => {
           </motion.h2>
 
           <motion.p
-            className="text-light-300/70 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed"
+            className="text-light-300/70 max-w-3xl mx-auto text-base sm:text-lg lg:text-xl leading-relaxed text-justify"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            A comprehensive video streaming platform built with Flutter for mobile,
-            tablet, and Android TV. Features include MVVM architecture, REST API integration,
-            Google Cast, and adaptive video quality. Reduced load times from 8-10s to under 1s.
+            A video streaming app I built with Flutter that works on phones, tablets, and Android TV. It uses MVVM architecture, connects to REST APIs, supports Google Cast, and adjusts video quality automatically. I brought the loading time down from 8-10 seconds to under 1 second.
           </motion.p>
         </motion.div>
 
@@ -446,13 +444,12 @@ const SofaShowcaseSection = () => {
             5k+ Downloads
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-bold text-light mb-4">
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-light mb-4">
             Live on Google Play Store
           </h3>
 
-          <p className="text-light-300/60 mb-8 max-w-lg mx-auto">
-            Production-ready streaming app supporting multiple languages,
-            optimized for the Algerian market.
+          <p className="text-light-300/60 mb-8 max-w-lg mx-auto text-base lg:text-lg text-justify">
+            A ready-to-use streaming app that works in multiple languages, made for users in Algeria.
           </p>
 
           <motion.a

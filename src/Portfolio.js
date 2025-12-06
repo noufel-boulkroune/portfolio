@@ -29,9 +29,8 @@ const LoadingScreen = ({ onComplete }) => {
           transition={{ duration: 0.5 }}
         >
           <span className="gradient-text-static">Nawfel</span>
-          <span className="text-light-300">.dev</span>
         </motion.div>
-        
+
         {/* Loading bar */}
         <motion.div
           className="w-48 h-1 bg-dark-200 rounded-full overflow-hidden mx-auto"
@@ -136,7 +135,7 @@ const Portfolio = () => {
         >
           Skip to main content
         </a>
-        
+
         {/* Navigation */}
         <Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 

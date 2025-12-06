@@ -5,20 +5,18 @@ import { useState } from "react";
 
 const HeroSection = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
+  // Main skills focused on core stack
   const skills = [
     { name: "Flutter", icon: "/images/SVG/flutter-icon.svg" },
     { name: "Dart", icon: "/images/SVG/dart-icon.svg" },
     { name: "Firebase", icon: "/images/SVG/firebase-icon.svg" },
     { name: "REST API", icon: "/images/SVG/rest-api-icon.svg" },
-    { name: "GitHub", icon: "/images/SVG/github-icon.svg" },
-    { name: "Stripe", icon: "/images/SVG/stripe-icon.svg" },
-    { name: "Provider", icon: "/images/SVG/state-managment.svg" },
-    { name: "GetX", icon: "/images/SVG/state-managment.svg" },
     { name: "iOS", icon: "/images/SVG/ios-icon.svg" },
     { name: "Android", icon: "/images/SVG/android-icon.svg" },
-    { name: "Kotlin", icon: "/images/SVG/kotlin-icon.svg" },
-    { name: "GCP", icon: "/images/SVG/gcp-icon.svg" },
+    { name: "Provider", icon: "/images/SVG/state-managment.svg" },
+    { name: "GetX", icon: "/images/SVG/state-managment.svg" },
   ];
 
   const containerVariants = {
@@ -158,21 +156,15 @@ const HeroSection = () => {
               <span className="text-light">Hi, I'm </span>
               <span className="gradient-text-static">Nawfel</span>
               <br />
-              <span className="text-light-300">Mobile App Developer</span>
+              <span className="text-light-300">a Mobile App Developer</span>
             </motion.h1>
 
             {/* Description */}
             <motion.p
               variants={itemVariants}
-              className="text-lg text-light-300/80 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+              className="text-lg text-light-300/80 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-justify"
             >
-              Hey there! I'm Nawfel Boulkroune, a mobile app developer with <span className="text-primary font-semibold drop-shadow-[0_0_8px_rgba(0,212,255,0.6)]">3 years</span> of experience 
-              crafting beautiful and high-performance applications. I specialize in building apps that work seamlessly on both 
-              <span className="text-secondary font-semibold drop-shadow-[0_0_8px_rgba(124,58,237,0.6)]">Android and iOS</span> using <span className="text-accent font-semibold drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]">Flutter</span>, allowing me to deliver 
-              cross-platform solutions from a single codebase. My toolkit includes Flutter, Firebase, REST APIs, and Provider 
-              for state management. I've successfully launched several apps on the Play Store and App Store, 
-              each solving real-world problems with clean code and user-focused design. I'm passionate about continuous learning 
-              and always ready to take on new challenges in this fast-paced tech world.
+              Hey! I'm Nawfel, and I build mobile apps. For the past <span className="text-primary font-semibold drop-shadow-[0_0_8px_rgba(0,212,255,0.6)]">3 years</span>, I've been creating apps that look good and work great. I use <span className="text-accent font-semibold drop-shadow-[0_0_8px_rgba(16,185,129,0.6)]">Flutter</span> to build for both <span className="text-secondary font-semibold drop-shadow-[0_0_8px_rgba(124,58,237,0.6)]">Android and iOS</span> at once, which saves time and keeps things simple. I work with Firebase, REST APIs, and Provider to make apps that are fast and easy to use. I've put several apps on the Play Store and App Store that solve real problems for real people. I love learning new things and taking on fresh challenges.
             </motion.p>
 
             {/* Stats */}
@@ -359,8 +351,8 @@ const HeroSection = () => {
                 }}
               >
                 {/* Image placeholder/loading state */}
-                {!imageLoaded && (
-                  <div className="absolute inset-0 rounded-full bg-dark-200 animate-pulse" />
+                {!imageLoaded && !imageError && (
+                  <div className="absolute inset-0 rounded-full bg-dark-200 animate-pulse z-10" />
                 )}
 
               {/* Profile Image */}
@@ -368,14 +360,20 @@ const HeroSection = () => {
                   className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 shadow-2xl"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
+                  style={{ willChange: 'transform' }}
                 >
                 <img
                   src="/images/myImage.jpg"
                   alt="Nawfel Boulkroune"
-                    className={`w-full h-full object-cover transition-all duration-500 ${
+                    className={`w-full h-full object-cover ${
                       imageLoaded ? "opacity-100" : "opacity-0"
                     }`}
+                    style={{ 
+                      willChange: 'opacity',
+                      transition: 'opacity 0.3s ease-out'
+                    }}
                     onLoad={() => setImageLoaded(true)}
+                    onError={() => setImageError(true)}
                   />
                   
                   {/* Overlay gradient */}
@@ -419,10 +417,9 @@ const HeroSection = () => {
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                 >
                   <div className="flex items-center gap-2">
-                    <motion.span 
-                      className="text-xl"
+                    <motion.div 
+                      className="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center"
                       animate={{
-                        rotate: [0, 15, -15, 0],
                         scale: [1, 1.1, 1],
                       }}
                       transition={{
@@ -431,9 +428,9 @@ const HeroSection = () => {
                         ease: "easeInOut",
                       }}
                     >
-                      🚀
-                    </motion.span>
-                    <span className="text-sm font-medium text-light">3+ Years</span>
+                      <span className="text-xs font-bold text-dark">3+</span>
+                    </motion.div>
+                    <span className="text-sm font-medium text-light">Years Exp</span>
               </div>
             </motion.div>
           </motion.div>
@@ -455,71 +452,32 @@ const HeroSection = () => {
             <p className="text-light-300/60">Technologies I work with</p>
           </div>
 
-          {/* Marquee container */}
-          <div className="marquee-container">
-            <div className="flex gap-8 animate-marquee">
-              {[...skills, ...skills].map((skill, index) => (
-                <motion.div
+          {/* Infinite scrolling marquee */}
+          <div className="skills-marquee-wrapper">
+            <div className="skills-marquee">
+              {[...skills, ...skills, ...skills].map((skill, index) => (
+                <div
                   key={index}
                   className="flex flex-col items-center gap-3 flex-shrink-0 px-4 py-3 rounded-2xl bg-dark-200/50 border border-white/5 hover:border-primary/20 hover:bg-dark-200 transition-all duration-300 group cursor-pointer"
-                  animate={{
-                    y: [0, -6, 0],
-                  }}
-                  transition={{
-                    duration: 4 + (index % 3) * 0.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: (index % 3) * 0.3,
-                  }}
-                  whileHover={{ y: -4, scale: 1.05 }}
                 >
-                  <motion.div 
+                  <div 
                     className="w-10 h-10 flex items-center justify-center rounded-xl bg-dark-300/50 group-hover:bg-primary/10 transition-colors"
-                    animate={{
-                      rotate: [0, 5, -5, 0],
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: index * 0.1,
-                    }}
                 >
                   <img
                     src={skill.icon}
                     alt={skill.name}
                       className="w-6 h-6 object-contain"
                   />
-                  </motion.div>
+                  </div>
                   <span className="text-sm text-light-300/80 whitespace-nowrap group-hover:text-light transition-colors">
                     {skill.name}
                   </span>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
         </motion.div>
         </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-      >
-        <motion.div
-          className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <motion.div
-            className="w-1.5 h-1.5 bg-primary rounded-full"
-            animate={{ opacity: [1, 0, 1], y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
