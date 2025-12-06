@@ -107,24 +107,22 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
   }, [currentIndex]);
 
   return (
-    <div className="relative">
+    <div className="relative px-2 sm:px-0">
       <div className="relative flex items-center justify-center">
         {/* Prev button */}
-        <motion.button
+        <button
           onClick={prevImage}
-          className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          className="absolute left-0 sm:left-2 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all active:scale-90"
         >
-          <FaChevronLeft className="w-4 h-4" />
-        </motion.button>
+          <FaChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+        </button>
 
         {/* Device mockup */}
         <div
-          className={`mx-12 sm:mx-16 ${platformKey === "mobile"
-            ? "w-48 sm:w-56 md:w-64"
+          className={`mx-10 sm:mx-16 ${platformKey === "mobile"
+            ? "w-44 sm:w-56 md:w-64"
             : platformKey === "tablet"
-              ? "w-72 sm:w-96 md:w-[28rem]"
+              ? "w-64 sm:w-96 md:w-[28rem]"
               : "w-full max-w-xl md:max-w-2xl"
             }`}
         >
@@ -152,14 +150,12 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
         </div>
 
         {/* Next button */}
-        <motion.button
+        <button
           onClick={nextImage}
-          className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          className="absolute right-0 sm:right-2 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all active:scale-90"
         >
-          <FaChevronRight className="w-4 h-4" />
-        </motion.button>
+          <FaChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
+        </button>
       </div>
 
       {/* Indicators */}
