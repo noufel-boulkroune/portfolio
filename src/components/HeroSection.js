@@ -1,5 +1,5 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { ChevronRight, Download, Sparkles } from "lucide-react";
+import { Download, Sparkles, ArrowRight, Play, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -22,11 +22,13 @@ const HeroSection = () => {
     { name: "Flutter", icon: "/images/SVG/flutter-icon.svg" },
     { name: "Dart", icon: "/images/SVG/dart-icon.svg" },
     { name: "Firebase", icon: "/images/SVG/firebase-icon.svg" },
+    { name: "Clean Architecture", icon: "/images/SVG/state-managment.svg" },
+    { name: "BLoC", icon: "/images/SVG/state-managment.svg" },
     { name: "REST API", icon: "/images/SVG/rest-api-icon.svg" },
-    { name: "iOS", icon: "/images/SVG/ios-icon.svg" },
-    { name: "Android", icon: "/images/SVG/android-icon.svg" },
     { name: "Provider", icon: "/images/SVG/state-managment.svg" },
     { name: "GetX", icon: "/images/SVG/state-managment.svg" },
+    { name: "iOS", icon: "/images/SVG/ios-icon.svg" },
+    { name: "Android", icon: "/images/SVG/android-icon.svg" },
   ];
 
   const containerVariants = {
@@ -114,9 +116,9 @@ const HeroSection = () => {
             {/* Description */}
             <motion.p
               variants={itemVariants}
-              className="text-lg text-light-300/80 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed text-justify"
+              className="text-lg text-light-300/80 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
             >
-              Hey! I'm Nawfel, and I build mobile apps. For the past <span className="text-primary font-semibold">3 years</span>, I've been creating apps that look good and work great. I use <span className="text-accent font-semibold">Flutter</span> to build for both <span className="text-secondary font-semibold">Android and iOS</span> at once, which saves time and keeps things simple. I work with Firebase, REST APIs, and Provider to make apps that are fast and easy to use. I've put several apps on the Play Store and App Store that solve real problems for real people. I love learning new things and taking on fresh challenges.
+              I build <span className="text-primary font-semibold">high-performance</span> mobile apps that help businesses grow. With <span className="text-accent font-semibold">3+ years</span> of Flutter experience, I've shipped <span className="text-secondary font-semibold">10+ apps</span> to the Play Store and App Store. Let's turn your app idea into reality.
             </motion.p>
 
             {/* Stats - No floating animation */}
@@ -127,7 +129,7 @@ const HeroSection = () => {
               {[
                 { value: "3+", label: "Years Exp" },
                 { value: "10+", label: "Projects" },
-                { value: "5+", label: "Play Store Apps" },
+                { value: "5+", label: "Published Apps" },
               ].map((stat, index) => (
                 <div
                   key={index}
@@ -143,34 +145,55 @@ const HeroSection = () => {
               ))}
             </motion.div>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons - Enhanced */}
             <motion.div
               variants={itemVariants}
               className="flex flex-wrap justify-center lg:justify-start gap-4"
             >
-              <a
+              {/* Primary CTA */}
+              <motion.a
                 href="#projects"
                 className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary/80 text-dark font-semibold rounded-xl hover:shadow-glow transition-all duration-300 active:scale-95"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
-                View Projects
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+                <Play className="w-5 h-5" />
+                View My Work
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </motion.a>
 
+              {/* Secondary CTA */}
+              <motion.a
+                href="#contact"
+                className="group flex items-center gap-2 px-6 py-3 bg-transparent border border-white/20 text-light font-medium rounded-xl hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 active:scale-95"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="w-5 h-5" />
+                Get In Touch
+              </motion.a>
+            </motion.div>
+
+            {/* Tertiary Actions */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-wrap justify-center lg:justify-start gap-4 mt-4"
+            >
               <a
                 href="/Doc/Mobile-dev-nawfel_boulkroune_cv.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-transparent border border-white/20 text-light font-medium rounded-xl hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 active:scale-95"
+                className="flex items-center gap-2 px-4 py-2 text-sm text-light-300/70 hover:text-primary transition-colors"
               >
-                <Download className="w-5 h-5" />
-                Resume
+                <Download className="w-4 h-4" />
+                Download Resume
               </a>
             </motion.div>
 
             {/* Social Links - No animation */}
             <motion.div
               variants={itemVariants}
-              className="flex justify-center lg:justify-start gap-4 mt-8"
+              className="flex justify-center lg:justify-start gap-4 mt-6"
             >
               {[
                 {
@@ -184,16 +207,18 @@ const HeroSection = () => {
                   label: "LinkedIn",
                 },
               ].map((social, index) => (
-                <a
+                <motion.a
                   key={index}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center rounded-xl bg-dark-200/80 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 active:scale-95"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-dark-200/80 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
                   aria-label={social.label}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <social.icon className="w-5 h-5" />
-                </a>
+                </motion.a>
               ))}
             </motion.div>
           </div>
@@ -315,12 +340,35 @@ const HeroSection = () => {
                       className="w-6 h-6 object-contain"
                     />
                   </div>
-                  <span className="text-sm text-light-300/80 whitespace-nowrap group-hover:text-light transition-colors">
-                    {skill.name}
+                  <span 
+                    className="text-sm text-light-300/80 whitespace-nowrap group-hover:text-light transition-colors max-w-[80px] truncate"
+                    title={skill.name}
+                  >
+                    {skill.name === "Clean Architecture" ? "Clean Arch..." : skill.name}
                   </span>
                 </div>
               ))}
             </div>
+          </div>
+        </motion.div>
+
+        {/* Trust Indicators */}
+        <motion.div
+          className="mt-16 pt-8 border-t border-white/5"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.6 }}
+        >
+          <p className="text-center text-light-300/40 text-sm mb-6">
+            Trusted by clients from different industries
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
+            {/* Client logos/names - using text as placeholder */}
+            {["Mziya", "Snay3i", "Azougui", "Laffaiire", "Sofa"].map((client) => (
+              <span key={client} className="text-light-300/60 font-semibold text-lg">
+                {client}
+              </span>
+            ))}
           </div>
         </motion.div>
       </div>

@@ -94,7 +94,7 @@ const ContactSection = () => {
     {
       icon: MapPin,
       label: "Location",
-      value: "Algeria",
+      value: "Algeria (Remote)",
       href: null,
     },
   ];
@@ -161,8 +161,9 @@ const ContactSection = () => {
             <span className="gradient-text-static">Together</span>
       </h2>
 
-          <p className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg text-justify">
-            Got a project idea or want to team up? I'd love to hear from you. Send me a message and let's build something great together.
+          <p className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg">
+            Have a project in mind? I'd love to hear about it. Send me a message 
+            and I'll get back to you as soon as possible.
           </p>
         </motion.div>
 
@@ -176,6 +177,7 @@ const ContactSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl p-6 sm:p-8 border border-white/5 shadow-xl focus-within:border-primary/20 focus-within:ring-2 focus-within:ring-primary/10 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-300">
+              <h3 className="text-xl font-semibold text-light mb-6">Send a Message</h3>
           <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form" noValidate>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* First Name */}
@@ -344,18 +346,7 @@ const ContactSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  animate={{
-                    y: [0, -4, 0],
-                  }}
-                  transition={{
-                    opacity: { delay: 0.1 * index, duration: 0.6 },
-                    y: {
-                      duration: 3 + index * 0.3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: index * 0.2,
-                    },
-                  }}
+                  transition={{ delay: 0.1 * index, duration: 0.6 }}
                 >
                   {info.href ? (
                     <motion.a
@@ -365,20 +356,9 @@ const ContactSection = () => {
                       className="flex items-center gap-4 p-4 bg-dark-100/50 rounded-xl border border-white/5 hover:border-primary/20 hover:bg-dark-100 transition-all duration-300 group"
                       whileHover={{ scale: 1.02, y: -2 }}
                     >
-                      <motion.div 
-                        className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors"
-                        animate={{
-                          rotate: [0, 5, -5, 0],
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: index * 0.3,
-                        }}
-                      >
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                         <info.icon className="w-5 h-5 text-primary" />
-                      </motion.div>
+                      </div>
                       <div>
                         <p className="text-xs text-light-300/60 uppercase tracking-wider">
                           {info.label}
@@ -393,20 +373,9 @@ const ContactSection = () => {
                       className="flex items-center gap-4 p-4 bg-dark-100/50 rounded-xl border border-white/5"
                       whileHover={{ scale: 1.02, y: -2 }}
                     >
-                      <motion.div 
-                        className="w-12 h-12 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center"
-                        animate={{
-                          rotate: [0, 5, -5, 0],
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: index * 0.3,
-                        }}
-                      >
+                      <div className="w-12 h-12 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center">
                         <info.icon className="w-5 h-5 text-secondary" />
-                      </motion.div>
+                      </div>
                       <div>
                         <p className="text-xs text-light-300/60 uppercase tracking-wider">
                           {info.label}
@@ -431,8 +400,25 @@ const ContactSection = () => {
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 <span className="text-sm font-medium text-accent">Available for hire</span>
               </div>
-              <p className="text-light-300/70 text-sm text-justify">
+              <p className="text-light-300/70 text-sm">
                 I'm open to freelance work and full-time jobs. Let's talk about how I can help turn your app idea into reality.
+              </p>
+            </motion.div>
+
+            {/* Response Time */}
+            <motion.div
+              className="p-6 bg-dark-100/50 rounded-xl border border-white/5"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <Mail className="w-5 h-5 text-primary" />
+                <span className="font-medium text-light">Fast Response Time</span>
+              </div>
+              <p className="text-light-300/60 text-sm">
+                I typically respond to all inquiries within 24 hours during business days.
               </p>
             </motion.div>
           </motion.div>
@@ -447,7 +433,10 @@ const ContactSection = () => {
           transition={{ delay: 0.6 }}
         >
           <p className="text-light-300/50 text-sm">
-            © {new Date().getFullYear()} Nawfel Boulkroune
+            © {new Date().getFullYear()} Nawfel Boulkroune. All rights reserved.
+          </p>
+          <p className="text-light-300/30 text-xs mt-2">
+            Built with React, Tailwind CSS & Framer Motion
           </p>
         </motion.div>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Briefcase } from "lucide-react";
 import ProjectCard from "./ProjectCard";
 
 const ProjectsSection = ({ projects }) => {
@@ -74,12 +75,13 @@ const ProjectsSection = ({ projects }) => {
           transition={{ duration: 0.6 }}
         >
           <motion.span
-            className="inline-block px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-6"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           >
+            <Briefcase className="w-3.5 h-3.5" />
             Featured Work
           </motion.span>
 
@@ -114,9 +116,7 @@ const ProjectsSection = ({ projects }) => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {projects
-            .filter((project) => project.title !== "Sofa")
-            .map((project, index) => (
+          {projects.map((project, index) => (
               <motion.div
                 key={project.title}
                 variants={itemVariants}

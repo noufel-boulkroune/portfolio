@@ -1,7 +1,7 @@
 import React, { useState, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGooglePlay, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { Smartphone, Tablet, Tv, ExternalLink } from "lucide-react";
+import { Smartphone, Tablet, Tv, ExternalLink, Star } from "lucide-react";
 
 // Simple image component
 const LazyImage = memo(({ src, alt, className, objectFit = "cover" }) => {
@@ -18,15 +18,18 @@ const LazyImage = memo(({ src, alt, className, objectFit = "cover" }) => {
 
       {isError && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          <div className="text-light-300/40 text-center text-sm">Failed to load</div>
+          <div className="text-light-300/40 text-center text-sm">
+            Failed to load
+          </div>
         </div>
       )}
 
       <img
         src={src}
         alt={alt}
-        className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"
-          } ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
+        className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        } ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
         onLoad={() => setIsLoaded(true)}
         onError={() => setIsError(true)}
       />
@@ -101,10 +104,13 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   }, [images.length]);
 
-  const goToImage = useCallback((idx) => {
-    setDirection(idx > currentIndex ? 1 : -1);
-    setCurrentIndex(idx);
-  }, [currentIndex]);
+  const goToImage = useCallback(
+    (idx) => {
+      setDirection(idx > currentIndex ? 1 : -1);
+      setCurrentIndex(idx);
+    },
+    [currentIndex],
+  );
 
   return (
     <div className="relative px-2 sm:px-0">
@@ -119,12 +125,13 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
 
         {/* Device mockup */}
         <div
-          className={`mx-10 sm:mx-16 ${platformKey === "mobile"
-            ? "w-44 sm:w-56 md:w-64"
-            : platformKey === "tablet"
-              ? "w-64 sm:w-96 md:w-[28rem]"
-              : "w-full max-w-xl md:max-w-2xl"
-            }`}
+          className={`mx-10 sm:mx-16 ${
+            platformKey === "mobile"
+              ? "w-44 sm:w-56 md:w-64"
+              : platformKey === "tablet"
+                ? "w-64 sm:w-96 md:w-[28rem]"
+                : "w-full max-w-xl md:max-w-2xl"
+          }`}
         >
           <MockupComponent>
             <AnimatePresence mode="wait" custom={direction}>
@@ -164,10 +171,11 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
           <button
             key={idx}
             onClick={() => goToImage(idx)}
-            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex
-              ? "bg-primary w-4"
-              : "bg-white/20 hover:bg-white/40"
-              }`}
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+              idx === currentIndex
+                ? "bg-primary w-4"
+                : "bg-white/20 hover:bg-white/40"
+            }`}
           />
         ))}
       </div>
@@ -223,11 +231,7 @@ const platforms = [
       "/images/sofa_tab12.png",
       "/images/sofa_tab13.png",
     ],
-    features: [
-      "Redesigned Screens",
-      "Enhanced Discovery",
-      "Adaptive Layout",
-    ],
+    features: ["Redesigned Screens", "Enhanced Discovery", "Adaptive Layout"],
   },
   {
     key: "tv",
@@ -262,10 +266,11 @@ const PlatformCard = memo(({ platform, index }) => {
 
   return (
     <motion.div
-      className={`grid gap-8 lg:gap-12 items-center ${index % 2 === 0
-        ? "lg:grid-cols-[1fr,1.5fr]"
-        : "lg:grid-cols-[1.5fr,1fr]"
-        }`}
+      className={`grid gap-8 lg:gap-12 items-center ${
+        index % 2 === 0
+          ? "lg:grid-cols-[1fr,1.5fr]"
+          : "lg:grid-cols-[1.5fr,1fr]"
+      }`}
       initial={{ opacity: 0, y: 60, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -297,7 +302,9 @@ const PlatformCard = memo(({ platform, index }) => {
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-light">
               {platform.title}
             </h3>
-            <p className="text-sm lg:text-base text-light-300/60">{platform.subtitle}</p>
+            <p className="text-sm lg:text-base text-light-300/60">
+              {platform.subtitle}
+            </p>
           </div>
         </motion.div>
 
@@ -389,13 +396,14 @@ const SofaShowcaseSection = () => {
           transition={{ duration: 0.6 }}
         >
           <motion.span
-            className="inline-block px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20 mb-6"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           >
-            Latest Project
+            <Star className="w-3.5 h-3.5" />
+            Project Deep Dive
           </motion.span>
 
           <motion.h2
@@ -416,14 +424,21 @@ const SofaShowcaseSection = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            A video streaming app I built with Flutter that works on phones, tablets, and Android TV. It uses MVVM architecture, connects to REST APIs, supports Google Cast, and adjusts video quality automatically. I brought the loading time down from 8-10 seconds to under 1 second.
+            A video streaming app I built with Flutter that works on phones,
+            tablets, and Android TV. It uses MVVM architecture, connects to REST
+            APIs, supports Google Cast, and adjusts video quality automatically.
+            I brought the loading time down from 8-10 seconds to under 1 second.
           </motion.p>
         </motion.div>
 
         {/* Platform Cards */}
         <div className="space-y-20 lg:space-y-32">
           {platforms.map((platform, index) => (
-            <PlatformCard key={platform.key} platform={platform} index={index} />
+            <PlatformCard
+              key={platform.key}
+              platform={platform}
+              index={index}
+            />
           ))}
         </div>
 
@@ -437,7 +452,7 @@ const SofaShowcaseSection = () => {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            5k+ Downloads
+            10k+ Downloads
           </div>
 
           <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-light mb-4">
@@ -445,7 +460,8 @@ const SofaShowcaseSection = () => {
           </h3>
 
           <p className="text-light-300/60 mb-8 max-w-lg mx-auto text-base lg:text-lg text-justify">
-            A ready-to-use streaming app that works in multiple languages, made for users in Algeria.
+            A ready-to-use streaming app that works in multiple languages, made
+            for users in Algeria.
           </p>
 
           <motion.a

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Briefcase } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
@@ -11,7 +11,18 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
       setScrolled(window.scrollY > 20);
 
       // Update active section based on scroll position
-      const sections = ["about", "sofaShowcaseSection", "projects", "contact"];
+      const sections = [
+        "about", 
+        "services", 
+        "experience", 
+        "skills",
+        "sofaShowcaseSection", 
+        "projects", 
+        "testimonials",
+        "why-hire-me",
+        "faq",
+        "contact"
+      ];
       const scrollPosition = window.scrollY + 150;
 
       for (const section of sections) {
@@ -32,8 +43,10 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
 
   const navLinks = [
     { href: "#about", label: "About", id: "about" },
-    { href: "#sofaShowcaseSection", label: "Latest Project", id: "sofaShowcaseSection" },
+    { href: "#services", label: "Services", id: "services" },
+    { href: "#experience", label: "Experience", id: "experience" },
     { href: "#projects", label: "Projects", id: "projects" },
+    { href: "#testimonials", label: "Testimonials", id: "testimonials" },
     { href: "#contact", label: "Contact", id: "contact" },
   ];
 
@@ -87,13 +100,13 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
             </motion.a>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.id}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark ${
+                  className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark ${
                     activeSection === link.id
                       ? "text-primary"
                       : "text-light-300 hover:text-white hover:bg-dark-200/50"
@@ -118,26 +131,25 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
                 </motion.a>
               ))}
 
-              {/* Resume Button */}
+              {/* Hire Me Button */}
               <motion.a
-                href="/Doc/Mobile-dev-nawfel_boulkroune_cv.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-4 px-5 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/30 text-primary hover:border-primary/60 hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark transition-all duration-300"
+                href="#contact"
+                onClick={(e) => handleNavClick(e, "#contact")}
+                className="ml-4 px-5 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-primary to-primary/80 text-dark hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark transition-all duration-300"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.4 }}
-                aria-label="Download resume (opens in new tab)"
+                aria-label="Hire me - Go to contact section"
               >
-                Resume
+                Hire Me
               </motion.a>
             </nav>
 
             {/* Mobile Menu Button */}
             <motion.button
-              className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl bg-dark-200/80 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark"
+              className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-xl bg-dark-200/80 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -179,7 +191,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -189,7 +201,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
             {/* Menu Panel */}
             <motion.div
               id="mobile-menu"
-              className="fixed top-0 right-0 bottom-0 w-[280px] bg-dark-100/95 backdrop-blur-xl border-l border-white/5 z-50 md:hidden"
+              className="fixed top-0 right-0 bottom-0 w-[300px] bg-dark-100/95 backdrop-blur-xl border-l border-white/5 z-50 lg:hidden"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -235,20 +247,22 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
                   ))}
                 </nav>
 
-                {/* Resume Button */}
+                {/* Hire Me Button */}
                 <motion.a
-                  href="/Doc/Mobile-dev-nawfel_boulkroune_cv.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#contact"
+                  onClick={(e) => handleNavClick(e, "#contact")}
                   className="mt-6 px-4 py-3 text-center text-lg font-semibold rounded-xl bg-gradient-to-r from-primary to-secondary text-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-100 transition-all duration-300"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.3 }}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  aria-label="Download resume (opens in new tab)"
+                  aria-label="Hire me - Go to contact section"
                 >
-                  Download Resume
+                  <span className="flex items-center justify-center gap-2">
+                    <Briefcase className="w-5 h-5" />
+                    Hire Me
+                  </span>
                 </motion.a>
 
                 {/* Social Links */}

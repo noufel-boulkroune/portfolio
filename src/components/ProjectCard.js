@@ -191,7 +191,7 @@ const ProjectCard = ({ project }) => {
                 Key Features
             </h4>
               <ul className="space-y-2">
-                {project.tasks.slice(0, 4).map((task, idx) => (
+                {project.tasks.map((task, idx) => (
                 <motion.li
                     key={idx}
                     className="flex items-start gap-3 text-sm text-light-300/80"
@@ -206,6 +206,25 @@ const ProjectCard = ({ project }) => {
               ))}
             </ul>
           </div>
+
+            {/* Skills */}
+            {project.skills && (
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">
+                  Tech Stack
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.skills.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 text-xs rounded-full bg-dark-300/50 text-light-300/80 border border-white/5"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Store Links */}
             <div className="flex flex-wrap gap-3 mt-auto">

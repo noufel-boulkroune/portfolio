@@ -2,10 +2,16 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import ProjectsSection from "./components/ProjectsSection";
+import ServicesSection from "./components/ServicesSection";
+import ExperienceSection from "./components/ExperienceSection";
 import SofaShowcaseSection from "./components/SofaShowcaseSection";
-import ContactSection from "./components/ContactSection";
+import ProjectsSection from "./components/ProjectsSection";
 import LearningProjectsSection from "./components/LearningProjectsSection";
+// import TestimonialsSection from "./components/TestimonialsSection";
+import WhyHireMeSection from "./components/WhyHireMeSection";
+// import FAQSection from "./components/FAQSection";
+import ContactSection from "./components/ContactSection";
+// import FloatingCTA from "./components/FloatingCTA";
 import projects from "./data/projectsData";
 
 // Loading screen component
@@ -74,7 +80,7 @@ const ScrollToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          className="fixed bottom-8 right-8 z-40 w-12 h-12 rounded-full bg-primary/90 text-dark flex items-center justify-center shadow-glow hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark transition-colors"
+          className="fixed bottom-8 left-8 z-40 w-12 h-12 rounded-full bg-dark-200/90 text-light flex items-center justify-center border border-white/10 hover:border-primary/30 hover:text-primary transition-colors"
           onClick={scrollToTop}
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -144,6 +150,12 @@ const Portfolio = () => {
           {/* Hero Section */}
           <HeroSection />
 
+          {/* Services Section - NEW */}
+          <ServicesSection />
+
+          {/* Experience Section - NEW */}
+          <ExperienceSection />
+
           {/* Sofa Showcase - Latest Project */}
           <SofaShowcaseSection />
 
@@ -153,9 +165,21 @@ const Portfolio = () => {
           {/* Learning Projects */}
           <LearningProjectsSection />
 
+          {/* Testimonials Section - NEW */}
+          {/* <TestimonialsSection /> */}
+
+          {/* Why Hire Me Section - NEW */}
+          <WhyHireMeSection />
+
+          {/* FAQ Section - NEW */}
+          {/* <FAQSection /> */}
+
           {/* Contact */}
           <ContactSection />
         </main>
+
+        {/* Floating CTA - NEW */}
+        {/* <FloatingCTA /> */}
 
         {/* Scroll to top button */}
         <ScrollToTop />
