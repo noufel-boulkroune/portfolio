@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Send, MapPin, Loader2, CheckCircle, XCircle } from "lucide-react";
+import { Mail, Github, Linkedin, Send, MapPin, Loader2, CheckCircle, XCircle, MessageCircle } from "lucide-react";
 import emailjs from "emailjs-com";
 
 const ContactSection = () => {
@@ -147,12 +147,13 @@ const ContactSection = () => {
           transition={{ duration: 0.6 }}
         >
           <motion.span
-            className="inline-block px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-6"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
+            <MessageCircle className="w-3.5 h-3.5" />
             Get In Touch
           </motion.span>
 
@@ -167,16 +168,16 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 max-w-6xl mx-auto items-stretch">
           {/* Contact Form */}
           <motion.div
-            className="lg:col-span-3"
+            className="lg:col-span-3 h-full"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl p-6 sm:p-8 border border-white/5 shadow-xl focus-within:border-primary/20 focus-within:ring-2 focus-within:ring-primary/10 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-300">
+            <div className="relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl p-6 sm:p-8 border border-white/5 shadow-xl focus-within:border-primary/20 focus-within:ring-2 focus-within:ring-primary/10 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-300 h-full">
               <h3 className="text-xl font-semibold text-light mb-6">Send a Message</h3>
           <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form" noValidate>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -333,13 +334,13 @@ const ContactSection = () => {
 
           {/* Contact Info */}
           <motion.div
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 space-y-6 h-full flex flex-col"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="space-y-4">
+            <div className="space-y-4 flex-1 flex flex-col justify-between">
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={info.label}

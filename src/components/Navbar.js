@@ -18,9 +18,9 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
         "skills",
         "sofaShowcaseSection", 
         "projects", 
-        "testimonials",
+        // "testimonials",
         "why-hire-me",
-        "faq",
+        // "faq",
         "contact"
       ];
       const scrollPosition = window.scrollY + 150;
@@ -46,7 +46,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
     { href: "#services", label: "Services", id: "services" },
     { href: "#experience", label: "Experience", id: "experience" },
     { href: "#projects", label: "Projects", id: "projects" },
-    { href: "#testimonials", label: "Testimonials", id: "testimonials" },
+    // { href: "#testimonials", label: "Testimonials", id: "testimonials" },
     { href: "#contact", label: "Contact", id: "contact" },
   ];
 
