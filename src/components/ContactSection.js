@@ -436,9 +436,9 @@ const ContactSection = () => {
           <p className="text-light-300/50 text-sm">
             © {new Date().getFullYear()} Nawfel Boulkroune. All rights reserved.
           </p>
-          <p className="text-light-300/30 text-xs mt-2">
+          {/* <p className="text-light-300/30 text-xs mt-2">
             Built with React, Tailwind CSS & Framer Motion
-          </p>
+          </p> */}
         </motion.div>
       </div>
     </section>
