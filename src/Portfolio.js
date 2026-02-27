@@ -14,48 +14,6 @@ import ContactSection from "./components/ContactSection";
 // import FloatingCTA from "./components/FloatingCTA";
 import projects from "./data/projectsData";
 
-// Loading screen component
-const LoadingScreen = ({ onComplete }) => {
-  useEffect(() => {
-    const timer = setTimeout(onComplete, 2000);
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-dark"
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="text-center">
-        <motion.div
-          className="text-4xl sm:text-5xl font-bold mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="gradient-text-static">Nawfel</span>
-        </motion.div>
-
-        {/* Loading bar */}
-        <motion.div
-          className="w-48 h-1 bg-dark-200 rounded-full overflow-hidden mx-auto"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          <motion.div
-            className="h-full bg-gradient-to-r from-primary to-secondary rounded-full"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-          />
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-};
-
 // Scroll to top button
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -111,7 +69,6 @@ const ScrollToTop = () => {
 
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   // Disable scroll when menu is open
   useEffect(() => {
@@ -124,14 +81,10 @@ const Portfolio = () => {
 
   return (
     <>
-      <AnimatePresence>
-        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-      </AnimatePresence>
-
       <motion.div
         className="relative bg-dark min-h-screen"
         initial={{ opacity: 0 }}
-        animate={{ opacity: isLoading ? 0 : 1 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
         {/* Skip to main content link for accessibility */}

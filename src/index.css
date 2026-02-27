@@ -133,17 +133,25 @@ img.lazy-load.loaded {
 
 /* Glass morphism utility */
 .glass {
-  background: rgba(22, 22, 29, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 15, 20, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  background: rgba(20, 20, 25, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .glass-strong {
-  background: rgba(22, 22, 29, 0.9);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Gradient text utility */
@@ -167,16 +175,18 @@ img.lazy-load.loaded {
 .btn-primary {
   background: linear-gradient(135deg, #00D4FF 0%, #00A3CC 100%);
   color: #0A0A0F;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.25);
+  font-weight: 700;
+  padding: 0.85rem 1.75rem;
+  border-radius: 14px;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3), inset 0 -2px 0 rgba(0,0,0,0.2);
+  letter-spacing: 0.5px;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 212, 255, 0.35);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5), inset 0 -2px 0 rgba(0,0,0,0.2);
+  background: linear-gradient(135deg, #1ae0ff 0%, #00bfff 100%);
 }
 
 .btn-secondary {
@@ -196,16 +206,19 @@ img.lazy-load.loaded {
 
 /* Card styles */
 .card {
-  background: linear-gradient(180deg, rgba(30, 30, 38, 0.6) 0%, rgba(16, 16, 29, 0.8) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(160deg, rgba(30, 30, 40, 0.7) 0%, rgba(15, 15, 20, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 .card:hover {
-  border-color: rgba(0, 212, 255, 0.2);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 212, 255, 0.08);
-  transform: translateY(-4px);
+  border-color: rgba(0, 212, 255, 0.3);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 212, 255, 0.15);
+  transform: translateY(-8px) scale(1.01);
 }
 
 /* Phone mockup styles */

@@ -1,5 +1,5 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { Download, Sparkles, ArrowRight, Play, Mail } from "lucide-react";
+import { Download, ArrowRight, Play, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -94,9 +94,12 @@ const HeroSection = () => {
             {/* Greeting Badge */}
             <motion.div
               variants={itemVariants}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-200/80 border border-white/10 mb-6"
+              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-dark-200/80 border border-white/10 mb-6 shadow-[0_0_20px_rgba(0,212,255,0.1)] backdrop-blur-md"
             >
-              <Sparkles className="w-4 h-4 text-primary" />
+              <div className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+              </div>
               <span className="text-sm font-medium text-light-300">
                 Available for new projects
               </span>
@@ -131,17 +134,18 @@ const HeroSection = () => {
                 { value: "10+", label: "Projects" },
                 { value: "5+", label: "Published Apps" },
               ].map((stat, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="text-center p-4 rounded-2xl bg-dark-200/50 border border-white/5 hover:border-primary/20 transition-colors duration-300"
+                  className="text-center p-5 rounded-2xl bg-dark-200/40 border border-white/10 hover:border-primary/30 hover:bg-dark-200/60 transition-all duration-300 shadow-lg backdrop-blur-sm group"
+                  whileHover={{ y: -5 }}
                 >
-                  <div className="text-2xl sm:text-3xl font-bold gradient-text-static">
+                  <div className="text-2xl sm:text-3xl font-bold gradient-text-static group-hover:scale-110 transition-transform duration-300 inline-block">
                     {stat.value}
                   </div>
-                  <div className="text-xs sm:text-sm text-light-300/60 mt-1">
+                  <div className="text-xs sm:text-sm text-light-300/70 mt-2 font-medium">
                     {stat.label}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
 
@@ -267,44 +271,48 @@ const HeroSection = () => {
               )}
 
               {/* Profile Image Container */}
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+              <motion.div 
+                className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 group"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 {/* Profile Image - no JS state for loading, pure CSS */}
                 <div
-                  className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 shadow-2xl bg-dark-200"
+                  className="relative w-full h-full rounded-full overflow-hidden border-4 border-dark-100 shadow-[0_0_40px_rgba(0,212,255,0.15)] group-hover:shadow-[0_0_60px_rgba(0,212,255,0.3)] transition-shadow duration-500 bg-dark-200 z-10"
                 >
                   <img
                     src="/images/myImage.jpg"
                     alt="Nawfel Boulkroune"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
                     decoding="async"
                     fetchpriority="high"
                   />
                   
                   {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/30 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 {/* Floating badges - static on mobile */}
                 <div
-                  className="absolute -right-2 sm:-right-4 top-6 sm:top-8 px-3 sm:px-4 py-2 bg-dark-100/90 backdrop-blur-sm rounded-xl border border-white/10 shadow-lg"
+                  className="absolute -right-2 sm:-right-4 top-6 sm:top-8 px-4 sm:px-5 py-2.5 bg-dark-100/90 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl z-20 group-hover:-translate-y-2 transition-transform duration-500"
                 >
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                    <span className="text-xs sm:text-sm font-medium text-light">Mobile Dev</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_10px_currentColor]" />
+                    <span className="text-xs sm:text-sm font-bold text-light tracking-wide">Mobile Dev</span>
                   </div>
                 </div>
 
                 <div
-                  className="absolute -left-2 sm:-left-4 bottom-10 sm:bottom-12 px-3 sm:px-4 py-2 bg-dark-100/90 backdrop-blur-sm rounded-xl border border-white/10 shadow-lg"
+                  className="absolute -left-2 sm:-left-4 bottom-10 sm:bottom-12 px-4 sm:px-5 py-2.5 bg-dark-100/90 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl z-20 group-hover:translate-y-2 transition-transform duration-500"
                 >
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 sm:w-6 h-5 sm:h-6 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 sm:w-7 h-6 sm:h-7 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
                       <span className="text-[10px] sm:text-xs font-bold text-dark">3+</span>
                     </div>
-                    <span className="text-xs sm:text-sm font-medium text-light">Years Exp</span>
+                    <span className="text-xs sm:text-sm font-bold text-light tracking-wide">Years Exp</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>

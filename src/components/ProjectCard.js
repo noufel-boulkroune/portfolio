@@ -149,17 +149,17 @@ const ProjectCard = ({ project }) => {
   return (
     <>
       <motion.article
-        className="group relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl overflow-hidden border border-white/5 hover:border-primary/20 focus-within:border-primary/30 focus-within:ring-2 focus-within:ring-primary/20 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-500"
+        className="group relative bg-dark-200/40 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/10 hover:border-primary/40 hover:bg-dark-200/80 hover:shadow-[0_10px_50px_-10px_rgba(0,212,255,0.2)] focus-within:border-primary/30 focus-within:ring-2 focus-within:ring-primary/20 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-500"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ y: -4 }}
+        whileHover={{ y: -8, scale: 1.01 }}
         role="article"
         aria-labelledby={`project-title-${project.title.replace(/\s+/g, '-').toLowerCase()}`}
       >
         {/* Glow effect on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
         <div className="relative flex flex-col lg:flex-row">
           {/* Content Side */}
@@ -233,7 +233,7 @@ const ProjectCard = ({ project }) => {
                   href={project.playStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-300/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-dark-200/50 backdrop-blur-md border border-white/10 text-light hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   aria-label={`View ${project.title} on Google Play Store (opens in new tab)`}
@@ -248,7 +248,7 @@ const ProjectCard = ({ project }) => {
                   href={project.appStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-300/80 border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-dark-200/50 backdrop-blur-md border border-white/10 text-light hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   aria-label={`View ${project.title} on App Store (opens in new tab)`}

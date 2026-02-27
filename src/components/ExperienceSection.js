@@ -67,11 +67,14 @@ const ExperienceCard = ({ experience, index }) => {
       {/* Content Card */}
       <div className={`w-full lg:w-[calc(50%-40px)] ${isEven ? 'lg:pr-0 lg:text-right' : 'lg:pl-0 lg:text-left'}`}>
         <motion.div
-          className="group relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-2xl p-6 border border-white/5 hover:border-primary/20 transition-all duration-500"
-          whileHover={{ y: -4, scale: 1.02 }}
+          className="group relative bg-dark-200/40 backdrop-blur-md rounded-3xl p-6 lg:p-8 border border-white/10 hover:border-primary/40 hover:bg-dark-200/80 transition-all duration-500 shadow-lg hover:shadow-[0_10px_40px_-10px_rgba(0,212,255,0.3)]"
+          whileHover={{ y: -6, scale: 1.02 }}
         >
+          {/* Subtle glow effect behind card on hover */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
+          
           {/* Header */}
-          <div className={`flex flex-col ${isEven ? 'lg:items-end' : 'lg:items-start'} mb-4`}>
+          <div className={`relative flex flex-col ${isEven ? 'lg:items-end' : 'lg:items-start'} mb-4 z-10`}>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-3">
               <Calendar className="w-3 h-3" />
               {experience.period}
@@ -97,7 +100,7 @@ const ExperienceCard = ({ experience, index }) => {
           </div>
 
           {/* Description */}
-          <p className={`text-light-300/70 text-sm leading-relaxed ${isEven ? 'lg:text-right' : 'lg:text-left'}`}>
+          <p className={`relative text-light-300/70 text-sm leading-relaxed ${isEven ? 'lg:text-right' : 'lg:text-left'} z-10`}>
             {experience.description}
           </p>
         </motion.div>
@@ -201,13 +204,13 @@ const ExperienceSection = () => {
           ].map((stat, index) => (
             <motion.div
               key={index}
-              className="text-center p-6 rounded-2xl bg-dark-200/30 border border-white/5"
-              whileHover={{ scale: 1.05, borderColor: "rgba(0, 212, 255, 0.2)" }}
+              className="group text-center p-6 lg:p-8 rounded-3xl bg-dark-200/30 backdrop-blur-sm border border-white/10 transition-all duration-500 hover:bg-dark-200/60 hover:shadow-[0_0_30px_rgba(0,212,255,0.15)] hover:border-primary/30"
+              whileHover={{ scale: 1.05, y: -5 }}
             >
-              <div className="text-3xl sm:text-4xl font-bold gradient-text-static mb-2">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold gradient-text-static mb-3 group-hover:scale-110 transition-transform duration-500 inline-block">
                 {stat.value}
               </div>
-              <div className="text-sm text-light-300/60">
+              <div className="text-sm lg:text-base font-medium text-light-300/70 group-hover:text-light-300 transition-colors">
                 {stat.label}
               </div>
             </motion.div>
