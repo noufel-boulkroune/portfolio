@@ -442,11 +442,13 @@ const HeroSection = () => {
                       className="w-6 h-6 object-contain"
                     />
                   </div>
-                  <span 
+                  <span
                     className="text-sm text-light-300/80 whitespace-nowrap group-hover:text-light transition-colors max-w-[80px] truncate"
                     title={skill.name}
                   >
-                    {skill.name === "Clean Architecture" ? "Clean Arch..." : skill.name}
+                    {skill.name === "Clean Architecture"
+                      ? "Clean Arch..."
+                      : skill.name}
                   </span>
                 </div>
               ))}
@@ -465,8 +467,17 @@ const HeroSection = () => {
             Trusted by clients from different industries
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
-            {["Amaya AG", "QIRAT", "MSD Consulting", "Azougui", "Sofa", "Snay3i", "Mziya"].map((client) => (
-              <span key={client} className="text-light-300/60 font-semibold text-lg">
+            {[
+              "Amaya AG",
+              "QIRAT",
+              "MSD Consulting",
+              "INTAJ Mohtawayat",
+              "SARL MCI",
+            ].map((client) => (
+              <span
+                key={client}
+                className="text-light-300/60 font-semibold text-lg"
+              >
                 {client}
               </span>
             ))}

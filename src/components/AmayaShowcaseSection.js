@@ -8,7 +8,7 @@ import {
   Wrench,
   Sparkles,
 } from "lucide-react";
-import { FaGooglePlay } from "react-icons/fa";
+// import { FaGooglePlay } from "react-icons/fa";
 import Lightbox from "./Lightbox";
 
 // ── Image lists ──────────────────────────────────────────────────────────────
