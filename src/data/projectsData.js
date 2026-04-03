@@ -2,7 +2,8 @@ const projects = [
   {
     title: "Amaya AG",
     category: "Agrotech Platform (3 Apps)",
-    playStoreUrl: null,
+    playStoreUrl:
+      "https://play.google.com/store/apps/dev?id=6939592620777580916",
     appStoreUrl: null,
     description:
       "Agrotech platform — 3 interconnected Flutter apps (Advisor, Farmer, Sales) for farm and land management. Built for field use in areas with no internet connection.",
@@ -13,7 +14,16 @@ const projects = [
       "Optimised data loading with targeted API queries and multi-layer caching (in-memory + persistent storage), cutting page load from 60+ s to ~2 s cached or under 10 s on fresh install.",
       "Refactored shared logic into independent Dart packages (date_utils, validation_utils, network_utils); led sprint planning, task breakdown, and code reviews in an Agile workflow.",
     ],
-    skills: ["Flutter", "BLoC", "Freezed", "Clean Architecture", "GeoJSON/MBTiles", "Dart Packages", "Unit Tests", "Agile"],
+    skills: [
+      "Flutter",
+      "BLoC",
+      "Freezed",
+      "Clean Architecture",
+      "GeoJSON/MBTiles",
+      "Dart Packages",
+      "Unit Tests",
+      "Agile",
+    ],
     images: [
       "/images/amaya1.jpg",
       "/images/amaya2.jpg",
@@ -29,7 +39,8 @@ const projects = [
   {
     title: "Sofa",
     category: "Video Streaming Platform",
-    playStoreUrl: "https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en",
+    playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en",
     appStoreUrl: null,
     description:
       "A cross-platform video streaming app for an Algerian startup, built with Flutter — 10k+ downloads on the Play Store. Delivers a Netflix-like experience across mobile, tablet, and Android TV, featuring Google Cast, multi-language subtitles, and adaptive video quality.",
@@ -39,7 +50,14 @@ const projects = [
       "Built streaming features: Google Cast, multi-language subtitles, adaptive video quality based on network conditions",
       "Extended platform to Android TV with tailored layouts, D-pad remote navigation, and voice search support",
     ],
-    skills: ["Flutter", "Provider", "Video Streaming", "Android TV", "Google Cast", "REST API"],
+    skills: [
+      "Flutter",
+      "Provider",
+      "Video Streaming",
+      "Android TV",
+      "Google Cast",
+      "REST API",
+    ],
     images: [
       "/images/sofa1.png",
       "/images/sofa2.png",
@@ -87,7 +105,14 @@ const projects = [
       "Built 3-language support (Arabic, French, English) for broader market reach across North Africa",
       "Created React/Node.js back-office system for admin management and service moderation",
     ],
-    skills: ["Flutter", "Firebase", "Google Maps", "React", "Node.js", "Multi-language"],
+    skills: [
+      "Flutter",
+      "Firebase",
+      "Google Maps",
+      "React",
+      "Node.js",
+      "Multi-language",
+    ],
     images: [
       "/images/snay3i1.png",
       "/images/snay3i.jpg",

@@ -104,32 +104,29 @@ const Portfolio = () => {
           {/* Hero Section */}
           <HeroSection />
 
-          {/* Services Section - NEW */}
-          <ServicesSection />
-
-          {/* Experience Section - NEW */}
-          <ExperienceSection />
-
-          {/* Amaya Visit Report - Before / After */}
+          {/* ── WORK ─────────────────────────────────────────── */}
+          {/* Amaya Visit Report - Before / After Case Study */}
           <AmayaShowcaseSection />
 
-          {/* Sofa Showcase - Latest Project */}
+          {/* Sofa - Multi-platform Showcase */}
           <SofaShowcaseSection />
 
-          {/* Featured Projects */}
+          {/* All Professional Projects */}
           <ProjectsSection projects={projects} />
 
-          {/* Learning Projects */}
+          {/* Open Source & Practice Projects */}
           <LearningProjectsSection />
 
-          {/* Testimonials Section - NEW */}
-          {/* <TestimonialsSection /> */}
+          {/* ── BACKGROUND ───────────────────────────────────── */}
+          {/* Experience Timeline */}
+          <ExperienceSection />
 
-          {/* Why Hire Me Section - NEW */}
+          {/* Services & What I Offer */}
+          <ServicesSection />
+
+          {/* ── CLOSE ────────────────────────────────────────── */}
+          {/* Why Hire Me */}
           <WhyHireMeSection />
-
-          {/* FAQ Section - NEW */}
-          {/* <FAQSection /> */}
 
           {/* Contact */}
           <ContactSection />

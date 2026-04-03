@@ -1,46 +1,54 @@
 import React, { useState, useRef, useCallback, memo } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { ChevronLeft, ChevronRight, ArrowLeftRight, Zap, Wrench, Sparkles } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowLeftRight,
+  Zap,
+  Wrench,
+  Sparkles,
+  ExternalLink,
+} from "lucide-react";
 import Lightbox from "./Lightbox";
 
 // ── Image lists ──────────────────────────────────────────────────────────────
 const OLD_IMAGES = [
   "Screenshot_20260402_211344.jpg",
   "Screenshot_20260402_211348.jpg",
+  "Screenshot_20260402_211432.jpg",
+  "Screenshot_20260402_211539.jpg",
+  "Screenshot_20260402_211547.jpg",
   "Screenshot_20260402_211351.jpg",
   "Screenshot_20260402_211400.jpg",
   "Screenshot_20260402_211407.jpg",
   "Screenshot_20260402_211416.jpg",
   "Screenshot_20260402_211426.jpg",
-  "Screenshot_20260402_211432.jpg",
-  "Screenshot_20260402_211539.jpg",
-  "Screenshot_20260402_211547.jpg",
-].map((n) => `/images/old_amaya_visit_repot/${n}`);
+].map((n) => `/images/old_amaya_visit_report/${n}`);
 
 const NEW_IMAGES = [
-  "Screenshot_20260402_212421.jpg",
-  "Screenshot_20260402_212426.jpg",
-  "Screenshot_20260402_212437.jpg",
-  "Screenshot_20260402_212448.jpg",
-  "Screenshot_20260402_212504.jpg",
-  "Screenshot_20260402_212536.jpg",
-  "Screenshot_20260402_212547.jpg",
-  "Screenshot_20260402_212553.jpg",
-  "Screenshot_20260402_212600.jpg",
-  "Screenshot_20260402_212607.jpg",
-  "Screenshot_20260402_212612.jpg",
-  "Screenshot_20260402_212623.jpg",
-  "Screenshot_20260402_212635.jpg",
-  "Screenshot_20260402_212704.jpg",
-  "Screenshot_20260402_212711.jpg",
-  "Screenshot_20260402_212716.jpg",
-  "Screenshot_20260402_212718.jpg",
-  "Screenshot_20260402_212724.jpg",
-  "Screenshot_20260402_212750.jpg",
-  "Screenshot_20260402_212823.jpg",
-  "Screenshot_20260402_212835.jpg",
-  "Screenshot_20260402_212840.jpg",
-].map((n) => `/images/new_amaya_visit_repot/${n}`);
+  "0.jpg",
+  "1.jpg",
+  "2.jpg",
+  "3.jpg",
+  "4.jpg",
+  "5.jpg",
+  "6.jpg",
+  "7.jpg",
+  "8.jpg",
+  "9.jpg",
+  "10.jpg",
+  "11.jpg",
+  "12.jpg",
+  "13.jpg",
+  "14.jpg",
+  "15.jpg",
+  "17.jpg",
+  "18.jpg",
+  "19.jpg",
+  "20.jpg",
+  "21.jpg",
+  "22.jpg",
+].map((n) => `/images/new_amaya_visit_report/${n}`);
 
 // ── Lazy image with blur-up loading ─────────────────────────────────────────
 const LazyImage = memo(({ src, alt, onClick }) => {
@@ -102,112 +110,124 @@ const PhoneMockup = memo(({ children }) => (
 ));
 
 // ── Phone Carousel ───────────────────────────────────────────────────────────
-const PhoneCarousel = memo(({ images, label, accent, labelColor, onOpenLightbox }) => {
-  const [index, setIndex] = useState(0);
-  const [dir, setDir] = useState(1);
+const PhoneCarousel = memo(
+  ({ images, label, accent, labelColor, onOpenLightbox }) => {
+    const [index, setIndex] = useState(0);
+    const [dir, setDir] = useState(1);
 
-  const go = useCallback((delta) => {
-    setDir(delta);
-    setIndex((prev) => (prev + delta + images.length) % images.length);
-  }, [images.length]);
+    const go = useCallback(
+      (delta) => {
+        setDir(delta);
+        setIndex((prev) => (prev + delta + images.length) % images.length);
+      },
+      [images.length],
+    );
 
-  const goTo = useCallback((i) => {
-    setDir(i > index ? 1 : -1);
-    setIndex(i);
-  }, [index]);
+    const goTo = useCallback(
+      (i) => {
+        setDir(i > index ? 1 : -1);
+        setIndex(i);
+      },
+      [index],
+    );
 
-  const slideVariants = {
-    enter:  (d) => ({ x: d > 0 ? "28%" : "-28%", opacity: 0, scale: 0.93 }),
-    center: { x: "0%", opacity: 1, scale: 1 },
-    exit:   (d) => ({ x: d < 0 ? "28%" : "-28%", opacity: 0, scale: 0.93 }),
-  };
+    const slideVariants = {
+      enter: (d) => ({ x: d > 0 ? "28%" : "-28%", opacity: 0, scale: 0.93 }),
+      center: { x: "0%", opacity: 1, scale: 1 },
+      exit: (d) => ({ x: d < 0 ? "28%" : "-28%", opacity: 0, scale: 0.93 }),
+    };
 
-  const MAX_DOTS = 12;
+    const MAX_DOTS = 12;
 
-  return (
-    <div className="flex flex-col items-center gap-4 w-full">
-      {/* Label */}
-      <span className={`text-sm font-bold uppercase tracking-[0.15em] ${labelColor}`}>
-        {label}
-      </span>
-
-      {/* Phone + nav row */}
-      <div className="flex items-center gap-3 sm:gap-4 w-full">
-        {/* Prev */}
-        <motion.button
-          onClick={() => go(-1)}
-          className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-dark-200/80 border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 transition-colors"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Previous"
+    return (
+      <div className="flex flex-col items-center gap-4 w-full">
+        {/* Label */}
+        <span
+          className={`text-sm font-bold uppercase tracking-[0.15em] ${labelColor}`}
         >
-          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-        </motion.button>
+          {label}
+        </span>
 
-        {/* Phone — fluid, fills remaining space */}
-        <div className="relative flex-1 overflow-hidden">
-          <AnimatePresence mode="wait" custom={dir}>
-            <motion.div
-              key={index}
-              custom={dir}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full"
-            >
-              <PhoneMockup>
-                <LazyImage
-                  src={images[index]}
-                  alt={`${label} screenshot ${index + 1}`}
-                  onClick={() => onOpenLightbox(index)}
-                />
-              </PhoneMockup>
-            </motion.div>
-          </AnimatePresence>
+        {/* Phone + nav row */}
+        <div className="flex items-center gap-3 sm:gap-4 w-full">
+          {/* Prev */}
+          <motion.button
+            onClick={() => go(-1)}
+            className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-dark-200/80 border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Previous"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+          </motion.button>
+
+          {/* Phone — fluid, fills remaining space */}
+          <div className="relative flex-1 overflow-hidden">
+            <AnimatePresence mode="wait" custom={dir}>
+              <motion.div
+                key={index}
+                custom={dir}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full"
+              >
+                <PhoneMockup>
+                  <LazyImage
+                    src={images[index]}
+                    alt={`${label} screenshot ${index + 1}`}
+                    onClick={() => onOpenLightbox(index)}
+                  />
+                </PhoneMockup>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Next */}
+          <motion.button
+            onClick={() => go(1)}
+            className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-dark-200/80 border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Next"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+          </motion.button>
         </div>
 
-        {/* Next */}
-        <motion.button
-          onClick={() => go(1)}
-          className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-dark-200/80 border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 transition-colors"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          aria-label="Next"
-        >
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-        </motion.button>
-      </div>
+        {/* Dots */}
+        <div className="flex items-center gap-1.5 flex-wrap justify-center">
+          {images.slice(0, MAX_DOTS).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className={`rounded-full transition-all duration-200 ${
+                i === index
+                  ? accent === "secondary"
+                    ? "w-5 h-2 bg-secondary"
+                    : "w-5 h-2 bg-primary"
+                  : "w-2 h-2 bg-white/20 hover:bg-white/40"
+              }`}
+              aria-label={`Go to image ${i + 1}`}
+            />
+          ))}
+          {images.length > MAX_DOTS && (
+            <span className="text-xs text-light-300/30 ml-1">
+              +{images.length - MAX_DOTS}
+            </span>
+          )}
+        </div>
 
-      {/* Dots */}
-      <div className="flex items-center gap-1.5 flex-wrap justify-center">
-        {images.slice(0, MAX_DOTS).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            className={`rounded-full transition-all duration-200 ${
-              i === index
-                ? accent === "secondary"
-                  ? "w-5 h-2 bg-secondary"
-                  : "w-5 h-2 bg-primary"
-                : "w-2 h-2 bg-white/20 hover:bg-white/40"
-            }`}
-            aria-label={`Go to image ${i + 1}`}
-          />
-        ))}
-        {images.length > MAX_DOTS && (
-          <span className="text-xs text-light-300/30 ml-1">+{images.length - MAX_DOTS}</span>
-        )}
+        {/* Counter */}
+        <p className="text-xs text-light-300/40 tabular-nums">
+          {index + 1} / {images.length}
+        </p>
       </div>
-
-      {/* Counter */}
-      <p className="text-xs text-light-300/40 tabular-nums">
-        {index + 1} / {images.length}
-      </p>
-    </div>
-  );
-});
+    );
+  },
+);
 
 // ── Stat card ────────────────────────────────────────────────────────────────
 const StatCard = ({ icon: Icon, value, label, color }) => (
@@ -218,7 +238,9 @@ const StatCard = ({ icon: Icon, value, label, color }) => (
   >
     <Icon className={`w-5 h-5 ${color}`} />
     <span className={`text-2xl font-extrabold ${color}`}>{value}</span>
-    <span className="text-xs text-light-300/50 text-center leading-tight">{label}</span>
+    <span className="text-xs text-light-300/50 text-center leading-tight">
+      {label}
+    </span>
   </motion.div>
 );
 
@@ -251,7 +273,12 @@ const AmayaShowcaseSection = () => {
           <motion.div
             className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[180px]"
             animate={{ scale: [1, 1.2, 1], y: [0, -30, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
           />
         </div>
 
@@ -280,7 +307,9 @@ const AmayaShowcaseSection = () => {
               transition={{ delay: 0.3, duration: 0.6 }}
             >
               <span className="text-light">Amaya AG — </span>
-              <span className="gradient-text-static">Visit Report Redesign</span>
+              <span className="gradient-text-static">
+                Visit Report Redesign
+              </span>
             </motion.h2>
 
             <motion.p
@@ -289,9 +318,10 @@ const AmayaShowcaseSection = () => {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              Fixed data not loading on first run (required pull-to-refresh) and completely
-              rebuilt the visit-report UX — improved GPS flows, photo capture with annotations,
-              multilingual support, and a brand-new UI system built from scratch.
+              Fixed data not loading on first run (required pull-to-refresh) and
+              completely rebuilt the visit-report UX — improved GPS flows, photo
+              capture with annotations, multilingual support, and a brand-new UI
+              system built from scratch.
             </motion.p>
           </motion.div>
 
@@ -304,8 +334,18 @@ const AmayaShowcaseSection = () => {
           >
             {/* Load-time stats */}
             <div className="flex flex-wrap justify-center gap-4">
-              <StatCard icon={Zap} value="~2s"  label="Load time (cached)"   color="text-primary" />
-              <StatCard icon={Zap} value="<10s" label="Load time (first run)" color="text-secondary" />
+              <StatCard
+                icon={Zap}
+                value="~2s"
+                label="Load time (cached)"
+                color="text-primary"
+              />
+              <StatCard
+                icon={Zap}
+                value="<10s"
+                label="Load time (first run)"
+                color="text-secondary"
+              />
             </div>
 
             {/* What was improved */}
@@ -317,9 +357,12 @@ const AmayaShowcaseSection = () => {
               >
                 <Sparkles className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-semibold text-light">UX enhancement</p>
+                  <p className="text-sm font-semibold text-light">
+                    UX enhancement
+                  </p>
                   <p className="text-xs text-light-300/50 mt-0.5 leading-relaxed">
-                    Rebuilt visit-report UI — GPS flows, photo annotations, multi-language support
+                    Rebuilt visit-report UI — GPS flows, photo annotations,
+                    multi-language support
                   </p>
                 </div>
               </motion.div>
@@ -331,13 +374,42 @@ const AmayaShowcaseSection = () => {
               >
                 <Wrench className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-semibold text-light">Fixed data loading</p>
+                  <p className="text-sm font-semibold text-light">
+                    Fixed data loading
+                  </p>
                   <p className="text-xs text-light-300/50 mt-0.5 leading-relaxed">
                     Data no longer requires pull-to-refresh on first run
                   </p>
                 </div>
               </motion.div>
             </div>
+          </motion.div>
+
+          {/* ── Play Store links ── */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-3 mb-12"
+            initial={{ opacity: 0, y: 15 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            <a
+              href="https://play.google.com/store/apps/details?id=ag.amaya.farmer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-200/70 border border-white/10 text-sm font-medium text-light-300 hover:text-primary hover:border-primary/30 transition-all duration-200"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              Amaya Farmer — Play Store
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=ag.amaya.advisor"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-200/70 border border-white/10 text-sm font-medium text-light-300 hover:text-secondary hover:border-secondary/30 transition-all duration-200"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              Amaya Advisor — Play Store
+            </a>
           </motion.div>
 
           {/* ── Before / After grid ── */}
@@ -347,7 +419,11 @@ const AmayaShowcaseSection = () => {
               className="flex flex-col items-center gap-6 w-full"
               initial={{ opacity: 0, x: -50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.4, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                delay: 0.4,
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               {/* Phone — responsive, generous max-width */}
               <div className="w-full max-w-[260px] sm:max-w-[310px] md:max-w-[340px] lg:max-w-[380px] xl:max-w-[420px] 2xl:max-w-[460px] mx-auto">
@@ -360,7 +436,9 @@ const AmayaShowcaseSection = () => {
                 />
               </div>
               <p className="text-sm text-light-300/40 text-center max-w-xs leading-relaxed">
-                Original visit-report screens — basic layout, limited navigation, single language, data requires pull-to-refresh on first run
+                Original visit-report screens — basic layout, limited
+                navigation, single language, data requires pull-to-refresh on
+                first run
               </p>
             </motion.div>
 
@@ -369,7 +447,11 @@ const AmayaShowcaseSection = () => {
               className="flex flex-col items-center gap-6 w-full"
               initial={{ opacity: 0, x: 50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                delay: 0.5,
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               <div className="w-full max-w-[260px] sm:max-w-[310px] md:max-w-[340px] lg:max-w-[380px] xl:max-w-[420px] 2xl:max-w-[460px] mx-auto">
                 <PhoneCarousel
@@ -381,7 +463,8 @@ const AmayaShowcaseSection = () => {
                 />
               </div>
               <p className="text-sm text-light-300/40 text-center max-w-xs leading-relaxed">
-                Rebuilt from scratch — new design system, fixed data loading, GPS flows, photo annotations, 3-language support
+                Rebuilt from scratch — new design system, fixed data loading,
+                GPS flows, photo annotations, 3-language support
               </p>
             </motion.div>
           </div>

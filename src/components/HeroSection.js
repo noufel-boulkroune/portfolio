@@ -10,12 +10,12 @@ const HeroSection = () => {
 
   useEffect(() => {
     // Only run once on mount
-    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
     setIsMobile(mediaQuery.matches);
-    
+
     const handler = (e) => setIsMobile(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
   // Main skills focused on core stack
@@ -63,40 +63,97 @@ const HeroSection = () => {
       {/* Static Background - No animations on mobile */}
       <div className="absolute inset-0 bg-dark">
         {/* Gradient orbs - static on mobile, animated on desktop */}
-        <div 
+        <div
           className="absolute top-0 left-1/4 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-primary/10 rounded-full blur-[100px] md:blur-[120px]"
           style={{ opacity: 0.3 }}
         />
-        <div 
+        <div
           className="absolute bottom-0 right-1/4 w-[350px] md:w-[500px] h-[350px] md:h-[500px] bg-secondary/10 rounded-full blur-[80px] md:blur-[120px]"
           style={{ opacity: 0.3 }}
         />
-        
+
         {/* Grid pattern - static */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
                               linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: '100px 100px'
+            backgroundSize: "100px 100px",
           }}
         />
         {/* Floating particles - desktop only */}
         <div className="hidden lg:block absolute inset-0 overflow-hidden pointer-events-none">
           {[
-            { w: 3, h: 3, t: "15%", l: "10%", dur: 6, delay: 0,   color: "bg-primary/30" },
-            { w: 2, h: 2, t: "30%", l: "85%", dur: 8, delay: 1,   color: "bg-secondary/30" },
-            { w: 4, h: 4, t: "60%", l: "5%",  dur: 7, delay: 2,   color: "bg-accent/20" },
-            { w: 2, h: 2, t: "75%", l: "92%", dur: 9, delay: 0.5, color: "bg-primary/20" },
-            { w: 3, h: 3, t: "45%", l: "50%", dur: 5, delay: 3,   color: "bg-secondary/20" },
-            { w: 2, h: 2, t: "20%", l: "65%", dur: 10,delay: 1.5, color: "bg-accent/30" },
+            {
+              w: 3,
+              h: 3,
+              t: "15%",
+              l: "10%",
+              dur: 6,
+              delay: 0,
+              color: "bg-primary/30",
+            },
+            {
+              w: 2,
+              h: 2,
+              t: "30%",
+              l: "85%",
+              dur: 8,
+              delay: 1,
+              color: "bg-secondary/30",
+            },
+            {
+              w: 4,
+              h: 4,
+              t: "60%",
+              l: "5%",
+              dur: 7,
+              delay: 2,
+              color: "bg-accent/20",
+            },
+            {
+              w: 2,
+              h: 2,
+              t: "75%",
+              l: "92%",
+              dur: 9,
+              delay: 0.5,
+              color: "bg-primary/20",
+            },
+            {
+              w: 3,
+              h: 3,
+              t: "45%",
+              l: "50%",
+              dur: 5,
+              delay: 3,
+              color: "bg-secondary/20",
+            },
+            {
+              w: 2,
+              h: 2,
+              t: "20%",
+              l: "65%",
+              dur: 10,
+              delay: 1.5,
+              color: "bg-accent/30",
+            },
           ].map((p, i) => (
             <motion.div
               key={i}
               className={`absolute rounded-full ${p.color}`}
               style={{ width: p.w * 4, height: p.h * 4, top: p.t, left: p.l }}
-              animate={{ y: [0, -20, 0], x: [0, 10, 0], opacity: [0.3, 0.8, 0.3] }}
-              transition={{ duration: p.dur, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
+              animate={{
+                y: [0, -20, 0],
+                x: [0, 10, 0],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: p.dur,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: p.delay,
+              }}
             />
           ))}
         </div>
@@ -141,7 +198,26 @@ const HeroSection = () => {
               variants={itemVariants}
               className="text-lg text-light-300/80 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
             >
-              <span className="text-primary font-semibold">Flutter & Android developer</span> with <span className="text-accent font-semibold">3+ years</span> of experience — shipped <span className="text-secondary font-semibold">5+ apps</span> to both stores using Flutter, Dart, Firebase, BLoC, MVVM, and Clean Architecture. Proven impact: <span className="text-primary font-semibold">10k+ downloads</span> on one product, page load cut <span className="text-secondary font-semibold">83%+ faster</span> on another. I thrive on tackling complex projects and delivering clean, scalable code.
+              <span className="text-primary font-semibold">
+                Mobile App Developer
+              </span>{" "}
+              with <span className="text-accent font-semibold">3+ years</span>{" "}
+              of experience in Flutter and Android, building user-friendly,
+              high-performance apps using Flutter, Dart, Firebase, BLoC,
+              Provider, GetX, MVVM, and Clean Architecture. Shipped{" "}
+              <span className="text-primary font-semibold">5+ apps</span> to the
+              Play Store and App Store — including a video streaming app with{" "}
+              <span className="text-secondary font-semibold">
+                10k+ downloads
+              </span>
+              , and an agrotech platform with offline-first maps. Proven impact:
+              page load improved by{" "}
+              <span className="text-secondary font-semibold">83%</span> (from
+              60+ seconds to under 10s). I focus on delivering{" "}
+              <span className="text-primary font-semibold">
+                clean, scalable code
+              </span>
+              .
             </motion.p>
 
             {/* Stats - No floating animation */}
@@ -254,9 +330,7 @@ const HeroSection = () => {
           >
             <div className="relative">
               {/* Decorative glow - static */}
-              <div
-                className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 rounded-full blur-2xl opacity-60"
-              />
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 rounded-full blur-2xl opacity-60" />
 
               {/* Rotating rings - only on desktop */}
               {!isMobile && (
@@ -291,15 +365,13 @@ const HeroSection = () => {
               )}
 
               {/* Profile Image Container */}
-              <motion.div 
+              <motion.div
                 className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 group"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 {/* Profile Image - no JS state for loading, pure CSS */}
-                <div
-                  className="relative w-full h-full rounded-full overflow-hidden border-4 border-dark-100 shadow-[0_0_40px_rgba(0,212,255,0.15)] group-hover:shadow-[0_0_60px_rgba(0,212,255,0.3)] transition-shadow duration-500 bg-dark-200 z-10"
-                >
+                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-dark-100 shadow-[0_0_40px_rgba(0,212,255,0.15)] group-hover:shadow-[0_0_60px_rgba(0,212,255,0.3)] transition-shadow duration-500 bg-dark-200 z-10">
                   <img
                     src="/images/myImage.jpg"
                     alt="Nawfel Boulkroune"
@@ -307,29 +379,31 @@ const HeroSection = () => {
                     decoding="async"
                     fetchpriority="high"
                   />
-                  
+
                   {/* Overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 {/* Floating badges - static on mobile */}
-                <div
-                  className="absolute -right-2 sm:-right-4 top-6 sm:top-8 px-4 sm:px-5 py-2.5 bg-dark-100/90 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl z-20 group-hover:-translate-y-2 transition-transform duration-500"
-                >
+                <div className="absolute -right-2 sm:-right-4 top-6 sm:top-8 px-4 sm:px-5 py-2.5 bg-dark-100/90 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl z-20 group-hover:-translate-y-2 transition-transform duration-500">
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_10px_currentColor]" />
-                    <span className="text-xs sm:text-sm font-bold text-light tracking-wide">Mobile Dev</span>
+                    <span className="text-xs sm:text-sm font-bold text-light tracking-wide">
+                      Mobile Dev
+                    </span>
                   </div>
                 </div>
 
-                <div
-                  className="absolute -left-2 sm:-left-4 bottom-10 sm:bottom-12 px-4 sm:px-5 py-2.5 bg-dark-100/90 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl z-20 group-hover:translate-y-2 transition-transform duration-500"
-                >
+                <div className="absolute -left-2 sm:-left-4 bottom-10 sm:bottom-12 px-4 sm:px-5 py-2.5 bg-dark-100/90 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl z-20 group-hover:translate-y-2 transition-transform duration-500">
                   <div className="flex items-center gap-3">
                     <div className="w-6 sm:w-7 h-6 sm:h-7 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
-                      <span className="text-[10px] sm:text-xs font-bold text-dark">3+</span>
+                      <span className="text-[10px] sm:text-xs font-bold text-dark">
+                        3+
+                      </span>
                     </div>
-                    <span className="text-xs sm:text-sm font-bold text-light tracking-wide">Years Exp</span>
+                    <span className="text-xs sm:text-sm font-bold text-light tracking-wide">
+                      Years Exp
+                    </span>
                   </div>
                 </div>
               </motion.div>
@@ -368,11 +442,13 @@ const HeroSection = () => {
                       className="w-6 h-6 object-contain"
                     />
                   </div>
-                  <span 
+                  <span
                     className="text-sm text-light-300/80 whitespace-nowrap group-hover:text-light transition-colors max-w-[80px] truncate"
                     title={skill.name}
                   >
-                    {skill.name === "Clean Architecture" ? "Clean Arch..." : skill.name}
+                    {skill.name === "Clean Architecture"
+                      ? "Clean Arch..."
+                      : skill.name}
                   </span>
                 </div>
               ))}
@@ -392,8 +468,19 @@ const HeroSection = () => {
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
             {/* Client logos/names - using text as placeholder */}
-            {["Amaya AG", "QIRAT", "MSD Consulting", "Azougui", "Sofa", "Snay3i", "Mziya"].map((client) => (
-              <span key={client} className="text-light-300/60 font-semibold text-lg">
+            {[
+              "Amaya AG",
+              "QIRAT",
+              "MSD Consulting",
+              "Azougui",
+              "Sofa",
+              "Snay3i",
+              "Mziya",
+            ].map((client) => (
+              <span
+                key={client}
+                className="text-light-300/60 font-semibold text-lg"
+              >
                 {client}
               </span>
             ))}
