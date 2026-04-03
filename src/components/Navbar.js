@@ -12,15 +12,11 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
 
       // Update active section based on scroll position
       const sections = [
-        "about", 
-        "services", 
-        "experience", 
-        "skills",
-        "sofaShowcaseSection", 
-        "projects", 
-        // "testimonials",
+        "about",
+        "experience",
+        "projects",
+        "services",
         "why-hire-me",
-        // "faq",
         "contact"
       ];
       const scrollPosition = window.scrollY + 150;
@@ -43,10 +39,9 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
 
   const navLinks = [
     { href: "#about", label: "About", id: "about" },
-    { href: "#services", label: "Services", id: "services" },
     { href: "#experience", label: "Experience", id: "experience" },
-    { href: "#projects", label: "Projects", id: "projects" },
-    // { href: "#testimonials", label: "Testimonials", id: "testimonials" },
+    { href: "#projects", label: "Work", id: "projects" },
+    { href: "#services", label: "Services", id: "services" },
     { href: "#contact", label: "Contact", id: "contact" },
   ];
 

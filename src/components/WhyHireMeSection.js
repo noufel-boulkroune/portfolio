@@ -14,16 +14,16 @@ const reasons = [
   {
     icon: Target,
     title: "Cross-Platform Expert",
-    description: "One codebase, multiple platforms. Android, iOS, and even Android TV—reaching users wherever they are.",
-    stat: "3",
+    description: "One codebase, multiple platforms. Android, iOS, Android TV, and Web—reaching users wherever they are.",
+    stat: "4",
     statLabel: "Platforms"
   },
   {
     icon: Zap,
     title: "Fast Performance",
-    description: "Lightning-fast apps. I've cut load times from 10s to under 1s using smart caching and API calls optimization.",
-    stat: "90%",
-    statLabel: "Speed Boost"
+    description: "I've cut page load from 60+ seconds to ~2 s cached — an 83%+ improvement — using targeted API queries and multi-layer caching.",
+    stat: "83%+",
+    statLabel: "Faster Loading"
   },
   {
     icon: Clock,

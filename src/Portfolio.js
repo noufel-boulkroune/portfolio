@@ -12,7 +12,7 @@ import LearningProjectsSection from "./components/LearningProjectsSection";
 import WhyHireMeSection from "./components/WhyHireMeSection";
 // import FAQSection from "./components/FAQSection";
 import ContactSection from "./components/ContactSection";
-// import FloatingCTA from "./components/FloatingCTA";
+import FloatingCTA from "./components/FloatingCTA";
 import projects from "./data/projectsData";
 
 // Scroll to top button
@@ -104,6 +104,9 @@ const Portfolio = () => {
           {/* Hero Section */}
           <HeroSection />
 
+          {/* ── EXPERIENCE (recruiters see this fast) ────────── */}
+          <ExperienceSection />
+
           {/* ── WORK ─────────────────────────────────────────── */}
           {/* Amaya Visit Report - Before / After Case Study */}
           <AmayaShowcaseSection />
@@ -117,11 +120,7 @@ const Portfolio = () => {
           {/* Open Source & Practice Projects */}
           <LearningProjectsSection />
 
-          {/* ── BACKGROUND ───────────────────────────────────── */}
-          {/* Experience Timeline */}
-          <ExperienceSection />
-
-          {/* Services & What I Offer */}
+          {/* ── SERVICES ─────────────────────────────────────── */}
           <ServicesSection />
 
           {/* ── CLOSE ────────────────────────────────────────── */}
@@ -132,8 +131,8 @@ const Portfolio = () => {
           <ContactSection />
         </main>
 
-        {/* Floating CTA - NEW */}
-        {/* <FloatingCTA /> */}
+        {/* Floating CTA */}
+        <FloatingCTA />
 
         {/* Scroll to top button */}
         <ScrollToTop />

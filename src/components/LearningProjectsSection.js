@@ -357,7 +357,7 @@ const LearningProjectsSection = () => {
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           >
             <Code2 className="w-3.5 h-3.5" />
-            Learning Journey
+            Open Source & Practice
           </motion.span>
 
           <motion.h2
@@ -367,7 +367,7 @@ const LearningProjectsSection = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            <span className="text-light">Practice </span>
+            <span className="text-light">Side </span>
             <span className="gradient-text-static">Projects</span>
           </motion.h2>
 
@@ -378,8 +378,8 @@ const LearningProjectsSection = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Projects built during my learning journey, including recruitment tests,
-            design implementations, and personal challenges.
+            Personal projects and design explorations built to sharpen skills,
+            experiment with new patterns, and push UI boundaries.
           </motion.p>
         </motion.div>
 

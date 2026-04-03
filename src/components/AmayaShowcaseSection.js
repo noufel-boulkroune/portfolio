@@ -7,8 +7,8 @@ import {
   Zap,
   Wrench,
   Sparkles,
-  ExternalLink,
 } from "lucide-react";
+import { FaGooglePlay } from "react-icons/fa";
 import Lightbox from "./Lightbox";
 
 // ── Image lists ──────────────────────────────────────────────────────────────
@@ -48,7 +48,7 @@ const NEW_IMAGES = [
   "20.jpg",
   "21.jpg",
   "22.jpg",
-].map((n) => `/images/new_amaya_visit_report/${n}`);
+].map((n) => (n.startsWith("/") ? n : `/images/new_amaya_visit_report/${n}`));
 
 // ── Lazy image with blur-up loading ─────────────────────────────────────────
 const LazyImage = memo(({ src, alt, onClick }) => {
@@ -143,7 +143,7 @@ const PhoneCarousel = memo(
       <div className="flex flex-col items-center gap-4 w-full">
         {/* Label */}
         <span
-          className={`text-sm font-bold uppercase tracking-[0.15em] ${labelColor}`}
+          className={`text-base sm:text-lg font-bold uppercase tracking-[0.15em] ${labelColor}`}
         >
           {label}
         </span>
@@ -262,7 +262,11 @@ const AmayaShowcaseSection = () => {
 
   return (
     <>
-      <section ref={ref} className="relative py-14 lg:py-20 overflow-hidden">
+      <section
+        ref={ref}
+        id="amaya-showcase"
+        className="relative py-14 lg:py-20 overflow-hidden"
+      >
         {/* Background */}
         <div className="absolute inset-0 bg-dark">
           <motion.div
@@ -324,7 +328,6 @@ const AmayaShowcaseSection = () => {
               system built from scratch.
             </motion.p>
           </motion.div>
-
           {/* ── Stats + improvements ── */}
           <motion.div
             className="flex flex-col items-center gap-6 mb-14"
@@ -384,34 +387,43 @@ const AmayaShowcaseSection = () => {
               </motion.div>
             </div>
           </motion.div>
-
           {/* ── Play Store links ── */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-3 mb-12"
+          {/* //todo */}
+          {/* <motion.div
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12"
             initial={{ opacity: 0, y: 15 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.6, duration: 0.5 }}
           >
-            <a
+            <motion.a
               href="https://play.google.com/store/apps/details?id=ag.amaya.farmer"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-200/70 border border-white/10 text-sm font-medium text-light-300 hover:text-primary hover:border-primary/30 transition-all duration-200"
+              className="flex items-start gap-3 px-5 py-3.5 rounded-2xl bg-dark-200/50 border border-white/5 max-w-xs hover:border-primary/25 hover:bg-dark-200/80 transition-all duration-200 group"
+              whileHover={{ y: -3, borderColor: "rgba(0,212,255,0.25)" }}
+              transition={{ duration: 0.2 }}
             >
-              <ExternalLink className="w-3.5 h-3.5" />
-              Amaya Farmer — Play Store
-            </a>
-            <a
+              <FaGooglePlay className="w-5 h-5 text-primary flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <div>
+                <p className="text-sm font-semibold text-light">Amaya Farmer</p>
+                <p className="text-xs text-light-300/50 mt-0.5">Available on Google Play</p>
+              </div>
+            </motion.a>
+            <motion.a
               href="https://play.google.com/store/apps/details?id=ag.amaya.advisor"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-dark-200/70 border border-white/10 text-sm font-medium text-light-300 hover:text-secondary hover:border-secondary/30 transition-all duration-200"
+              className="flex items-start gap-3 px-5 py-3.5 rounded-2xl bg-dark-200/50 border border-white/5 max-w-xs hover:border-secondary/25 hover:bg-dark-200/80 transition-all duration-200 group"
+              whileHover={{ y: -3, borderColor: "rgba(139,92,246,0.25)" }}
+              transition={{ duration: 0.2 }}
             >
-              <ExternalLink className="w-3.5 h-3.5" />
-              Amaya Advisor — Play Store
-            </a>
-          </motion.div>
-
+              <FaGooglePlay className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <div>
+                <p className="text-sm font-semibold text-light">Amaya Advisor</p>
+                <p className="text-xs text-light-300/50 mt-0.5">Available on Google Play</p>
+              </div>
+            </motion.a>
+          </motion.div> */}
           {/* ── Before / After grid ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-start">
             {/* BEFORE */}
@@ -471,7 +483,7 @@ const AmayaShowcaseSection = () => {
         </div>
       </section>
 
-      {/* ── Lightbox ──────────────────────────────────────────────────────── */}
+      {/* Lightbox */}
       <AnimatePresence>
         {lightbox && (
           <Lightbox

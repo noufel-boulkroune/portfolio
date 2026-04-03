@@ -227,7 +227,7 @@ const HeroSection = () => {
             >
               {[
                 { value: "3+", label: "Years Exp" },
-                { value: "10+", label: "Projects" },
+                { value: "15+", label: "Projects" },
                 { value: "5+", label: "Published Apps" },
               ].map((stat, index) => (
                 <motion.div
@@ -442,13 +442,11 @@ const HeroSection = () => {
                       className="w-6 h-6 object-contain"
                     />
                   </div>
-                  <span
+                  <span 
                     className="text-sm text-light-300/80 whitespace-nowrap group-hover:text-light transition-colors max-w-[80px] truncate"
                     title={skill.name}
                   >
-                    {skill.name === "Clean Architecture"
-                      ? "Clean Arch..."
-                      : skill.name}
+                    {skill.name === "Clean Architecture" ? "Clean Arch..." : skill.name}
                   </span>
                 </div>
               ))}
@@ -467,20 +465,8 @@ const HeroSection = () => {
             Trusted by clients from different industries
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
-            {/* Client logos/names - using text as placeholder */}
-            {[
-              "Amaya AG",
-              "QIRAT",
-              "MSD Consulting",
-              "Azougui",
-              "Sofa",
-              "Snay3i",
-              "Mziya",
-            ].map((client) => (
-              <span
-                key={client}
-                className="text-light-300/60 font-semibold text-lg"
-              >
+            {["Amaya AG", "QIRAT", "MSD Consulting", "Azougui", "Sofa", "Snay3i", "Mziya"].map((client) => (
+              <span key={client} className="text-light-300/60 font-semibold text-lg">
                 {client}
               </span>
             ))}

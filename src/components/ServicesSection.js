@@ -14,7 +14,7 @@ const services = [
   {
     icon: Smartphone,
     title: "Mobile App Development",
-    description: "Custom Flutter apps for iOS & Android. From concept to App Store submission, I build cross-platform apps that look and feel native.",
+    description: "Custom Flutter apps for iOS & Android built to production standard — like Sofa (10k+ downloads) and Amaya AG (3 interconnected field apps). From concept to store submission.",
     features: ["Flutter & Dart", "iOS & Android", "Firebase Integration", "REST API"],
     color: "from-cyan-500/20 to-blue-500/20",
     iconColor: "text-cyan-400"
@@ -22,7 +22,7 @@ const services = [
   {
     icon: Code2,
     title: "App Maintenance & Updates",
-    description: "Keep your app running smoothly with regular updates, bug fixes, performance improvements, and new feature additions.",
+    description: "Keep your app healthy with regular updates, bug fixes, and new features. I've maintained apps across 3 companies, including stability improvements on Smart Panda and Ramadan Awards.",
     features: ["Bug Fixes", "Performance Optimization", "SDK Updates", "New Features"],
     color: "from-purple-500/20 to-pink-500/20",
     iconColor: "text-purple-400"
@@ -30,32 +30,32 @@ const services = [
   {
     icon: Palette,
     title: "UI/UX Implementation",
-    description: "Transform your Figma designs into pixel-perfect, responsive mobile interfaces with smooth animations and interactions.",
-    features: ["Figma to Flutter", "Custom Animations", "Responsive Design", "User Testing"],
+    description: "Pixel-perfect Flutter UIs from Figma designs. Built a full design system for Amaya AG from scratch — tokens, theme engine, and a complete widget library used across 3 apps.",
+    features: ["Figma to Flutter", "Custom Animations", "Design Systems", "Responsive Design"],
     color: "from-orange-500/20 to-amber-500/20",
     iconColor: "text-orange-400"
   },
   {
     icon: Rocket,
     title: "App Publishing",
-    description: "Navigate the complexities of app store submission. I'll handle Play Store & App Store publishing, including store optimization.",
+    description: "End-to-end store submission handled. I've published 5+ apps to Play Store & App Store — including Sofa, Azougui, Snay3i, Mziya, and Laffaiire — with ASO and compliance.",
     features: ["Play Store Publishing", "App Store Publishing", "ASO Optimization", "Compliance"],
     color: "from-green-500/20 to-emerald-500/20",
     iconColor: "text-green-400"
   },
   {
     icon: Wrench,
-    title: "API Integration",
-    description: "Seamlessly connect your app with third-party services, payment gateways, maps, social login, and custom backend APIs.",
-    features: ["REST API", "Payment Gateways", "Social Auth", "Maps & Location"],
+    title: "API & Backend Integration",
+    description: "Connect your app to anything — REST APIs, Firebase, Google Maps, Stripe, and social auth. Built Snay3i with a full Firebase suite and a custom React/Node.js back-office panel.",
+    features: ["REST API", "Firebase Suite", "Google Maps", "Stripe & Social Auth"],
     color: "from-indigo-500/20 to-violet-500/20",
     iconColor: "text-indigo-400"
   },
   {
     icon: Zap,
     title: "Performance Optimization",
-    description: "Speed up your existing app. I identify bottlenecks and implement solutions for faster load times and smoother animations.",
-    features: ["Load Time Reduction", "Memory Optimization", "Code Refactoring", "Caching"],
+    description: "Cut load times and fix slow screens. On Amaya AG I reduced page load from 60+ seconds to under 2 s cached (83%+ faster) using targeted API queries and multi-layer caching.",
+    features: ["Load Time Reduction", "Multi-layer Caching", "Code Refactoring", "Memory Optimization"],
     color: "from-yellow-500/20 to-orange-500/20",
     iconColor: "text-yellow-400"
   }

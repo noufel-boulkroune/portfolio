@@ -177,6 +177,23 @@ const ProjectCard = ({ project }) => {
 
             {/* Store Links */}
             <div className="flex flex-wrap gap-3 mt-auto">
+              {/* Case study shortcut for Amaya AG */}
+              {project.title === "Amaya AG" && (
+                <motion.a
+                  href="#amaya-showcase"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById("amaya-showcase");
+                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-secondary/10 border border-secondary/20 text-secondary hover:bg-secondary/20 hover:border-secondary/40 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  aria-label="Scroll up to see the Amaya AG before/after case study"
+                >
+                  <span className="text-sm font-medium">↑ Full Case Study</span>
+                </motion.a>
+              )}
               {project.playStoreUrl && (
                 <motion.a
                   href={project.playStoreUrl}

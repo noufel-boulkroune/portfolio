@@ -25,6 +25,13 @@ const projects = [
       "Agile",
     ],
     images: [
+      "/images/new_amaya_visit_report/1.jpg",
+      "/images/new_amaya_visit_report/2.jpg",
+      "/images/new_amaya_visit_report/3.jpg",
+      "/images/new_amaya_visit_report/4.jpg",
+      "/images/new_amaya_visit_report/5.jpg",
+      "/images/new_amaya_visit_report/6.jpg",
+      "/images/new_amaya_visit_report/8.jpg",
       "/images/amaya1.jpg",
       "/images/amaya2.jpg",
       "/images/amaya3.jpg",
@@ -169,11 +176,7 @@ const projects = [
       "Published on Play Store with full documentation",
     ],
     skills: ["Flutter", "Firebase", "REST API", "CI/CD"],
-    images: [
-      "/images/laffaiire_tech.png",
-      "/images/laffaiire_tech3.png",
-      "/images/laffaiire_tech2.png",
-    ],
+    images: ["/images/laffaiire_tech.png", "/images/laffaiire_tech3.png"],
   },
 ];
 
