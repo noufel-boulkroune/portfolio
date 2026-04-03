@@ -5,14 +5,15 @@ const projects = [
     playStoreUrl: null,
     appStoreUrl: null,
     description:
-      "A comprehensive agrotech platform providing digital tools for farm and land management across three interconnected apps: Amaya Advisor, Amaya Farmer, and Amaya Sales. The platform enables farmers and advisors to manage land, track activities, and make data-driven decisions—even in rural areas with no internet connection.",
+      "Agrotech platform — 3 interconnected Flutter apps (Advisor, Farmer, Sales) for farm and land management. Built for field use in areas with no internet connection.",
     tasks: [
-      "Built offline-first map navigation using GeoJSON and MBTiles with intelligent tile generation (zoom 0-13 from single source)",
-      "Implemented Clean Architecture with BLoC pattern and established design system with theme tokens across all 3 apps",
-      "Led UI refactoring initiative and managed Jira workflow with sprint planning and code reviews",
-      "Implemented region border repair algorithm and in-memory caching to eliminate loader flashing",
+      "Built offline-first map navigation (Flutter, BLoC, Freezed) with GeoJSON/MBTiles tile rendering, zoom levels 0–13, Crashlytics error tracking, and unit-tested state flows.",
+      "Built a full Flutter UI system from scratch — design tokens, theme engine, and a reusable widget library covering navigation, dialogs, snackbars, bottom sheets, and app bars.",
+      "Led a full redesign of the visit-report module (Flutter + BLoC) — rebuilt GPS/map flows, photo capture with annotations, multi-language localisation, and offline-safe form state handling.",
+      "Optimised data loading with targeted API queries and multi-layer caching (in-memory + persistent storage), cutting page load from 60+ s to ~2 s cached or under 10 s on fresh install.",
+      "Refactored shared logic into independent Dart packages (date_utils, validation_utils, network_utils); led sprint planning, task breakdown, and code reviews in an Agile workflow.",
     ],
-    skills: ["Clean Architecture", "BLoC", "Jira", "Theme Tokens", "GeoJSON", "MBTiles"],
+    skills: ["Flutter", "BLoC", "Freezed", "Clean Architecture", "GeoJSON/MBTiles", "Dart Packages", "Unit Tests", "Agile"],
     images: [
       "/images/amaya1.jpg",
       "/images/amaya2.jpg",
@@ -31,12 +32,12 @@ const projects = [
     playStoreUrl: "https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en",
     appStoreUrl: null,
     description:
-      "A cross-platform video streaming app for an Algerian startup, built with Flutter. The app delivers a Netflix-like experience with support for mobile, tablet, and Android TV, featuring Google Cast integration, multi-language subtitles, and adaptive video quality based on network conditions.",
+      "A cross-platform video streaming app for an Algerian startup, built with Flutter — 10k+ downloads on the Play Store. Delivers a Netflix-like experience across mobile, tablet, and Android TV, featuring Google Cast, multi-language subtitles, and adaptive video quality.",
     tasks: [
-      "Led Flutter development for cross-platform video streaming app (Android, iOS, Android TV)",
-      "Reduced initial data load time from 8-10 seconds to under 1 second by optimizing API calls and implementing smart caching",
-      "Built streaming features including Google Cast, subtitles, and adaptive video quality",
-      "Extended platform to Android TV with optimized layouts, remote navigation, and D-pad support",
+      "Led Flutter development for cross-platform video streaming app (Android, iOS, Android TV) — 10k+ Play Store downloads",
+      "Reduced initial data load time from 8–10 seconds to under 1 second (80%+ improvement) via API optimisation and smart caching",
+      "Built streaming features: Google Cast, multi-language subtitles, adaptive video quality based on network conditions",
+      "Extended platform to Android TV with tailored layouts, D-pad remote navigation, and voice search support",
     ],
     skills: ["Flutter", "Provider", "Video Streaming", "Android TV", "Google Cast", "REST API"],
     images: [
@@ -79,14 +80,14 @@ const projects = [
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.snay3i.app",
     description:
-      "A job marketplace connecting service providers with customers for home, automotive, and professional needs. Built from scratch using Flutter and Firebase with Google Maps integration.",
+      "A job marketplace connecting service providers with customers for home, automotive, and professional services. Built from scratch with Flutter, Firebase, Google Maps, and a React/Node.js back-office admin panel.",
     tasks: [
-      "Integrated Firebase services: Realtime Database, Auth, Cloud Functions, Storage, Messaging, Crashlytics",
-      "Implemented Google Maps for location-based service discovery and provider tracking",
-      "Built multi-language support (English, French, Arabic) for broader market reach",
-      "Created React-based back-office system for admin management",
+      "Integrated full Firebase suite: Realtime Database, Auth, Cloud Functions, Storage, Messaging, Crashlytics, Analytics",
+      "Implemented Google Maps for location-based service discovery and real-time provider tracking",
+      "Built 3-language support (Arabic, French, English) for broader market reach across North Africa",
+      "Created React/Node.js back-office system for admin management and service moderation",
     ],
-    skills: ["Flutter", "Firebase", "Google Maps", "React", "Node.js"],
+    skills: ["Flutter", "Firebase", "Google Maps", "React", "Node.js", "Multi-language"],
     images: [
       "/images/snay3i1.png",
       "/images/snay3i.jpg",
@@ -101,10 +102,10 @@ const projects = [
     description:
       "A cost-effective package delivery platform connecting shippers with travelers locally and internationally. Makes deliveries simpler, faster, and more affordable.",
     tasks: [
-      "Resolved Stripe payment issue, reducing operational costs by 15%",
-      "Developed Favorite Trajectory feature for efficient route management",
-      "Enhanced messaging system for seamless sender-traveler communication",
-      "Implemented real-time notifications for package tracking updates",
+      "Resolved Stripe payment integration issue, reducing operational costs by 15%",
+      "Developed Favourite Trajectory feature for efficient route management and repeat deliveries",
+      "Enhanced in-app messaging system for seamless sender-traveller communication",
+      "Implemented real-time push notifications for live package tracking updates",
     ],
     skills: ["Flutter", "Firebase", "Stripe", "Push Notifications"],
     images: ["/images/mziya1.jpg", "/images/mziya3.jpg", "/images/mziya2.jpg"],

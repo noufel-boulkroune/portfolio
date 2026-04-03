@@ -24,3 +24,6 @@ yarn-error.log*
 
 .codegpt
 .env
+
+# Claude local context — never commit, stays local only
+.claude/

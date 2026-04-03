@@ -5,6 +5,7 @@ import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
 import ExperienceSection from "./components/ExperienceSection";
 import SofaShowcaseSection from "./components/SofaShowcaseSection";
+import AmayaShowcaseSection from "./components/AmayaShowcaseSection";
 import ProjectsSection from "./components/ProjectsSection";
 import LearningProjectsSection from "./components/LearningProjectsSection";
 // import TestimonialsSection from "./components/TestimonialsSection";
@@ -108,6 +109,9 @@ const Portfolio = () => {
 
           {/* Experience Section - NEW */}
           <ExperienceSection />
+
+          {/* Amaya Visit Report - Before / After */}
+          <AmayaShowcaseSection />
 
           {/* Sofa Showcase - Latest Project */}
           <SofaShowcaseSection />

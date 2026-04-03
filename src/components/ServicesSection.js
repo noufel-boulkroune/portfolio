@@ -114,7 +114,7 @@ const ServiceCard = ({ service, index }) => {
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="relative py-20 lg:py-32 overflow-hidden">
+    <section id="services" className="relative py-14 lg:py-20 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-dark">
         <motion.div 
@@ -149,7 +149,7 @@ const ServicesSection = () => {
       <div className="container relative z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-16 lg:mb-20"
+          className="text-center mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}

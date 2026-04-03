@@ -2,6 +2,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Download, ArrowRight, Play, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import AnimatedCounter from "./AnimatedCounter";
 
 const HeroSection = () => {
   // Check if mobile using media query (no state changes)
@@ -57,7 +58,7 @@ const HeroSection = () => {
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-12"
     >
       {/* Static Background - No animations on mobile */}
       <div className="absolute inset-0 bg-dark">
@@ -80,6 +81,25 @@ const HeroSection = () => {
             backgroundSize: '100px 100px'
           }}
         />
+        {/* Floating particles - desktop only */}
+        <div className="hidden lg:block absolute inset-0 overflow-hidden pointer-events-none">
+          {[
+            { w: 3, h: 3, t: "15%", l: "10%", dur: 6, delay: 0,   color: "bg-primary/30" },
+            { w: 2, h: 2, t: "30%", l: "85%", dur: 8, delay: 1,   color: "bg-secondary/30" },
+            { w: 4, h: 4, t: "60%", l: "5%",  dur: 7, delay: 2,   color: "bg-accent/20" },
+            { w: 2, h: 2, t: "75%", l: "92%", dur: 9, delay: 0.5, color: "bg-primary/20" },
+            { w: 3, h: 3, t: "45%", l: "50%", dur: 5, delay: 3,   color: "bg-secondary/20" },
+            { w: 2, h: 2, t: "20%", l: "65%", dur: 10,delay: 1.5, color: "bg-accent/30" },
+          ].map((p, i) => (
+            <motion.div
+              key={i}
+              className={`absolute rounded-full ${p.color}`}
+              style={{ width: p.w * 4, height: p.h * 4, top: p.t, left: p.l }}
+              animate={{ y: [0, -20, 0], x: [0, 10, 0], opacity: [0.3, 0.8, 0.3] }}
+              transition={{ duration: p.dur, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="container relative z-10">
@@ -121,7 +141,7 @@ const HeroSection = () => {
               variants={itemVariants}
               className="text-lg text-light-300/80 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
             >
-              I build <span className="text-primary font-semibold">high-performance</span> mobile apps that help businesses grow. With <span className="text-accent font-semibold">3+ years</span> of Flutter experience, I've shipped <span className="text-secondary font-semibold">10+ apps</span> to the Play Store and App Store. Let's turn your app idea into reality.
+              <span className="text-primary font-semibold">Flutter & Android developer</span> with <span className="text-accent font-semibold">3+ years</span> of experience — shipped <span className="text-secondary font-semibold">5+ apps</span> to both stores using Flutter, Dart, Firebase, BLoC, MVVM, and Clean Architecture. Proven impact: <span className="text-primary font-semibold">10k+ downloads</span> on one product, page load cut <span className="text-secondary font-semibold">83%+ faster</span> on another. I thrive on tackling complex projects and delivering clean, scalable code.
             </motion.p>
 
             {/* Stats - No floating animation */}
@@ -140,7 +160,7 @@ const HeroSection = () => {
                   whileHover={{ y: -5 }}
                 >
                   <div className="text-2xl sm:text-3xl font-bold gradient-text-static group-hover:scale-110 transition-transform duration-300 inline-block">
-                    {stat.value}
+                    <AnimatedCounter value={stat.value} duration={1200} />
                   </div>
                   <div className="text-xs sm:text-sm text-light-300/70 mt-2 font-medium">
                     {stat.label}
@@ -319,7 +339,7 @@ const HeroSection = () => {
 
         {/* Skills Section */}
         <motion.div
-          className="mt-20 lg:mt-32"
+          className="mt-14 lg:mt-20"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
@@ -372,7 +392,7 @@ const HeroSection = () => {
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-50">
             {/* Client logos/names - using text as placeholder */}
-            {["Mziya", "Snay3i", "Azougui", "Laffaiire", "Sofa"].map((client) => (
+            {["Amaya AG", "QIRAT", "MSD Consulting", "Azougui", "Sofa", "Snay3i", "Mziya"].map((client) => (
               <span key={client} className="text-light-300/60 font-semibold text-lg">
                 {client}
               </span>

@@ -28,7 +28,7 @@ const reasons = [
   {
     icon: Clock,
     title: "Proven Track Record",
-    description: "Multiple apps published on Play Store and App Store. Real products with real users out in the wild.",
+    description: "5+ apps published on Play Store and App Store. Real products with real users — including 10k+ downloads on one platform.",
     stat: "5+",
     statLabel: "Live Apps"
   },
@@ -101,7 +101,7 @@ const ReasonCard = ({ reason, index }) => {
 
 const WhyHireMeSection = () => {
   return (
-    <section id="why-hire-me" className="relative py-20 lg:py-32 overflow-hidden">
+    <section id="why-hire-me" className="relative py-14 lg:py-20 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-dark">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
@@ -123,7 +123,7 @@ const WhyHireMeSection = () => {
       <div className="container relative z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-16 lg:mb-20"
+          className="text-center mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}

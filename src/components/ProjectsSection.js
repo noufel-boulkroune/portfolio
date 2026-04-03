@@ -30,7 +30,7 @@ const ProjectsSection = ({ projects }) => {
   return (
     <section
       id="projects"
-      className="relative py-20 lg:py-32 overflow-hidden"
+      className="relative py-14 lg:py-20 overflow-hidden"
     >
       {/* Background effects */}
       <div className="absolute inset-0 bg-dark">
@@ -68,7 +68,7 @@ const ProjectsSection = ({ projects }) => {
       <div className="container relative z-10">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16 lg:mb-20"
+          className="text-center mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -116,24 +116,10 @@ const ProjectsSection = ({ projects }) => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {projects.map((project, index) => (
+          {projects.map((project) => (
               <motion.div
                 key={project.title}
                 variants={itemVariants}
-                animate={{
-                  y: [0, -8, 0],
-                }}
-                transition={{
-                  duration: 5 + index * 0.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: index * 0.4,
-                }}
-                whileHover={{ 
-                  scale: 1.02,
-                  y: -4,
-                  transition: { duration: 0.3 }
-                }}
               >
                 <ProjectCard project={project} />
               </motion.div>

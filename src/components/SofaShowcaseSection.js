@@ -2,14 +2,19 @@ import React, { useState, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGooglePlay, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Smartphone, Tablet, Tv, ExternalLink, Star } from "lucide-react";
+import Lightbox from "./Lightbox";
 
 // Simple image component
-const LazyImage = memo(({ src, alt, className, objectFit = "cover" }) => {
+const LazyImage = memo(({ src, alt, className, objectFit = "cover", onClick }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
   return (
-    <div className={`relative overflow-hidden bg-dark-200 ${className}`}>
+    <div
+      className={`relative overflow-hidden bg-dark-200 ${className}`}
+      onClick={onClick}
+      style={{ cursor: onClick ? "pointer" : "default" }}
+    >
       {!isLoaded && !isError && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -89,8 +94,8 @@ const slideVariants = {
   exit: (dir) => ({ x: dir < 0 ? 30 : -30, opacity: 0 }),
 };
 
-// Device Carousel - separate component that only re-renders when its own state changes
-const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
+// Device Carousel — each carousel manages its own index state
+const DeviceCarousel = memo(({ platformKey, images, MockupComponent, onOpenLightbox }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
@@ -109,7 +114,7 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
       setDirection(idx > currentIndex ? 1 : -1);
       setCurrentIndex(idx);
     },
-    [currentIndex],
+    [currentIndex]
   );
 
   return (
@@ -150,6 +155,7 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
                   alt={`Sofa ${platformKey} ${currentIndex + 1}`}
                   className="w-full h-full"
                   objectFit="cover"
+                  onClick={() => onOpenLightbox && onOpenLightbox(images, currentIndex)}
                 />
               </motion.div>
             </AnimatePresence>
@@ -179,6 +185,9 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent }) => {
           />
         ))}
       </div>
+
+      {/* Tap hint */}
+      <p className="text-center text-xs text-light-300/25 mt-3">tap image to expand</p>
     </div>
   );
 });
@@ -260,8 +269,8 @@ const platforms = [
   },
 ];
 
-// Platform Card - static content, carousel handles its own state
-const PlatformCard = memo(({ platform, index }) => {
+// Platform Card
+const PlatformCard = memo(({ platform, index, onOpenLightbox }) => {
   const Icon = platform.icon;
 
   return (
@@ -343,6 +352,7 @@ const PlatformCard = memo(({ platform, index }) => {
           platformKey={platform.key}
           images={platform.images}
           MockupComponent={platform.MockupComponent}
+          onOpenLightbox={onOpenLightbox}
         />
       </motion.div>
     </motion.div>
@@ -350,135 +360,160 @@ const PlatformCard = memo(({ platform, index }) => {
 });
 
 const SofaShowcaseSection = () => {
+  // Lightbox state
+  const [lightbox, setLightbox] = useState(null);
+
+  const openLightbox = useCallback((images, index) => {
+    setLightbox({ images, index });
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setLightbox(null);
+  }, []);
+
   return (
-    <section
-      id="sofaShowcaseSection"
-      className="relative py-20 lg:py-32 overflow-hidden"
-    >
-      {/* Background */}
-      <div className="absolute inset-0 bg-dark">
-        <motion.div
-          className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[150px]"
-          animate={{
-            x: [0, -50, 0],
-            y: [0, 50, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-      </div>
-
-      <div className="container relative z-10">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16 lg:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.span
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20 mb-6"
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          >
-            <Star className="w-3.5 h-3.5" />
-            Project Deep Dive
-          </motion.span>
-
-          <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <span className="gradient-text-static">Sofa</span>
-            <span className="text-light"> – Cross-Platform Streaming</span>
-          </motion.h2>
-
-          <motion.p
-            className="text-light-300/70 max-w-3xl mx-auto text-base sm:text-lg lg:text-xl leading-relaxed text-justify"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            A video streaming app I built with Flutter that works on phones,
-            tablets, and Android TV. It uses MVVM architecture, connects to REST
-            APIs, supports Google Cast, and adjusts video quality automatically.
-            I brought the loading time down from 8-10 seconds to under 1 second.
-          </motion.p>
-        </motion.div>
-
-        {/* Platform Cards */}
-        <div className="space-y-20 lg:space-y-32">
-          {platforms.map((platform, index) => (
-            <PlatformCard
-              key={platform.key}
-              platform={platform}
-              index={index}
-            />
-          ))}
+    <>
+      <section
+        id="sofaShowcaseSection"
+        className="relative py-14 lg:py-20 overflow-hidden"
+      >
+        {/* Background */}
+        <div className="absolute inset-0 bg-dark">
+          <motion.div
+            className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[150px]"
+            animate={{
+              x: [0, -50, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]"
+            animate={{
+              x: [0, 30, 0],
+              y: [0, -30, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
         </div>
 
-        {/* CTA */}
-        <motion.div
-          className="text-center mt-20 pt-16 border-t border-white/5"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            10k+ Downloads
+        <div className="container relative z-10">
+          {/* Header */}
+          <motion.div
+            className="text-center mb-12 lg:mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.span
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20 mb-6"
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            >
+              <Star className="w-3.5 h-3.5" />
+              Project Deep Dive
+            </motion.span>
+
+            <motion.h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <span className="gradient-text-static">Sofa</span>
+              <span className="text-light"> – Cross-Platform Streaming</span>
+            </motion.h2>
+
+            <motion.p
+              className="text-light-300/70 max-w-3xl mx-auto text-base sm:text-lg lg:text-xl leading-relaxed text-justify"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
+              A video streaming app I built with Flutter that works on phones,
+              tablets, and Android TV. It uses MVVM architecture, connects to REST
+              APIs, supports Google Cast, and adjusts video quality automatically.
+              I brought the loading time down from 8-10 seconds to under 1 second.
+            </motion.p>
+          </motion.div>
+
+          {/* Platform Cards */}
+          <div className="space-y-20 lg:space-y-32">
+            {platforms.map((platform, index) => (
+              <PlatformCard
+                key={platform.key}
+                platform={platform}
+                index={index}
+                onOpenLightbox={openLightbox}
+              />
+            ))}
           </div>
 
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-light mb-4">
-            Live on Google Play Store
-          </h3>
-
-          <p className="text-light-300/60 mb-8 max-w-lg mx-auto text-base lg:text-lg text-justify">
-            A ready-to-use streaming app that works in multiple languages, made
-            for users in Algeria.
-          </p>
-
-          <motion.a
-            href="https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-dark font-semibold hover:shadow-glow transition-all duration-300"
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.98 }}
+          {/* CTA */}
+          <motion.div
+            className="text-center mt-20 pt-16 border-t border-white/5"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            <FaGooglePlay className="w-5 h-5" />
-            View on Play Store
-            <ExternalLink className="w-4 h-4" />
-          </motion.a>
-        </motion.div>
-      </div>
-    </section>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              10k+ Downloads
+            </div>
+
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-light mb-4">
+              Live on Google Play Store
+            </h3>
+
+            <p className="text-light-300/60 mb-8 max-w-lg mx-auto text-base lg:text-lg text-justify">
+              A ready-to-use streaming app that works in multiple languages, made
+              for users in Algeria.
+            </p>
+
+            <motion.a
+              href="https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-dark font-semibold hover:shadow-glow transition-all duration-300"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FaGooglePlay className="w-5 h-5" />
+              View on Play Store
+              <ExternalLink className="w-4 h-4" />
+            </motion.a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && (
+          <Lightbox
+            images={lightbox.images}
+            initialIndex={lightbox.index}
+            onClose={closeLightbox}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

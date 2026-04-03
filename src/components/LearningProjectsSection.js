@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { ExternalLink, Code2 } from "lucide-react";
+import { ExternalLink, Code2, ChevronDown, ChevronUp } from "lucide-react";
 
 // Simple image component
 const LazyImage = ({ src, alt, className }) => {
@@ -300,37 +300,18 @@ const ProjectCardMini = ({ project, index }) => {
   );
 };
 
-const LearningProjectsSection = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.2,
-      },
-    },
-  };
+const INITIAL_COUNT = 3;
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-      },
-    },
-  };
+const LearningProjectsSection = () => {
+  const [showAll, setShowAll] = useState(false);
+  const visibleProjects = showAll ? projectsData : projectsData.slice(0, INITIAL_COUNT);
+  const hiddenCount = projectsData.length - INITIAL_COUNT;
 
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
+    <section className="relative py-16 lg:py-24 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-dark">
-        <motion.div 
+        <motion.div
           className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]"
           animate={{
             x: [0, 50, 0],
@@ -343,7 +324,7 @@ const LearningProjectsSection = () => {
             ease: "easeInOut",
           }}
         />
-        <motion.div 
+        <motion.div
           className="absolute bottom-0 right-1/3 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[120px]"
           animate={{
             x: [0, -30, 0],
@@ -362,7 +343,7 @@ const LearningProjectsSection = () => {
       <div className="container relative z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -379,7 +360,7 @@ const LearningProjectsSection = () => {
             Learning Journey
           </motion.span>
 
-          <motion.h2 
+          <motion.h2
             className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -390,44 +371,67 @@ const LearningProjectsSection = () => {
             <span className="gradient-text-static">Projects</span>
           </motion.h2>
 
-          <motion.p 
+          <motion.p
             className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Projects built during my learning journey, including recruitment tests, 
+            Projects built during my learning journey, including recruitment tests,
             design implementations, and personal challenges.
           </motion.p>
         </motion.div>
 
         {/* Projects Grid */}
-        <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          <AnimatePresence mode="popLayout">
+            {visibleProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.92, y: 24 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 16 }}
+                transition={{
+                  duration: 0.38,
+                  delay: index >= INITIAL_COUNT ? (index - INITIAL_COUNT) * 0.07 : 0,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="flex"
+              >
+                <ProjectCardMini project={project} index={index} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Show More / Show Less Button */}
+        <motion.div
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.5 }}
         >
-          {projectsData.map((project, index) => (
-            <motion.div 
-              key={project.id} 
-              variants={cardVariants}
-              className="flex"
-              animate={{
-                y: [0, -6, 0],
-              }}
-              transition={{
-                duration: 4 + (index % 3) * 0.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: (index % 3) * 0.2,
-              }}
-            >
-              <ProjectCardMini project={project} index={index} />
-            </motion.div>
-          ))}
+          <motion.button
+            onClick={() => setShowAll((prev) => !prev)}
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-xl border border-white/10 bg-dark-200/50 backdrop-blur-sm text-light-300 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 text-sm font-medium"
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            {showAll ? (
+              <>
+                <ChevronUp className="w-4 h-4" />
+                Show Less
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-4 h-4" />
+                Show {hiddenCount} More Projects
+              </>
+            )}
+          </motion.button>
         </motion.div>
       </div>
     </section>

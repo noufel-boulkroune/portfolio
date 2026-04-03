@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
+import AnimatedCounter from "./AnimatedCounter";
 
 const experiences = [
   {
@@ -8,8 +9,9 @@ const experiences = [
     company: "Amaya AG",
     location: "Algeria (Remote)",
     type: "Full-time",
-    period: "Nov 2024 - Present",
-    description: "Agrotech platform providing digital tools for farm and land management. Working across 3 apps (Advisor, Farmer, Sales) with focus on offline-first architecture.",
+    period: "Nov 2025 - Present",
+    description: "Agrotech platform — 3 interconnected apps (Advisor, Farmer, Sales) for farm & land management. Built offline-first map navigation (Flutter, BLoC, GeoJSON/MBTiles), a full UI system from scratch (design tokens → reusable widget library), and led a complete redesign of the visit-report module — GPS flows, photo capture with annotations, multilingual support, and offline-safe form state. Optimised data loading with multi-layer caching, cutting page load from over 1 min to ~2 s (cached) or under 10 s (fresh install).",
+    tags: ["Flutter", "BLoC", "Freezed", "GeoJSON", "MBTiles", "Unit Tests", "Agile", "Crashlytics"],
     color: "primary"
   },
   {
@@ -18,7 +20,8 @@ const experiences = [
     location: "Algeria",
     type: "Full-time",
     period: "Sep 2024 - Oct 2025",
-    description: "Algerian startup building Sofa, a video streaming platform for web and mobile. Led Flutter development across Android, iOS, and Android TV.",
+    description: "Built Sofa — a cross-platform Flutter video streaming app with 10k+ Play Store downloads. Delivered separate tailored UIs for mobile, tablet, and Android TV (D-pad navigation, Google Cast, subtitles, adaptive streaming). Optimised API calls and added smart caching, cutting data load time from 8–10 s to under 1 s — an 80%+ improvement. Converted all Figma screens to pixel-perfect Flutter UI.",
+    tags: ["Flutter", "Provider", "REST API", "Android TV", "Google Cast", "Adaptive Streaming", "Figma"],
     color: "secondary"
   },
   {
@@ -27,7 +30,8 @@ const experiences = [
     location: "Algeria (Remote)",
     type: "Contract",
     period: "Dec 2022 - Aug 2025",
-    description: "French team creating custom app solutions for logistics, e-commerce, and job marketplaces. Built and published multiple Flutter apps.",
+    description: "French startup studio — shipped 5 Flutter apps across e-commerce, logistics, and job marketplaces. Built Azougui (grocery delivery, Mauritanian market) with real-time inventory, multi-vendor support, and Google & Apple auth — released on both stores. Built Snay3i (job marketplace) with Google Maps, 3-language support (AR/FR/EN), full Firebase suite, and a React/Node.js back-office admin panel. Shipped Mziya, Laffaiire, and Laffaiire-Tech to the Play Store. Configured Flutter flavors (dev/prod) and eliminated Stripe platform fees by migrating to Standard accounts.",
+    tags: ["Flutter", "Firebase", "Google Maps", "Stripe", "GetX", "React", "Node.js", "Flutter Flavors"],
     color: "accent"
   },
   {
@@ -36,7 +40,8 @@ const experiences = [
     location: "Algeria",
     type: "Full-time",
     period: "Feb 2024 - Sep 2024",
-    description: "Multinational company building apps for entertainment, education, and event management markets.",
+    description: "Multinational media company — apps for entertainment, education, and event management. Built D-Futures from scratch using Flutter, MVVM, and REST APIs for full event lifecycle management. Improved stability of Smart Panda and Ramadan Awards apps through bug fixes and performance improvements. Mentored junior Flutter developers and conducted code reviews across product and QA teams.",
+    tags: ["Flutter", "MVVM", "Provider", "REST APIs", "Code Review", "Mentoring"],
     color: "primary"
   },
   {
@@ -45,7 +50,8 @@ const experiences = [
     location: "Algeria",
     type: "Full-time",
     period: "Apr 2023 - Dec 2023",
-    description: "Real estate company specializing in tender, stock, and workforce management.",
+    description: "Real estate company — internal Flutter app for tender management, product & stock tracking, and workforce coordination. Designed and implemented clean GetX state management architecture, integrated REST APIs for live inventory data, and set up GitHub version control workflows for the development team. First professional Flutter project delivering a complete business solution end to end.",
+    tags: ["Flutter", "GetX", "REST APIs", "GitHub", "Dart"],
     color: "secondary"
   }
 ];
@@ -100,9 +106,23 @@ const ExperienceCard = ({ experience, index }) => {
           </div>
 
           {/* Description */}
-          <p className={`relative text-light-300/70 text-sm leading-relaxed ${isEven ? 'lg:text-right' : 'lg:text-left'} z-10`}>
+          <p className={`relative text-light-300/70 text-sm leading-relaxed ${isEven ? 'lg:text-right' : 'lg:text-left'} z-10 mb-4`}>
             {experience.description}
           </p>
+
+          {/* Tech tags */}
+          {experience.tags && (
+            <div className={`relative flex flex-wrap gap-1.5 z-10 ${isEven ? 'lg:justify-end' : 'lg:justify-start'}`}>
+              {experience.tags.map((tag, i) => (
+                <span
+                  key={i}
+                  className="px-2 py-0.5 text-xs rounded-md bg-dark-300/60 text-light-300/70 border border-white/5 hover:border-primary/20 hover:text-primary/80 transition-colors duration-200"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </motion.div>
       </div>
       
@@ -114,7 +134,7 @@ const ExperienceCard = ({ experience, index }) => {
 
 const ExperienceSection = () => {
   return (
-    <section id="experience" className="relative py-20 lg:py-32 overflow-hidden">
+    <section id="experience" className="relative py-14 lg:py-20 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-dark">
         <motion.div 
@@ -135,7 +155,7 @@ const ExperienceSection = () => {
       <div className="container relative z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-16 lg:mb-20"
+          className="text-center mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
@@ -199,7 +219,7 @@ const ExperienceSection = () => {
           {[
             { value: "3+", label: "Years Experience" },
             { value: "5", label: "Companies" },
-            { value: "10+", label: "Apps Shipped" },
+            { value: "5+", label: "Apps Published" },
             { value: "100%", label: "Store Acceptance" },
           ].map((stat, index) => (
             <motion.div
@@ -208,7 +228,7 @@ const ExperienceSection = () => {
               whileHover={{ scale: 1.05, y: -5 }}
             >
               <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold gradient-text-static mb-3 group-hover:scale-110 transition-transform duration-500 inline-block">
-                {stat.value}
+                <AnimatedCounter value={stat.value} duration={1400} />
               </div>
               <div className="text-sm lg:text-base font-medium text-light-300/70 group-hover:text-light-300 transition-colors">
                 {stat.label}
