@@ -12,7 +12,7 @@ import LearningProjectsSection from "./components/LearningProjectsSection";
 import WhyHireMeSection from "./components/WhyHireMeSection";
 // import FAQSection from "./components/FAQSection";
 import ContactSection from "./components/ContactSection";
-import FloatingCTA from "./components/FloatingCTA";
+// import FloatingCTA from "./components/FloatingCTA";
 import projects from "./data/projectsData";
 
 // Scroll to top button
