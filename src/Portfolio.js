@@ -132,7 +132,7 @@ const Portfolio = () => {
         </main>
 
         {/* Floating CTA */}
-        <FloatingCTA />
+        {/* <FloatingCTA /> */}
 
         {/* Scroll to top button */}
         <ScrollToTop />
@@ -142,7 +142,8 @@ const Portfolio = () => {
           <div
             className="absolute w-[500px] h-[500px] rounded-full opacity-[0.03] pointer-events-none"
             style={{
-              background: "radial-gradient(circle, #00D4FF 0%, transparent 70%)",
+              background:
+                "radial-gradient(circle, #00D4FF 0%, transparent 70%)",
               transform: "translate(-50%, -50%)",
               left: "var(--mouse-x, 50%)",
               top: "var(--mouse-y, 50%)",

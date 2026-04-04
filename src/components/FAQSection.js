@@ -5,36 +5,44 @@ import { HelpCircle, ChevronDown, MessageCircle } from "lucide-react";
 const faqs = [
   {
     question: "What is your development process?",
-    answer: "I follow a structured approach: 1) Discovery & Requirements gathering, 2) Design review (if Figma provided), 3) Development with weekly updates, 4) Testing & QA, 5) Deployment to stores. You'll receive regular progress updates and have access to test builds throughout development."
+    answer:
+      "I follow a structured approach: 1) Discovery & Requirements gathering, 2) Design review (if Figma provided), 3) Development with weekly updates, 4) Testing & QA, 5) Deployment to stores. You'll receive regular progress updates and have access to test builds throughout development.",
   },
   {
     question: "How long does it take to build an app?",
-    answer: "Timeline depends on complexity. A simple MVP typically takes 4-6 weeks, while complex apps with advanced features can take 3-4 months. I provide detailed timelines after understanding your requirements and always work to deliver on schedule."
+    answer:
+      "Timeline depends on complexity. A simple MVP typically takes 4-6 weeks, while complex apps with advanced features can take 3-4 months. I provide detailed timelines after understanding your requirements and always work to deliver on schedule.",
   },
   {
     question: "What are your rates?",
-    answer: "I offer flexible pricing: fixed project rates for well-defined scopes, or hourly rates for ongoing work. My rates are competitive while ensuring high-quality delivery. Let's discuss your project for a detailed quote."
+    answer:
+      "I offer flexible pricing: fixed project rates for well-defined scopes, or hourly rates for ongoing work. My rates are competitive while ensuring high-quality delivery. Let's discuss your project for a detailed quote.",
   },
   {
     question: "Do you handle app store publishing?",
-    answer: "Absolutely! I handle the entire publishing process including app preparation, store listing optimization, screenshots, and submission to both Google Play Store and Apple App Store. I've successfully published 5+ apps with zero rejections."
+    answer:
+      "Absolutely! I handle the entire publishing process including app preparation, store listing optimization, screenshots, and submission to both Google Play Store and Apple App Store. I've successfully published 5+ apps with zero rejections.",
   },
   {
     question: "Will I own the source code?",
-    answer: "Yes, absolutely. Upon project completion and final payment, you receive full ownership of all source code, assets, and intellectual property. I can also set up your own GitHub repository for code handover."
+    answer:
+      "Yes, absolutely. Upon project completion and final payment, you receive full ownership of all source code, assets, and intellectual property. I can also set up your own GitHub repository for code handover.",
   },
   {
     question: "Do you provide maintenance after launch?",
-    answer: "Yes, I offer post-launch support packages that include bug fixes, performance monitoring, OS updates compatibility, and feature enhancements. This ensures your app stays up-to-date and runs smoothly."
+    answer:
+      "Yes, I offer post-launch support packages that include bug fixes, performance monitoring, OS updates compatibility, and feature enhancements. This ensures your app stays up-to-date and runs smoothly.",
   },
   {
     question: "Can you work with existing codebases?",
-    answer: "Definitely. I can take over existing Flutter projects, perform code audits, fix bugs, add new features, or refactor for better performance. I've successfully modernized several legacy Flutter apps."
+    answer:
+      "Definitely. I can take over existing Flutter projects, perform code audits, fix bugs, add new features, or refactor for better performance. I've successfully modernized several legacy Flutter apps.",
   },
   {
     question: "How do we communicate during the project?",
-    answer: "I use multiple channels for clear communication: Slack/Telegram for quick messages, email for formal updates, and video calls for reviews. I typically respond within a few hours during work hours and provide weekly progress reports."
-  }
+    answer:
+      "I use multiple channels for clear communication: Slack/Telegram for quick messages, email for formal updates, and video calls for reviews. I typically respond within a few hours during work hours and provide weekly progress reports.",
+  },
 ];
 
 const FAQItem = ({ faq, index, isOpen, onToggle }) => {
@@ -50,20 +58,24 @@ const FAQItem = ({ faq, index, isOpen, onToggle }) => {
         onClick={onToggle}
         className="w-full py-5 flex items-center justify-between text-left group"
       >
-        <span className={`text-lg font-medium transition-colors ${isOpen ? 'text-primary' : 'text-light group-hover:text-primary'}`}>
+        <span
+          className={`text-lg font-medium transition-colors ${isOpen ? "text-primary" : "text-light group-hover:text-primary"}`}
+        >
           {faq.question}
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
           className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-            isOpen ? 'bg-primary/20 text-primary' : 'bg-dark-200 text-light-300 group-hover:text-primary'
+            isOpen
+              ? "bg-primary/20 text-primary"
+              : "bg-dark-200 text-light-300 group-hover:text-primary"
           }`}
         >
           <ChevronDown className="w-5 h-5" />
         </motion.div>
       </button>
-      
+
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
@@ -90,7 +102,7 @@ const FAQSection = () => {
     <section id="faq" className="relative py-20 lg:py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-dark">
-        <motion.div 
+        <motion.div
           className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]"
           animate={{
             x: [0, 30, 0],
@@ -125,7 +137,7 @@ const FAQSection = () => {
             FAQ
           </motion.span>
 
-          <motion.h2 
+          <motion.h2
             className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -136,15 +148,15 @@ const FAQSection = () => {
             <span className="gradient-text-static">Questions</span>
           </motion.h2>
 
-          <motion.p 
+          <motion.p
             className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Got questions? I've got answers. If you don't find what you're looking for, 
-            feel free to reach out directly.
+            Got questions? I've got answers. If you don't find what you're
+            looking for, feel free to reach out directly.
           </motion.p>
         </motion.div>
 
@@ -182,7 +194,9 @@ const FAQSection = () => {
                 faq={faq}
                 index={index + 4}
                 isOpen={openIndex === index + 4}
-                onToggle={() => setOpenIndex(openIndex === index + 4 ? -1 : index + 4)}
+                onToggle={() =>
+                  setOpenIndex(openIndex === index + 4 ? -1 : index + 4)
+                }
               />
             ))}
           </motion.div>
@@ -201,8 +215,12 @@ const FAQSection = () => {
               <MessageCircle className="w-6 h-6 text-primary" />
             </div>
             <div className="text-center sm:text-left">
-              <h3 className="text-lg font-semibold text-light mb-1">Still have questions?</h3>
-              <p className="text-light-300/60 text-sm">I'm here to help. Let's chat about your project.</p>
+              <h3 className="text-lg font-semibold text-light mb-1">
+                Still have questions?
+              </h3>
+              <p className="text-light-300/60 text-sm">
+                I'm here to help. Let's chat about your project.
+              </p>
             </div>
             <motion.a
               href="#contact"

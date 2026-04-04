@@ -23,7 +23,7 @@ const FloatingCTA = () => {
       description: "Quick response",
       href: "#contact",
       color: "from-primary/20 to-cyan-500/20",
-      iconColor: "text-primary"
+      iconColor: "text-primary",
     },
     {
       icon: Briefcase,
@@ -31,8 +31,8 @@ const FloatingCTA = () => {
       description: "What I offer",
       href: "#services",
       color: "from-purple-500/20 to-pink-500/20",
-      iconColor: "text-purple-400"
-    }
+      iconColor: "text-purple-400",
+    },
   ];
 
   return (
@@ -71,8 +71,14 @@ const FloatingCTA = () => {
                     <motion.a
                       key={action.label}
                       href={action.href}
-                      target={action.href.startsWith("http") ? "_blank" : undefined}
-                      rel={action.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      target={
+                        action.href.startsWith("http") ? "_blank" : undefined
+                      }
+                      rel={
+                        action.href.startsWith("http")
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
                       className={`flex items-center gap-3 px-4 py-3 bg-dark-100/95 backdrop-blur-xl rounded-xl border border-white/10 hover:border-primary/30 transition-all group`}
                       initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -80,12 +86,18 @@ const FloatingCTA = () => {
                       transition={{ delay: index * 0.05 }}
                       onClick={() => setIsOpen(false)}
                     >
-                      <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${action.color} flex items-center justify-center ${action.iconColor}`}>
+                      <div
+                        className={`w-10 h-10 rounded-lg bg-gradient-to-br ${action.color} flex items-center justify-center ${action.iconColor}`}
+                      >
                         <action.icon className="w-5 h-5" />
                       </div>
                       <div className="text-right">
-                        <div className="text-light font-medium text-sm">{action.label}</div>
-                        <div className="text-light-300/50 text-xs">{action.description}</div>
+                        <div className="text-light font-medium text-sm">
+                          {action.label}
+                        </div>
+                        <div className="text-light-300/50 text-xs">
+                          {action.description}
+                        </div>
                       </div>
                     </motion.a>
                   ))}
@@ -97,16 +109,14 @@ const FloatingCTA = () => {
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
               className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
-                isOpen 
-                  ? "bg-dark-200 border border-white/10 text-light rotate-45" 
+                isOpen
+                  ? "bg-dark-200 border border-white/10 text-light rotate-45"
                   : "bg-gradient-to-r from-primary to-primary/80 text-dark shadow-glow"
               }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               animate={{
-                boxShadow: isOpen 
-                  ? "none" 
-                  : "0 0 30px rgba(0, 212, 255, 0.4)"
+                boxShadow: isOpen ? "none" : "0 0 30px rgba(0, 212, 255, 0.4)",
               }}
             >
               {isOpen ? (
@@ -125,7 +135,7 @@ const FloatingCTA = () => {
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeOut"
+                  ease: "easeOut",
                 }}
               />
             )}
