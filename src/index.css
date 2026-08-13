@@ -1,243 +1,284 @@
 @import "./styles/tailwind.css";
 
-/* Google Fonts - Outfit & JetBrains Mono */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+/* =========================================================================
+   APPLE-STYLE LIGHT THEME
+   Based on Apple's design talks (Designing Fluid Interfaces, WWDC 2018;
+   The Details of UI Typography, WWDC 2020; Principles of Great Design).
+   No web font is loaded on purpose -- the system font is faster and already
+   ships optical sizing, tracking tables and legibility tuning.
+   ========================================================================= */
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0A0A0F;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #00D4FF 0%, #7C3AED 100%);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #00D4FF 0%, #9F67FF 100%);
-}
-
-/* Root variables */
+/* ---------- 1. Tokens ---------- */
 :root {
-  --primary: #00D4FF;
-  --secondary: #7C3AED;
-  --bg-dark: #0A0A0F;
-  --bg-dark-100: #16161D;
-  --bg-dark-200: #1E1E26;
-  --text-light: #E5E7EB;
-  --text-muted: #9CA3AF;
-  
-  /* Smooth scrolling */
+  --primary: #0071E3;          /* Apple blue */
+  --primary-strong: #0062C4;   /* pressed / gradient end */
+  --secondary: #5E5CE6;        /* Apple indigo */
+
+  --bg: #FFFFFF;
+  --bg-100: #FBFBFD;
+  --bg-200: #F5F5F7;
+  --bg-300: #EDEDF0;
+  --bg-400: #E3E3E6;
+
+  --text: #1D1D1F;
+  --text-secondary: #6E6E73;
+  --text-tertiary: #86868B;
+  --separator: rgba(0, 0, 0, 0.08);
+
+  /* Material (rule 12) */
+  --material-thin: rgba(255, 255, 255, 0.62);
+  --material-regular: rgba(255, 255, 255, 0.76);
+  --material-thick: rgba(255, 255, 255, 0.92);
+  --material-blur: 20px;
+  --material-blur-thick: 40px;
+
+  /* Motion (rule 4). Response ~0.3-0.4s, critically damped by default. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);   /* enter */
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);    /* exit -- mirror of enter */
+  --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-spring: cubic-bezier(0.34, 1.26, 0.64, 1); /* momentum only */
+  --response: 0.4s;
+  --response-fast: 0.24s;
+
   scroll-behavior: smooth;
-  scroll-padding-top: 100px;
+  scroll-padding-top: 96px;
+  color-scheme: light;
 }
 
-/* Base styles */
-* {
-  box-sizing: border-box;
-}
+/* ---------- 2. Base ---------- */
+* { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg);
 }
 
 body {
   margin: 0;
-  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: #0A0A0F;
-  color: #E5E7EB;
+  /* Rule 15: platform system font first. */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter",
+               system-ui, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
   overflow-x: hidden;
+  /* Rule 15: leading tracks size inversely -- body is comfortable, not loose. */
+  line-height: 1.47;
+  letter-spacing: -0.003em;
+  overscroll-behavior-y: none;
+}
+
+code, pre, .font-mono {
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; height: auto; }
+img.lazy-load { opacity: 0; transition: opacity var(--response-fast) var(--ease-out); }
+img.lazy-load.loaded { opacity: 1; }
+
+::selection { background: rgba(0, 113, 227, 0.18); color: var(--text); }
+::-moz-selection { background: rgba(0, 113, 227, 0.18); color: var(--text); }
+
+/* ---------- 3. Typography scale (rule 15) ----------
+   Tracking is size-specific: large text tightens, small text opens up. */
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  color: var(--text);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.019em;
+  color: var(--text);
+}
+
+h3 {
+  font-size: clamp(1.375rem, 3vw, 1.875rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.014em;
+  color: var(--text);
+}
+
+h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+p {
+  font-size: clamp(1rem, 1.5vw, 1.0625rem);
   line-height: 1.6;
+  letter-spacing: 0;
+  color: var(--text-secondary);
 }
 
-/* Selection color */
-::selection {
-  background: rgba(0, 212, 255, 0.3);
-  color: #fff;
+small, .text-xs, .text-\[10px\] {
+  letter-spacing: 0.011em; /* small text needs slightly positive tracking */
 }
 
-::-moz-selection {
-  background: rgba(0, 212, 255, 0.3);
-  color: #fff;
-}
-
-/* Focus styles - Enhanced for accessibility */
-*:focus {
-  outline: none;
-}
+/* ---------- 4. Focus (rule 2: agency, and accessibility) ---------- */
+*:focus { outline: none; }
 
 *:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 3px solid rgba(0, 113, 227, 0.55);
   outline-offset: 2px;
-  outline-style: solid;
+  border-radius: 8px;
 }
 
-/* Enhanced interactive elements */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
-}
-
-/* Smooth transitions for interactive elements */
-button,
-a,
-input,
-textarea,
-select {
-  transition: all 0.2s ease;
-}
-
-/* Hover effects for better interactivity */
-button:hover:not(:disabled),
-a:hover {
-  transform: translateY(-1px);
+/* ---------- 5. Feedback (rule 1: respond on press, not on release) ----------
+   The old theme lifted every button and link on hover. Apple gives the
+   feedback on pointer-DOWN instead, and it is instant. */
+button, a, input, textarea, select {
+  transition: background-color var(--response-fast) var(--ease-standard),
+              border-color var(--response-fast) var(--ease-standard),
+              color var(--response-fast) var(--ease-standard),
+              box-shadow var(--response-fast) var(--ease-standard),
+              opacity var(--response-fast) var(--ease-standard),
+              transform 0.1s var(--ease-standard);
 }
 
 button:active:not(:disabled),
-a:active {
-  transform: translateY(0);
+a[role="button"]:active,
+.btn-primary:active,
+.btn-secondary:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease-out;
 }
 
-/* Links */
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-/* Smooth image loading */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-img.lazy-load {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-img.lazy-load.loaded {
-  opacity: 1;
-}
-
-/* Glass morphism utility */
+/* ---------- 6. Materials (rule 12) ----------
+   Translucent layers with content scrolling underneath, never opaque bars.
+   A bright top edge reads as light catching the material. */
 .glass {
-  background: rgba(15, 15, 20, 0.65);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  transition: all 0.3s ease;
+  background: var(--material-regular);
+  backdrop-filter: blur(var(--material-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--material-blur)) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-top-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: background-color var(--response) var(--ease-out),
+              box-shadow var(--response) var(--ease-out),
+              border-color var(--response) var(--ease-out);
 }
 
 .glass:hover {
-  background: rgba(20, 20, 25, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--material-thick);
+  border-color: rgba(0, 0, 0, 0.10);
 }
 
 .glass-strong {
-  background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  background: var(--material-thick);
+  backdrop-filter: blur(var(--material-blur-thick)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--material-blur-thick)) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 16px 40px rgba(0, 0, 0, 0.10);
 }
 
-/* Gradient text utility */
-.gradient-text {
-  background: linear-gradient(135deg, #00D4FF 0%, #7C3AED 50%, #00D4FF 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientShift 8s ease infinite;
+/* Rule 12: fade content where it meets floating chrome, no hard 1px divider. */
+.scroll-edge {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 24px);
+  mask-image: linear-gradient(to bottom, transparent 0, black 24px);
 }
 
+/* ---------- 7. Text accents ---------- */
+.gradient-text,
 .gradient-text-static {
-  background: linear-gradient(135deg, #00D4FF 0%, #7C3AED 100%);
+  background: linear-gradient(120deg, #0071E3 0%, #5E5CE6 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 100% auto;
+  animation: none; /* rule 14: no slow looping oscillation on large text */
 }
 
-/* Button styles */
+/* ---------- 8. Buttons ---------- */
 .btn-primary {
-  background: linear-gradient(135deg, #00D4FF 0%, #00A3CC 100%);
-  color: #0A0A0F;
-  font-weight: 700;
-  padding: 0.85rem 1.75rem;
-  border-radius: 14px;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3), inset 0 -2px 0 rgba(0,0,0,0.2);
-  letter-spacing: 0.5px;
+  background: var(--primary);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  padding: 0.75rem 1.5rem;
+  border-radius: 980px; /* Apple pill */
+  border: none;
+  box-shadow: none;
+  transition: background-color var(--response-fast) var(--ease-standard),
+              transform 0.1s ease-out;
 }
 
-.btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5), inset 0 -2px 0 rgba(0,0,0,0.2);
-  background: linear-gradient(135deg, #1ae0ff 0%, #00bfff 100%);
-}
+.btn-primary:hover { background: #0077ED; }
+.btn-primary:active { background: var(--primary-strong); transform: scale(0.97); }
 
 .btn-secondary {
-  background: transparent;
-  border: 1px solid rgba(0, 212, 255, 0.3);
-  color: #00D4FF;
-  font-weight: 500;
+  background: rgba(0, 113, 227, 0.08);
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
   padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  border-radius: 980px;
 }
 
-.btn-secondary:hover {
-  background: rgba(0, 212, 255, 0.1);
-  border-color: #00D4FF;
-}
+.btn-secondary:hover { background: rgba(0, 113, 227, 0.14); }
+.btn-secondary:active { transform: scale(0.97); }
 
-/* Card styles */
+/* ---------- 9. Cards ---------- */
 .card {
-  background: linear-gradient(160deg, rgba(30, 30, 40, 0.7) 0%, rgba(15, 15, 20, 0.9) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 20px;
+  backdrop-filter: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05);
+  /* Rule 7 + 11: short travel, compositor-friendly properties only. */
+  transition: transform var(--response) var(--ease-out),
+              box-shadow var(--response) var(--ease-out),
+              border-color var(--response) var(--ease-out);
 }
 
 .card:hover {
-  border-color: rgba(0, 212, 255, 0.3);
-  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 212, 255, 0.15);
-  transform: translateY(-8px) scale(1.01);
+  transform: translateY(-3px);
+  border-color: rgba(0, 0, 0, 0.10);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 20px 44px rgba(0, 0, 0, 0.10);
 }
 
-/* Phone mockup styles */
+.card:active { transform: translateY(-1px) scale(0.995); transition-duration: 0.1s; }
+
+.glow-border { position: relative; }
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(120deg, rgba(0, 113, 227, 0.5), rgba(94, 92, 230, 0.5));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--response-fast) var(--ease-standard);
+}
+
+.glow-border:hover::before { opacity: 1; }
+
+/* ---------- 10. Device mockup ---------- */
 .phone-mockup {
-  background: linear-gradient(180deg, #2A2A35 0%, #1E1E26 100%);
+  background: linear-gradient(180deg, #E8E8ED 0%, #D2D2D7 100%);
   border-radius: 40px;
   padding: 8px;
-  box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.16),
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-.phone-screen {
-  background: #000;
-  border-radius: 32px;
-  overflow: hidden;
-  position: relative;
-}
+.phone-screen { background: #FFFFFF; border-radius: 32px; overflow: hidden; position: relative; }
 
 .phone-notch {
   position: absolute;
@@ -246,425 +287,397 @@ img.lazy-load.loaded {
   transform: translateX(-50%);
   width: 90px;
   height: 24px;
-  background: #000;
+  background: #1D1D1F;
   border-radius: 20px;
   z-index: 10;
 }
 
-/* Glow effects */
-.glow-border {
-  position: relative;
-}
-
-.glow-border::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(135deg, #00D4FF 0%, #7C3AED 50%, #00D4FF 100%);
-  border-radius: inherit;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.glow-border:hover::before {
-  opacity: 1;
-}
-
-/* Animated background blobs */
+/* ---------- 11. Ambient background ----------
+   Rule 14: large moving backgrounds are kept faint and slow. */
 .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
-  animation: blob 7s infinite;
+  filter: blur(100px);
+  opacity: 0.5;
+  animation: blob 14s ease-in-out infinite;
 }
 
-.blob-1 {
-  width: 400px;
-  height: 400px;
-  background: rgba(0, 212, 255, 0.15);
-  top: 0;
-  left: 0;
-}
+.blob-1 { width: 420px; height: 420px; background: rgba(0, 113, 227, 0.10); top: 0; left: 0; }
+.blob-2 { width: 360px; height: 360px; background: rgba(94, 92, 230, 0.09); bottom: 0; right: 0; animation-delay: 3s; }
+.blob-3 { width: 300px; height: 300px; background: rgba(0, 113, 227, 0.06); top: 50%; left: 50%; animation-delay: 6s; }
 
-.blob-2 {
-  width: 350px;
-  height: 350px;
-  background: rgba(124, 58, 237, 0.15);
-  bottom: 0;
-  right: 0;
-  animation-delay: 2s;
-}
-
-.blob-3 {
-  width: 300px;
-  height: 300px;
-  background: rgba(16, 185, 129, 0.1);
-  top: 50%;
-  left: 50%;
-  animation-delay: 4s;
-}
-
-/* Section spacing */
-.section {
-  padding: 100px 0;
-  position: relative;
-}
+/* ---------- 12. Layout ---------- */
+.section { padding: 100px 0; position: relative; }
 
 @media (max-width: 768px) {
-  .section {
-    padding: 60px 0;
-  }
+  .section { padding: 64px 0; }
 }
 
-/* Container */
-.container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
+.container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
 
-@media (min-width: 768px) {
-  .container {
-    padding: 0 48px;
-  }
-}
+@media (min-width: 768px)  { .container { padding: 0 48px; } }
+@media (min-width: 1280px) { .container { padding: 0 64px; } }
 
-@media (min-width: 1280px) {
-  .container {
-    padding: 0 64px;
-  }
-}
+/* ---------- 13. Scrollbar ---------- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.20); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.32); }
 
-/* Image blur placeholder animation */
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ---------- 14. Loading placeholders ---------- */
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 .image-placeholder {
-  background: linear-gradient(
-    90deg,
-    rgba(30, 30, 38, 1) 0%,
-    rgba(42, 42, 53, 1) 50%,
-    rgba(30, 30, 38, 1) 100%
-  );
+  background: linear-gradient(90deg, #F5F5F7 0%, #EDEDF0 50%, #F5F5F7 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
-/* Skill marquee */
-.marquee-container {
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent
-  );
-}
-
-/* Skills infinite marquee */
-.skills-marquee-wrapper {
-  overflow: hidden;
-  width: 100%;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 5%,
-    black 95%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 5%,
-    black 95%,
-    transparent
-  );
-}
-
-.skills-marquee {
-  display: flex;
-  gap: 1.5rem;
-  animation: skills-scroll 25s linear infinite;
-  width: max-content;
-  will-change: transform;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-
-.skills-marquee:hover {
-  animation-play-state: paused;
-}
-
-@keyframes skills-scroll {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(calc(-100% / 3), 0, 0);
-  }
-}
-
-@media (max-width: 768px) {
-  .skills-marquee {
-    animation-duration: 20s;
-    gap: 1rem;
-  }
-}
-
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  .skills-marquee {
-    animation: none;
-  }
-}
-
-/* Code font */
-code {
-  font-family: 'JetBrains Mono', Consolas, Monaco, 'Courier New', monospace;
-}
-
-/* Animations */
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes blob {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  50% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-  75% {
-    transform: translate(-40px, -30px) scale(1.05);
-  }
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
-  }
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Animation utilities */
-.animate-blob {
-  animation: blob 7s infinite;
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
-/* Scroll reveal animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal-left.active {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.reveal-right {
-  opacity: 0;
-  transform: translateX(50px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal-right.active {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.reveal-scale {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.reveal-scale.active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Stagger animation delays */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
-.stagger-6 { animation-delay: 0.6s; }
-
-/* Hide scrollbar for mobile nav */
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Responsive typography */
-h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-p {
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
-  line-height: 1.7;
-  color: #9CA3AF;
-}
-
-/* Loading animation for lazy images */
-.lazy-image-container {
-  position: relative;
-  overflow: hidden;
-  background: #16161D;
-}
+.lazy-image-container { position: relative; overflow: hidden; background: #F5F5F7; }
 
 .lazy-image-container::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.05),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.04), transparent);
   animation: shimmer 1.5s infinite;
+}
+
+/* ---------- 15. Marquees ---------- */
+.marquee-container,
+.skills-marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.skills-marquee {
+  display: flex;
+  gap: 1.5rem;
+  animation: skills-scroll 30s linear infinite;
+  width: max-content;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.skills-marquee:hover { animation-play-state: paused; }
+
+@keyframes skills-scroll {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(calc(-100% / 3), 0, 0); }
+}
+
+@media (max-width: 768px) {
+  .skills-marquee { animation-duration: 24s; gap: 1rem; }
+}
+
+/* ---------- 16. Keyframes ---------- */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(16px, -24px) scale(1.04); }
+  66%      { transform: translate(-12px, 12px) scale(0.97); }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); }
+  50%      { box-shadow: 0 8px 28px rgba(0, 113, 227, 0.14); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.animate-blob       { animation: blob 14s ease-in-out infinite; }
+.animate-marquee    { animation: marquee 40s linear infinite; }
+.animate-float      { animation: float 8s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+/* ---------- 17. Scroll reveal (rule 7: short, mirrored paths) ---------- */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-scale {
+  opacity: 0;
+  transition: opacity var(--response) var(--ease-out),
+              transform var(--response) var(--ease-out);
+}
+
+.reveal       { transform: translateY(16px); }
+.reveal-left  { transform: translateX(-24px); }
+.reveal-right { transform: translateX(24px); }
+.reveal-scale { transform: scale(0.96); }
+
+.reveal.active,
+.reveal-left.active,
+.reveal-right.active,
+.reveal-scale.active {
+  opacity: 1;
+  transform: none;
+}
+
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.10s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.20s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.30s; }
+
+/* =========================================================================
+   18. COMPATIBILITY LAYER
+   The components were written for a dark theme, so they use white-on-dark
+   hairlines and dots. On a light background those are invisible, so they are
+   remapped to black alpha here instead of editing every component.
+   ========================================================================= */
+html .border-white\/5   { border-color: rgba(0, 0, 0, 0.05); }
+html .border-white\/10  { border-color: rgba(0, 0, 0, 0.08); }
+html .border-white\/20  { border-color: rgba(0, 0, 0, 0.12); }
+html .hover\:border-white\/10:hover { border-color: rgba(0, 0, 0, 0.12); }
+html .hover\:border-white\/20:hover { border-color: rgba(0, 0, 0, 0.16); }
+
+html .bg-white\/20 { background-color: rgba(0, 0, 0, 0.16); }
+html .bg-white\/30 { background-color: rgba(0, 0, 0, 0.20); }
+html .bg-white\/40 { background-color: rgba(0, 0, 0, 0.26); }
+html .bg-white\/50 { background-color: rgba(0, 0, 0, 0.34); }
+html .hover\:bg-white\/40:hover { background-color: rgba(0, 0, 0, 0.30); }
+html .hover\:bg-white\/50:hover { background-color: rgba(0, 0, 0, 0.40); }
+html .from-white\/5 { --tw-gradient-from: rgba(0, 0, 0, 0.035) var(--tw-gradient-from-position); }
+
+/* Soft drop shadows that were painted as black blurs behind mockups. */
+html .bg-black\/20 { background-color: rgba(0, 0, 0, 0.10); }
+html .bg-black\/30 { background-color: rgba(0, 0, 0, 0.12); }
+
+/* Muted text: fixed Apple greys instead of low-alpha near-white. */
+html .text-light-300\/80 { color: #6E6E73; }
+html .text-light-300\/70 { color: #6E6E73; }
+html .text-light-300\/60 { color: #86868B; }
+html .text-light-300\/50 { color: #86868B; }
+html .text-light-300\/40 { color: #A1A1A6; }
+
+/* Buttons fade to a lighter blue at the gradient end, which drops the
+   contrast of the white label. Keep the whole pill a solid Apple blue. */
+html .to-primary\/80 { --tw-gradient-to: #0062C4 var(--tw-gradient-to-position); }
+html .to-primary\/50 { --tw-gradient-to: #4A9BEA var(--tw-gradient-to-position); }
+
+/* =========================================================================
+   19. ACCESSIBILITY (rule 14)
+   Reduced motion is not "no feedback" -- it is a gentler, non-vestibular one.
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .reveal, .reveal-left, .reveal-right, .reveal-scale {
+    transform: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .card:hover, .glass:hover { transform: none; }
+
+  .blob,
+  .skills-marquee,
+  .animate-blob,
+  .animate-marquee,
+  .animate-float,
+  .animate-pulse-glow,
+  .image-placeholder,
+  .lazy-image-container::before {
+    animation: none !important;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass, .glass-strong {
+    background: #FFFFFF;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--separator);
+  }
+
+  .blob { display: none; }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text-secondary: #4A4A4E;
+    --text-tertiary: #5A5A5E;
+    --separator: rgba(0, 0, 0, 0.30);
+  }
+
+  p { color: #4A4A4E; }
+
+  .glass, .glass-strong, .card {
+    background: #FFFFFF;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid rgba(0, 0, 0, 0.35);
+  }
+
+  html .border-white\/5,
+  html .border-white\/10,
+  html .border-white\/20 { border-color: rgba(0, 0, 0, 0.30); }
+
+  html .text-light-300\/80,
+  html .text-light-300\/70,
+  html .text-light-300\/60,
+  html .text-light-300\/50,
+  html .text-light-300\/40 { color: #4A4A4E; }
+}
+
+/* =========================================================================
+   20. CARD TINTS
+   The section cards use colour-500 at 20% alpha. Over a near-black page that
+   was a whisper; over white it turns into strong pastel blocks. Apple keeps
+   tints faint and lets type carry the hierarchy, so they are dialled down.
+   ========================================================================= */
+html .from-blue-500\/20   { --tw-gradient-from: rgb(59 130 246 / 0.07) var(--tw-gradient-from-position); --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-cyan-500\/20   { --tw-gradient-from: rgb(6 182 212 / 0.07) var(--tw-gradient-from-position);  --tw-gradient-to: rgb(6 182 212 / 0) var(--tw-gradient-to-position);  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-purple-500\/20 { --tw-gradient-from: rgb(168 85 247 / 0.07) var(--tw-gradient-from-position); --tw-gradient-to: rgb(168 85 247 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-indigo-500\/20 { --tw-gradient-from: rgb(99 102 241 / 0.07) var(--tw-gradient-from-position); --tw-gradient-to: rgb(99 102 241 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-green-500\/20  { --tw-gradient-from: rgb(34 197 94 / 0.07) var(--tw-gradient-from-position);  --tw-gradient-to: rgb(34 197 94 / 0) var(--tw-gradient-to-position);  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-teal-500\/20   { --tw-gradient-from: rgb(20 184 166 / 0.07) var(--tw-gradient-from-position); --tw-gradient-to: rgb(20 184 166 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-lime-500\/20   { --tw-gradient-from: rgb(132 204 22 / 0.07) var(--tw-gradient-from-position); --tw-gradient-to: rgb(132 204 22 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-orange-500\/20 { --tw-gradient-from: rgb(249 115 22 / 0.07) var(--tw-gradient-from-position); --tw-gradient-to: rgb(249 115 22 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-amber-500\/20  { --tw-gradient-from: rgb(245 158 11 / 0.07) var(--tw-gradient-from-position); --tw-gradient-to: rgb(245 158 11 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-yellow-500\/20 { --tw-gradient-from: rgb(234 179 8 / 0.07) var(--tw-gradient-from-position);  --tw-gradient-to: rgb(234 179 8 / 0) var(--tw-gradient-to-position);  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html .from-rose-500\/20   { --tw-gradient-from: rgb(244 63 94 / 0.07) var(--tw-gradient-from-position);  --tw-gradient-to: rgb(244 63 94 / 0) var(--tw-gradient-to-position);  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+
+html .to-blue-500\/20    { --tw-gradient-to: rgb(59 130 246 / 0.07) var(--tw-gradient-to-position); }
+html .to-cyan-500\/20    { --tw-gradient-to: rgb(6 182 212 / 0.07) var(--tw-gradient-to-position); }
+html .to-pink-500\/20    { --tw-gradient-to: rgb(236 72 153 / 0.07) var(--tw-gradient-to-position); }
+html .to-violet-500\/20  { --tw-gradient-to: rgb(139 92 246 / 0.07) var(--tw-gradient-to-position); }
+html .to-emerald-500\/20 { --tw-gradient-to: rgb(16 185 129 / 0.07) var(--tw-gradient-to-position); }
+html .to-green-500\/20   { --tw-gradient-to: rgb(34 197 94 / 0.07) var(--tw-gradient-to-position); }
+html .to-orange-500\/20  { --tw-gradient-to: rgb(249 115 22 / 0.07) var(--tw-gradient-to-position); }
+html .to-amber-500\/20   { --tw-gradient-to: rgb(245 158 11 / 0.07) var(--tw-gradient-to-position); }
+html .to-yellow-500\/20  { --tw-gradient-to: rgb(234 179 8 / 0.07) var(--tw-gradient-to-position); }
+html .to-red-500\/20     { --tw-gradient-to: rgb(239 68 68 / 0.07) var(--tw-gradient-to-position); }
+
+@media (prefers-contrast: more) {
+  html [class*="-500/20"] {
+    --tw-gradient-from: transparent var(--tw-gradient-from-position);
+    --tw-gradient-to: transparent var(--tw-gradient-to-position);
+  }
+}
+
+/* =========================================================================
+   21. DEVICE MOCKUPS
+   Real hardware finishes, so the devices separate from the white page:
+   iPhone = black titanium, iPad = space grey aluminium, TV = matte black.
+   The angled gradients imitate the light bands you see on a metal edge.
+   ========================================================================= */
+.device-frame { position: relative; }
+
+/* A hairline: bright on top (light catching the metal), dark on the outside. */
+.device-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.30),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.45);
+}
+
+/* iPhone -- Black Titanium */
+.device-phone {
+  background: linear-gradient(
+    100deg,
+    #5B5C60 0%, #303134 9%, #212225 28%,
+    #2D2E31 48%, #1D1E20 70%, #4C4D51 90%, #232427 100%
+  );
+}
+
+/* iPad -- Space Grey aluminium */
+.device-tablet {
+  background: linear-gradient(
+    100deg,
+    #86888D 0%, #5E6065 11%, #4A4C50 38%,
+    #56585C 60%, #3E4044 86%, #6B6D71 100%
+  );
+}
+
+/* TV -- matte black bezel */
+.device-tv {
+  background: linear-gradient(180deg, #303032 0%, #1A1A1C 58%, #0F0F11 100%);
+}
+
+.device-tv-stand {
+  background: linear-gradient(180deg, #3A3A3D 0%, #232326 100%);
+}
+
+/* Side buttons */
+.device-button {
+  background: linear-gradient(180deg, #4C4D51 0%, #2A2B2E 100%);
+}
+
+/* Screen behind the screenshot: a switched-off panel is black, not white. */
+.device-screen {
+  background: #0B0B0C;
+}
+
+/* The legacy .phone-mockup helper, kept in sync. */
+.phone-mockup {
+  background: linear-gradient(
+    100deg,
+    #5B5C60 0%, #303134 9%, #212225 28%,
+    #2D2E31 48%, #1D1E20 70%, #4C4D51 90%, #232427 100%
+  );
+  border-radius: 40px;
+  padding: 8px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.phone-screen { background: #0B0B0C; }
+
+@media (prefers-contrast: more) {
+  .device-frame::after { box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.8); }
 }

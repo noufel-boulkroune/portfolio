@@ -1,52 +1,44 @@
-@import "./styles/tailwind.css";
+/* Base app styles.
+   Note: Tailwind is imported once, in src/index.css. It used to be imported
+   here as well, which shipped the whole framework twice. */
 
-/* Base app styles */
 .App {
   min-height: 100vh;
-  background-color: #0A0A0F;
+  background-color: #FFFFFF;
 }
 
-/* Ensure smooth transitions for all elements */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom selection */
 ::selection {
-  background-color: rgba(0, 212, 255, 0.3);
-  color: #ffffff;
+  background-color: rgba(0, 113, 227, 0.18);
+  color: #1D1D1F;
 }
 
-/* Focus visible for accessibility */
 :focus-visible {
-  outline: 2px solid #00D4FF;
+  outline: 3px solid rgba(0, 113, 227, 0.55);
   outline-offset: 2px;
 }
 
-/* Hide scrollbar during page load for smoother experience */
 .loading body {
   overflow: hidden;
 }
 
-/* Animation keyframes for loading screen */
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
-  }
+  0%, 100% { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); }
+  50%      { box-shadow: 0 8px 28px rgba(0, 113, 227, 0.14); }
 }
 
-/* Reduced motion support */
+/* Reduced motion: keep a short cross-fade, drop the travel. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 0.15s !important;
     scroll-behavior: auto !important;
   }
 }

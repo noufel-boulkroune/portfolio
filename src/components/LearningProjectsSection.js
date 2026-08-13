@@ -39,10 +39,10 @@ const LazyImage = ({ src, alt, className }) => {
 const MiniPhoneMockup = ({ children }) => (
   <div className="relative">
     <div className="absolute inset-0 bg-black/20 rounded-[1.5rem] blur-lg transform translate-y-2 scale-95" />
-    <div className="relative bg-gradient-to-b from-dark-300 to-dark-400 rounded-[1.3rem] p-1 shadow-lg">
+    <div className="relative device-frame device-phone rounded-[1.3rem] p-1 shadow-lg">
       <div className="bg-black rounded-[1.1rem] p-0.5 relative overflow-hidden">
         <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-12 h-3 bg-black rounded-full z-20" />
-        <div className="relative rounded-[1rem] overflow-hidden aspect-[9/19.5] bg-dark-200">
+        <div className="relative rounded-[1rem] overflow-hidden aspect-[9/19.5] device-screen">
           {children}
         </div>
       </div>

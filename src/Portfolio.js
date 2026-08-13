@@ -39,13 +39,14 @@ const ScrollToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          className="fixed bottom-8 left-8 z-40 w-12 h-12 rounded-full bg-dark-200/90 text-light flex items-center justify-center border border-white/10 hover:border-primary/30 hover:text-primary transition-colors"
+          className="fixed bottom-8 left-8 z-40 w-12 h-12 rounded-full glass text-light flex items-center justify-center hover:text-primary transition-colors"
           onClick={scrollToTop}
-          initial={{ opacity: 0, scale: 0.5 }}
+          initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          whileHover={{ scale: 1.1, y: -2 }}
-          whileTap={{ scale: 0.9 }}
+          exit={{ opacity: 0, scale: 0.85 }}
+          transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.94 }}
           aria-label="Scroll to top of page"
           type="button"
         >
@@ -86,7 +87,7 @@ const Portfolio = () => {
         className="relative bg-dark min-h-screen"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Skip to main content link for accessibility */}
         <a
@@ -137,31 +138,9 @@ const Portfolio = () => {
         {/* Scroll to top button */}
         <ScrollToTop />
 
-        {/* Cursor glow effect (desktop only) */}
-        <div className="hidden lg:block fixed inset-0 z-30 pointer-events-none overflow-hidden">
-          <div
-            className="absolute w-[500px] h-[500px] rounded-full opacity-[0.03] pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(circle, #00D4FF 0%, transparent 70%)",
-              transform: "translate(-50%, -50%)",
-              left: "var(--mouse-x, 50%)",
-              top: "var(--mouse-y, 50%)",
-              transition: "left 0.3s ease-out, top 0.3s ease-out",
-            }}
-          />
-        </div>
       </motion.div>
     </>
   );
 };
-
-// Add mouse tracking for cursor glow effect
-if (typeof window !== "undefined") {
-  window.addEventListener("mousemove", (e) => {
-    document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
-    document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
-  });
-}
 
 export default Portfolio;

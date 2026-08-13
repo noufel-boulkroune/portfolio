@@ -46,9 +46,9 @@ const LazyImage = memo(({ src, alt, className, objectFit = "cover", onClick }) =
 const PhoneMockup = memo(({ children }) => (
   <div className="relative">
     <div className="absolute inset-0 bg-black/30 rounded-[2.5rem] blur-xl transform translate-y-4 scale-95" />
-    <div className="relative bg-gradient-to-b from-dark-300 to-dark-400 rounded-[2.2rem] p-1.5 shadow-phone">
+    <div className="relative device-frame device-phone rounded-[2.2rem] p-1.5 shadow-phone">
       <div className="bg-black rounded-[2rem] p-0.5 relative overflow-hidden">
-        <div className="relative rounded-[1.8rem] overflow-hidden aspect-[9/19.5] bg-dark-200">
+        <div className="relative rounded-[1.8rem] overflow-hidden aspect-[9/19.5] device-screen">
           {children}
         </div>
       </div>
@@ -60,9 +60,9 @@ const PhoneMockup = memo(({ children }) => (
 const TabletMockup = memo(({ children }) => (
   <div className="relative">
     <div className="absolute inset-0 bg-black/30 rounded-3xl blur-xl transform translate-y-4 scale-95" />
-    <div className="relative bg-gradient-to-b from-dark-300 to-dark-400 rounded-2xl p-2 shadow-phone">
+    <div className="relative device-frame device-tablet rounded-2xl p-2 shadow-phone">
       <div className="bg-black rounded-xl p-1.5 relative overflow-hidden">
-        <div className="relative rounded-lg overflow-hidden aspect-[10/7] bg-dark-200">
+        <div className="relative rounded-lg overflow-hidden aspect-[10/7] device-screen">
           {children}
         </div>
       </div>
@@ -74,16 +74,16 @@ const TabletMockup = memo(({ children }) => (
 const TVMockup = memo(({ children }) => (
   <div className="relative">
     <div className="absolute inset-0 bg-black/30 rounded-xl blur-2xl transform translate-y-6 scale-95" />
-    <div className="relative bg-gradient-to-b from-dark-300 to-dark-400 rounded-lg overflow-hidden shadow-phone">
+    <div className="relative device-frame device-tv rounded-lg overflow-hidden shadow-phone">
       <div className="bg-black p-3 sm:p-4 rounded-lg">
-        <div className="relative rounded overflow-hidden aspect-video bg-dark-200 border border-dark-300">
+        <div className="relative rounded overflow-hidden aspect-video device-screen">
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none z-10" />
           {children}
         </div>
       </div>
     </div>
-    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-16 h-4 bg-gradient-to-b from-dark-300 to-dark-400 rounded-b-lg" />
-    <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-28 h-2 bg-gradient-to-b from-dark-400 to-dark-300 rounded-full" />
+    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-16 h-4 device-tv-stand rounded-b-lg" />
+    <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-28 h-2 device-tv-stand rounded-full" />
   </div>
 ));
 
