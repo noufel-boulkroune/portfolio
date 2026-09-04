@@ -21,15 +21,15 @@ const reasons = [
   {
     icon: Zap,
     title: "Fast Performance",
-    description: "I've cut page load from 60+ seconds to ~2 s cached — an 83%+ improvement — using targeted API queries and multi-layer caching.",
+    description: "I've cut page load from ~10 s to 1-2 s cached — an 83%+ improvement — using targeted API queries and multi-layer caching.",
     stat: "83%+",
     statLabel: "Faster Loading"
   },
   {
     icon: Clock,
     title: "Proven Track Record",
-    description: "5+ apps published on Play Store and App Store. Real products with real users — including 10k+ downloads on one platform.",
-    stat: "5+",
+    description: "10+ apps published on Play Store and App Store. Real products with real users — including 10k+ downloads on one platform.",
+    stat: "10+",
     statLabel: "Live Apps"
   },
   {

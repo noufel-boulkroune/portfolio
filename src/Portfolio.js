@@ -109,11 +109,11 @@ const Portfolio = () => {
           <ExperienceSection />
 
           {/* ── WORK ─────────────────────────────────────────── */}
-          {/* Amaya Visit Report - Before / After Case Study */}
-          <AmayaShowcaseSection />
-
           {/* Sofa - Multi-platform Showcase */}
           <SofaShowcaseSection />
+
+          {/* Amaya Visit Report - Before / After Case Study */}
+          <AmayaShowcaseSection />
 
           {/* All Professional Projects */}
           <ProjectsSection projects={projects} />

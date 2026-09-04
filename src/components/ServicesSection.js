@@ -38,7 +38,7 @@ const services = [
   {
     icon: Rocket,
     title: "App Publishing",
-    description: "End-to-end store submission handled. I've published 5+ apps to Play Store & App Store — including Sofa, Azougui, Snay3i, Mziya, and Laffaiire — with ASO and compliance.",
+    description: "End-to-end store submission handled. I've published 10+ apps to Play Store & App Store — including Sofa, Azougui, Snay3i, Mziya, and Laffaiire — with ASO and compliance.",
     features: ["Play Store Publishing", "App Store Publishing", "ASO Optimization", "Compliance"],
     color: "from-green-500/20 to-emerald-500/20",
     iconColor: "text-green-400"
@@ -54,7 +54,7 @@ const services = [
   {
     icon: Zap,
     title: "Performance Optimization",
-    description: "Cut load times and fix slow screens. On Amaya AG I reduced page load from 60+ seconds to under 2 s cached (83%+ faster) using targeted API queries and multi-layer caching.",
+    description: "Cut load times and fix slow screens. On Amaya AG I reduced page load from ~10 s to 1-2 s cached (83%+ faster) using targeted API queries and multi-layer caching.",
     features: ["Load Time Reduction", "Multi-layer Caching", "Code Refactoring", "Memory Optimization"],
     color: "from-yellow-500/20 to-orange-500/20",
     iconColor: "text-yellow-400"

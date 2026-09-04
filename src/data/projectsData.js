@@ -8,16 +8,17 @@ const projects = [
     description:
       "Agrotech platform — 3 interconnected Flutter apps (Advisor, Farmer, Sales) for farm and land management. Built for field use in areas with no internet connection.",
     tasks: [
+      "Built the design system from scratch — typography, color, grid, and 40+ reusable components — then used it to redesign 50+ screens across all three apps (visit-report flows, Sales orders/invoices/home, onboarding).",
       "Built offline-first map navigation (Flutter, BLoC, Freezed) with GeoJSON/MBTiles tile rendering, zoom levels 0–13, Crashlytics error tracking, and unit-tested state flows.",
-      "Built a full Flutter UI system from scratch — design tokens, theme engine, and a reusable widget library covering navigation, dialogs, snackbars, bottom sheets, and app bars.",
       "Led a full redesign of the visit-report module (Flutter + BLoC) — rebuilt GPS/map flows, photo capture with annotations, multi-language localisation, and offline-safe form state handling.",
-      "Optimised data loading with targeted API queries and multi-layer caching (in-memory + persistent storage), cutting page load from 60+ s to ~2 s cached or under 10 s on fresh install.",
+      "Added local-first offline data sync (ordered sync coordinator for field data) and multi-layer caching, cutting page load from ~10 s to 1-2 s cached.",
       "Refactored shared logic into independent Dart packages (date_utils, validation_utils, network_utils); led sprint planning, task breakdown, and code reviews in an Agile workflow.",
     ],
     skills: [
       "Flutter",
       "BLoC",
       "Freezed",
+      "Design Systems",
       "Clean Architecture",
       "GeoJSON/MBTiles",
       "Dart Packages",

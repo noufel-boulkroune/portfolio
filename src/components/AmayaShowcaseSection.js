@@ -91,20 +91,20 @@ const LazyImage = memo(({ src, alt, onClick }) => {
   );
 });
 
-// ── Sofa-style Phone Mockup ──────────────────────────────────────────────────
+// Phone Mockup -- matches ProjectCard style
 const PhoneMockup = memo(({ children }) => (
   <div className="relative">
-    {/* Shadow */}
-    <div className="absolute inset-0 bg-black/30 rounded-[2.5rem] blur-xl transform translate-y-4 scale-95" />
-    {/* Body */}
-    <div className="relative bg-gradient-to-b from-dark-300 to-dark-400 rounded-[2.2rem] p-1.5 shadow-phone">
-      {/* Inner bezel */}
-      <div className="bg-black rounded-[2rem] p-0.5 relative overflow-hidden">
-        {/* Screen */}
-        <div className="relative rounded-[1.8rem] overflow-hidden aspect-[9/19.5] bg-dark-200">
+    <div className="absolute inset-0 bg-black/30 rounded-[3rem] blur-2xl transform translate-y-4 scale-95" />
+    <div className="relative device-frame device-phone rounded-[2.5rem] p-2 shadow-phone">
+      <div className="bg-black rounded-[2.2rem] p-1 relative overflow-hidden">
+        <div className="relative rounded-[2rem] overflow-hidden aspect-[9/19.5] device-screen">
           {children}
         </div>
       </div>
+      {/* Side buttons */}
+      <div className="absolute right-[-2px] top-28 w-1 h-12 device-button rounded-l-sm" />
+      <div className="absolute left-[-2px] top-20 w-1 h-8 device-button rounded-r-sm" />
+      <div className="absolute left-[-2px] top-32 w-1 h-16 device-button rounded-r-sm" />
     </div>
   </div>
 ));
@@ -161,28 +161,30 @@ const PhoneCarousel = memo(
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </motion.button>
 
-          {/* Phone — fluid, fills remaining space */}
-          <div className="relative flex-1 overflow-hidden">
-            <AnimatePresence mode="wait" custom={dir}>
-              <motion.div
-                key={index}
-                custom={dir}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full"
-              >
-                <PhoneMockup>
+          {/* Phone — fluid, fills remaining space. Frame stays static (so its
+              buttons and drop-shadow are never clipped); only the screenshot
+              inside slides, clipped by the screen's own rounded corners. */}
+          <div className="relative flex-1">
+            <PhoneMockup>
+              <AnimatePresence mode="wait" custom={dir}>
+                <motion.div
+                  key={index}
+                  custom={dir}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute inset-0"
+                >
                   <LazyImage
                     src={images[index]}
                     alt={`${label} screenshot ${index + 1}`}
                     onClick={() => onOpenLightbox(index)}
                   />
-                </PhoneMockup>
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
+            </PhoneMockup>
           </div>
 
           {/* Next */}

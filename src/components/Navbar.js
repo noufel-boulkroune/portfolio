@@ -104,7 +104,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
                   className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark ${
                     activeSection === link.id
                       ? "text-primary"
-                      : "text-light-300 hover:text-white hover:bg-dark-200/50"
+                      : "text-light-300 hover:text-light hover:bg-dark-200/50"
                   }`}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -227,7 +227,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
                       className={`px-4 py-3 text-lg font-medium rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-100 ${
                         activeSection === link.id
                           ? "bg-primary/10 text-primary border border-primary/20"
-                          : "text-light-300 hover:bg-dark-200 hover:text-white hover:scale-[1.02]"
+                          : "text-light-300 hover:bg-dark-200 hover:text-light hover:scale-[1.02]"
                       }`}
                       initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}

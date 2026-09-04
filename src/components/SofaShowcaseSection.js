@@ -42,16 +42,20 @@ const LazyImage = memo(({ src, alt, className, objectFit = "cover", onClick }) =
   );
 });
 
-// Phone Mockup (clean, no notch)
+// Phone Mockup -- matches ProjectCard style
 const PhoneMockup = memo(({ children }) => (
   <div className="relative">
-    <div className="absolute inset-0 bg-black/30 rounded-[2.5rem] blur-xl transform translate-y-4 scale-95" />
-    <div className="relative device-frame device-phone rounded-[2.2rem] p-1.5 shadow-phone">
-      <div className="bg-black rounded-[2rem] p-0.5 relative overflow-hidden">
-        <div className="relative rounded-[1.8rem] overflow-hidden aspect-[9/19.5] device-screen">
+    <div className="absolute inset-0 bg-black/30 rounded-[3rem] blur-2xl transform translate-y-4 scale-95" />
+    <div className="relative device-frame device-phone rounded-[2.5rem] p-2 shadow-phone">
+      <div className="bg-black rounded-[2.2rem] p-1 relative overflow-hidden">
+        <div className="relative rounded-[2rem] overflow-hidden aspect-[9/19.5] device-screen">
           {children}
         </div>
       </div>
+      {/* Side buttons */}
+      <div className="absolute right-[-2px] top-28 w-1 h-12 device-button rounded-l-sm" />
+      <div className="absolute left-[-2px] top-20 w-1 h-8 device-button rounded-r-sm" />
+      <div className="absolute left-[-2px] top-32 w-1 h-16 device-button rounded-r-sm" />
     </div>
   </div>
 ));
@@ -59,7 +63,7 @@ const PhoneMockup = memo(({ children }) => (
 // Tablet Mockup (landscape iPad Pro 11-inch ~1.43:1 aspect ratio)
 const TabletMockup = memo(({ children }) => (
   <div className="relative">
-    <div className="absolute inset-0 bg-black/30 rounded-3xl blur-xl transform translate-y-4 scale-95" />
+    <div className="absolute inset-0 bg-black/30 rounded-3xl blur-2xl transform translate-y-4 scale-95" />
     <div className="relative device-frame device-tablet rounded-2xl p-2 shadow-phone">
       <div className="bg-black rounded-xl p-1.5 relative overflow-hidden">
         <div className="relative rounded-lg overflow-hidden aspect-[10/7] device-screen">

@@ -202,18 +202,17 @@ const HeroSection = () => {
                 Mobile App Developer
               </span>{" "}
               with <span className="text-accent font-semibold">3+ years</span>{" "}
-              of experience in Flutter and Android, building user-friendly,
-              high-performance apps using Flutter, Dart, Firebase, BLoC,
-              Provider, GetX, MVVM, and Clean Architecture. Shipped{" "}
-              <span className="text-primary font-semibold">5+ apps</span> to the
-              Play Store and App Store — including a video streaming app with{" "}
+              of experience in Flutter and Android, having shipped{" "}
+              <span className="text-primary font-semibold">10+ apps</span> to
+              the Play Store and App Store. Built Sofa, a cross-platform
+              streaming app with{" "}
               <span className="text-secondary font-semibold">
                 10k+ downloads
               </span>
-              , and an agrotech platform with offline-first maps. Proven impact:
-              page load improved by{" "}
+              , and an offline-first field platform for Amaya AG where I cut
+              page load by{" "}
               <span className="text-secondary font-semibold">83%</span> (from
-              60+ seconds to under 10s). I focus on delivering{" "}
+              ~10s to 1-2s cached). I focus on delivering{" "}
               <span className="text-primary font-semibold">
                 clean, scalable code
               </span>
@@ -228,7 +227,7 @@ const HeroSection = () => {
               {[
                 { value: "3+", label: "Years Exp" },
                 { value: "15+", label: "Projects" },
-                { value: "5+", label: "Published Apps" },
+                { value: "10+", label: "Published Apps" },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
