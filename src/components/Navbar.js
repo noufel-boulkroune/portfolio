@@ -85,8 +85,15 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
               whileTap={{ scale: 0.98 }}
               aria-label="Navigate to home"
             >
-              <span className="text-xl md:text-2xl font-bold gradient-text-static tracking-tight">
-                Nawfel
+              <span className="inline-flex items-center gap-2">
+                <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true" className="flex-shrink-0">
+                  <rect x="10" y="10" width="80" height="80" rx="22" fill="none" stroke="#0071E3" strokeWidth="6" />
+                  <text x="42" y="68" fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" fontSize="46" fontWeight="800" fill="#1D1D1F" textAnchor="middle">n</text>
+                  <circle cx="66" cy="62" r="6" fill="#0071E3" />
+                </svg>
+                <span className="text-xl md:text-2xl font-bold gradient-text-static tracking-tight">
+                  Nawfel
+                </span>
               </span>
               <motion.span
                 className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"

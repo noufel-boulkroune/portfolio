@@ -6,10 +6,20 @@ import AnimatedCounter from "./AnimatedCounter";
 const experiences = [
   {
     title: "Mobile App Developer",
+    company: "Athar",
+    location: "Algeria (Remote)",
+    type: "Freelance",
+    period: "Apr 2026 - Sep 2026",
+    description: "Wisal — a Quran reading-habit app with daily wird plans, tadabbur/tafsir content, and social accountability. Built the onboarding flow from scratch (personalized, animated, fully localized in AR/EN/UR) and the community system — group challenges, real-time chat (Socket.IO), and reflection sharing. Also shipped gamification (streaks, tree-growth visualization, knowledge points) and a Live Activity/Dynamic Island reciter player, and owned the releases and all subsequent updates to both the Play Store and App Store (forced updates, account deletion, iOS auth fixes).",
+    tags: ["Flutter", "Riverpod", "Go Router", "Socket.IO", "Firebase", "Live Activities", "Localization"],
+    color: "secondary"
+  },
+  {
+    title: "Mobile App Developer",
     company: "Amaya AG",
     location: "Algeria (Remote)",
     type: "Full-time",
-    period: "Nov 2025 - Present",
+    period: "Nov 2025 - Aug 2026",
     description: "Agrotech platform — 3 interconnected apps (Advisor, Farmer, Sales) for farm & land management. Built the design system from scratch (typography, color, grid, 40+ components) and used it to redesign 40+ screens across all three apps — visit-report flows, Sales orders/invoices/home, onboarding. Also built offline-first map navigation, local-first data sync, and multi-layer caching that cut page load from ~10s to 1-2s (cached).",
     tags: ["Flutter", "BLoC", "Freezed", "Design Systems", "GeoJSON", "MBTiles", "Unit Tests", "Agile", "Crashlytics"],
     color: "primary"
@@ -218,7 +228,7 @@ const ExperienceSection = () => {
         >
           {[
             { value: "3+", label: "Years Experience" },
-            { value: "5", label: "Companies" },
+            { value: "6", label: "Companies" },
             { value: "10+", label: "Apps Published" },
             { value: "100%", label: "Store Acceptance" },
           ].map((stat, index) => (

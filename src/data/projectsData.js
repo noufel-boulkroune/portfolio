@@ -1,5 +1,39 @@
 const projects = [
   {
+    title: "Wisal",
+    category: "Quran Habit-Building App",
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.hussam.wisal",
+    appStoreUrl: "https://apps.apple.com/us/app/wisal/id6774538492",
+    description:
+      "A Quran reading-habit app for Athar — daily wird (reading plan) tracking, tadabbur/tafsir content, and community accountability through groups, challenges, and real-time chat.",
+    tasks: [
+      "Built the onboarding flow from scratch — a personalized, animated, multi-phase flow fully localized in Arabic, English, and Urdu.",
+      "Built the community system: group creation and invites, group reading challenges, and real-time DM/group chat over Socket.IO.",
+      "Built gamification with Riverpod state management — daily streaks, a tree-growth visualization, knowledge points, and a reading-stats chart.",
+      "Added a Live Activity/Dynamic Island reciter player for background Quran audio playback on iOS.",
+      "Owned the release to both the Play Store and App Store and all subsequent updates: forced/optional update flow, in-app account deletion, Sign in with Apple, and content moderation (reporting, blocking).",
+    ],
+    skills: [
+      "Flutter",
+      "Riverpod",
+      "Go Router",
+      "Socket.IO",
+      "Firebase",
+      "Live Activities",
+      "Localization",
+    ],
+    images: [
+      "/images/athar/wisal_home.png",
+      "/images/athar/wisal_mushaf_kahf.png",
+      "/images/athar/wisal_tadabbur_audio.png",
+      "/images/athar/wisal_mushaf_baqarah.png",
+      "/images/athar/wisal_wasali_xp.png",
+      "/images/athar/wisal_time_chart.png",
+      "/images/athar/wisal_community_groups.png",
+      "/images/athar/wisal_challenges.png",
+    ],
+  },
+  {
     title: "Amaya AG",
     category: "Agrotech Platform (3 Apps)",
     playStoreUrl:
