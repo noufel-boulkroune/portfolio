@@ -1,322 +1,216 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, Briefcase } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Download } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { RESUME_URL } from "./HeroSection";
+
+const navLinks = [
+  { href: "#experience", label: "Experience", id: "experience" },
+  { href: "#projects", label: "Projects", id: "projects" },
+  { href: "#sofaShowcaseSection", label: "Case Studies", id: "sofaShowcaseSection" },
+  { href: "#contact", label: "Contact", id: "contact" },
+];
+
+// Sections that light up a nav link; the Amaya case study maps to "Case Studies".
+const sectionToLink = {
+  experience: "experience",
+  projects: "projects",
+  sofaShowcaseSection: "sofaShowcaseSection",
+  "amaya-showcase": "sofaShowcaseSection",
+  contact: "contact",
+};
 
 const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40, restDelta: 0.001 });
 
   useEffect(() => {
-    const handleScroll = () => {
+    let frame = null;
+    const update = () => {
+      frame = null;
       setScrolled(window.scrollY > 20);
 
-      // Update active section based on scroll position
-      const sections = [
-        "about",
-        "experience",
-        "projects",
-        "services",
-        "why-hire-me",
-        "contact"
-      ];
       const scrollPosition = window.scrollY + 150;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
+      let current = "";
+      for (const id of Object.keys(sectionToLink)) {
+        const element = document.getElementById(id);
+        if (element && scrollPosition >= element.offsetTop) {
+          current = sectionToLink[id];
         }
       }
+      setActiveSection(current);
+    };
+    const onScroll = () => {
+      if (frame === null) frame = requestAnimationFrame(update);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
   }, []);
-
-  const navLinks = [
-    { href: "#about", label: "About", id: "about" },
-    { href: "#experience", label: "Experience", id: "experience" },
-    { href: "#projects", label: "Work", id: "projects" },
-    { href: "#services", label: "Services", id: "services" },
-    { href: "#contact", label: "Contact", id: "contact" },
-  ];
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
-    const targetId = href.replace("#", "");
-    const element = document.getElementById(targetId);
+    const element = document.getElementById(href.replace("#", ""));
     if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+      const offsetPosition = element.getBoundingClientRect().top + window.pageYOffset - 72;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
     setIsMenuOpen(false);
   };
 
   return (
     <>
-    <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "py-3 bg-dark/80 backdrop-blur-xl border-b border-white/5"
-            : "py-6 bg-transparent"
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled || isMenuOpen
+            ? "py-3 glass-strong !border-x-0 !border-t-0 !shadow-none"
+            : "py-5 bg-transparent"
         }`}
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        aria-label="Main navigation"
       >
-        <div className="container mx-auto px-6 lg:px-8">
+        <div className="container">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <motion.a
+            <a
               href="#about"
               onClick={(e) => handleNavClick(e, "#about")}
-              className="relative group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark rounded-lg px-2 -ml-2"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              aria-label="Navigate to home"
+              className="inline-flex items-center gap-2 rounded-lg"
+              aria-label="Nawfel Boulkroune — back to top"
             >
-              <span className="inline-flex items-center gap-2">
-                <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true" className="flex-shrink-0">
-                  <rect x="10" y="10" width="80" height="80" rx="22" fill="none" stroke="#0071E3" strokeWidth="6" />
-                  <text x="42" y="68" fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" fontSize="46" fontWeight="800" fill="#1D1D1F" textAnchor="middle">n</text>
-                  <circle cx="66" cy="62" r="6" fill="#0071E3" />
-                </svg>
-                <span className="text-xl md:text-2xl font-bold gradient-text-static tracking-tight">
-                  Nawfel
-                </span>
-              </span>
-              <motion.span
-                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"
-                aria-hidden="true"
-              />
-            </motion.a>
+              <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true" className="flex-shrink-0">
+                <rect x="10" y="10" width="80" height="80" rx="22" fill="none" stroke="#0071E3" strokeWidth="6" />
+                <text x="42" y="68" fontFamily="-apple-system, BlinkMacSystemFont, sans-serif" fontSize="46" fontWeight="800" fill="#1D1D1F" textAnchor="middle">n</text>
+                <circle cx="66" cy="62" r="6" fill="#0071E3" />
+              </svg>
+              <span className="text-xl font-bold text-light tracking-tight">Nawfel</span>
+            </a>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
-              {navLinks.map((link, index) => (
-                <motion.a
+            {/* Desktop */}
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <a
                   key={link.id}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark ${
+                  className={`px-3 py-2 text-sm font-medium rounded-lg ${
                     activeSection === link.id
                       ? "text-primary"
-                      : "text-light-300 hover:text-light hover:bg-dark-200/50"
+                      : "text-light-300 hover:text-light"
                   }`}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index, duration: 0.4 }}
-                  whileHover={{ y: -2, scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-current={activeSection === link.id ? "page" : undefined}
-                  aria-label={`Navigate to ${link.label} section`}
+                  aria-current={activeSection === link.id ? "true" : undefined}
                 >
                   {link.label}
-                  {activeSection === link.id && (
-                    <motion.span
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary"
-                      layoutId="activeIndicator"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      aria-hidden="true"
-                    />
-                  )}
-                </motion.a>
+                </a>
               ))}
 
-              {/* Hire Me Button */}
-              <motion.a
-                href="#contact"
-                onClick={(e) => handleNavClick(e, "#contact")}
-                className="ml-4 px-5 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-primary to-primary/80 text-dark hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
-                aria-label="Hire me - Go to contact section"
+              <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary ml-3 gap-1.5 !px-4 !py-2 !text-sm"
               >
-                Hire Me
-              </motion.a>
-            </nav>
+                <Download className="w-4 h-4" aria-hidden="true" />
+                Resume
+              </a>
+            </div>
 
-            {/* Mobile Menu Button */}
-            <motion.button
-              className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-xl bg-dark-200/80 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            {/* Mobile toggle */}
+            <button
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-dark-200"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
+              type="button"
             >
-              <AnimatePresence mode="wait">
-                {isMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="w-5 h-5 text-primary" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="w-5 h-5 text-light" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
+              {isMenuOpen ? <X className="w-5 h-5 text-light" /> : <Menu className="w-5 h-5 text-light" />}
+            </button>
           </div>
-      </div>
-      </motion.nav>
+        </div>
+        {/* Reading progress */}
+        <motion.div
+          className="absolute left-0 right-0 bottom-0 h-[2px] origin-left bg-gradient-to-r from-primary via-secondary to-[#3AC3FF]"
+          style={{ scaleX: progress, opacity: scrolled ? 1 : 0 }}
+          aria-hidden="true"
+        />
+      </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile menu */}
       <AnimatePresence>
-      {isMenuOpen && (
+        {isMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-black/30 z-40 md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setIsMenuOpen(false)}
             />
 
-            {/* Menu Panel */}
             <motion.div
               id="mobile-menu"
-              className="fixed top-0 right-0 bottom-0 w-[300px] bg-dark-100/95 backdrop-blur-xl border-l border-white/5 z-50 lg:hidden"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-[64px] left-3 right-3 z-50 md:hidden rounded-2xl glass-strong p-3"
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               role="dialog"
               aria-modal="true"
-              aria-label="Mobile navigation menu"
+              aria-label="Navigation menu"
             >
-              <div className="flex flex-col h-full pt-20 pb-8 px-6">
-                {/* Close button */}
-                <motion.button
-                  className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-xl bg-dark-200/80 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-100 hover:bg-dark-300 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                  whileTap={{ scale: 0.95 }}
-                  whileHover={{ scale: 1.05 }}
-                  aria-label="Close menu"
+              <nav className="flex flex-col" aria-label="Mobile navigation">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className={`px-4 py-3 text-lg font-medium rounded-xl ${
+                      activeSection === link.id ? "text-primary bg-primary/10" : "text-light hover:bg-dark-200"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+
+              <div className="flex items-center gap-2 mt-2 pt-3 border-t border-white/10">
+                <a
+                  href={RESUME_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 font-semibold rounded-full bg-primary text-white"
                 >
-                  <X className="w-5 h-5 text-light" />
-                </motion.button>
-
-                {/* Navigation Links */}
-                <nav className="flex flex-col gap-2 mt-4" aria-label="Mobile navigation">
-                  {navLinks.map((link, index) => (
-                    <motion.a
-                      key={link.id}
-                      href={link.href}
-                      onClick={(e) => handleNavClick(e, link.href)}
-                      className={`px-4 py-3 text-lg font-medium rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-100 ${
-                        activeSection === link.id
-                          ? "bg-primary/10 text-primary border border-primary/20"
-                          : "text-light-300 hover:bg-dark-200 hover:text-light hover:scale-[1.02]"
-                      }`}
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 * index, duration: 0.3 }}
-                      whileHover={{ x: 4 }}
-                      whileTap={{ scale: 0.98 }}
-                      aria-current={activeSection === link.id ? "page" : undefined}
-                      aria-label={`Navigate to ${link.label} section`}
-                    >
-                      {link.label}
-                    </motion.a>
-                  ))}
-                </nav>
-
-                {/* Hire Me Button */}
-                <motion.a
-                  href="#contact"
-                  onClick={(e) => handleNavClick(e, "#contact")}
-                  className="mt-6 px-4 py-3 text-center text-lg font-semibold rounded-xl bg-gradient-to-r from-primary to-secondary text-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-100 transition-all duration-300"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.3 }}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="Hire me - Go to contact section"
+                  <Download className="w-5 h-5" aria-hidden="true" />
+                  Download Resume
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/nawfelboulkroune/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-dark-200 text-light-300"
+                  aria-label="LinkedIn (opens in new tab)"
                 >
-                  <span className="flex items-center justify-center gap-2">
-                    <Briefcase className="w-5 h-5" />
-                    Hire Me
-                  </span>
-                </motion.a>
-
-                {/* Social Links */}
-                <div className="mt-auto pt-8 border-t border-white/5">
-                  <p className="text-sm text-light-300/60 mb-4" id="social-heading">Get in touch</p>
-                  <div className="flex gap-4" role="list" aria-labelledby="social-heading">
-                    <motion.a
-                      href="https://github.com/noufel-boulkroune"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 flex items-center justify-center rounded-xl bg-dark-200 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-100 transition-all duration-300"
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      aria-label="Visit GitHub profile (opens in new tab)"
-                      role="listitem"
-                    >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                      </svg>
-                    </motion.a>
-                    <motion.a
-                      href="https://www.linkedin.com/in/nawfelboulkroune/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 flex items-center justify-center rounded-xl bg-dark-200 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-100 transition-all duration-300"
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      aria-label="Visit LinkedIn profile (opens in new tab)"
-                      role="listitem"
-                    >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                      </svg>
-                    </motion.a>
-                    <motion.a
-                      href="mailto:noufelboulkroune@gmail.com"
-                      className="w-10 h-10 flex items-center justify-center rounded-xl bg-dark-200 border border-white/10 text-light-300 hover:text-primary hover:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-100 transition-all duration-300"
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      aria-label="Send email"
-                      role="listitem"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </motion.a>
-                  </div>
-          </div>
-        </div>
+                  <FaLinkedin className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://github.com/noufel-boulkroune"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-dark-200 text-light-300"
+                  aria-label="GitHub (opens in new tab)"
+                >
+                  <FaGithub className="w-5 h-5" />
+                </a>
+              </div>
             </motion.div>
           </>
-      )}
+        )}
       </AnimatePresence>
     </>
   );

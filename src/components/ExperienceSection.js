@@ -1,251 +1,221 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
-import AnimatedCounter from "./AnimatedCounter";
+import React, { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { Calendar, MapPin } from "lucide-react";
+import SectionHeader from "./ui/SectionHeader";
 
+// Each role: a one-line summary, then 2-3 results a recruiter can scan.
 const experiences = [
   {
     title: "Mobile App Developer",
     company: "Athar",
-    location: "Algeria (Remote)",
+    location: "Remote",
     type: "Freelance",
-    period: "Apr 2026 - Sep 2026",
-    description: "Wisal — a Quran reading-habit app with daily wird plans, tadabbur/tafsir content, and social accountability. Built the onboarding flow from scratch (personalized, animated, fully localized in AR/EN/UR) and the community system — group challenges, real-time chat (Socket.IO), and reflection sharing. Also shipped gamification (streaks, tree-growth visualization, knowledge points) and a Live Activity/Dynamic Island reciter player, and owned the releases and all subsequent updates to both the Play Store and App Store (forced updates, account deletion, iOS auth fixes).",
-    tags: ["Flutter", "Riverpod", "Go Router", "Socket.IO", "Firebase", "Live Activities", "Localization"],
-    color: "secondary"
+    period: "Apr 2026 – Sep 2026",
+    summary: "Wisal — Quran reading-habit app with community and gamification.",
+    highlights: [
+      "Built the onboarding flow from scratch — personalized, animated, fully localized in Arabic, English and Urdu.",
+      "Built the community system: group challenges, real-time chat over Socket.IO and reflection sharing, plus streaks and an iOS Live Activity reciter player.",
+      "Owned releases and every update on the Play Store and App Store (forced updates, account deletion, iOS auth fixes).",
+    ],
+    tags: ["Flutter", "Riverpod", "Go Router", "Socket.IO", "Firebase", "Live Activities"],
   },
   {
     title: "Mobile App Developer",
     company: "Amaya AG",
-    location: "Algeria (Remote)",
+    location: "Remote",
     type: "Full-time",
-    period: "Nov 2025 - Aug 2026",
-    description: "Agrotech platform — 3 interconnected apps (Advisor, Farmer, Sales) for farm & land management. Built the design system from scratch (typography, color, grid, 40+ components) and used it to redesign 40+ screens across all three apps — visit-report flows, Sales orders/invoices/home, onboarding. Also built offline-first map navigation, local-first data sync, and multi-layer caching that cut page load from ~10s to 1-2s (cached).",
-    tags: ["Flutter", "BLoC", "Freezed", "Design Systems", "GeoJSON", "MBTiles", "Unit Tests", "Agile", "Crashlytics"],
-    color: "primary"
+    period: "Nov 2025 – Aug 2026",
+    summary: "Agrotech platform — 3 connected apps (Advisor, Farmer, Sales) for field teams.",
+    highlights: [
+      "Created the design system from scratch (typography, color, grid, 40+ components) and redesigned 40+ screens with it.",
+      "Cut page load from ~10 s to 1–2 s (cached) with local-first sync and multi-layer caching.",
+      "Built offline-first map navigation with GeoJSON / MBTiles for areas with no connection.",
+      "Split shared logic into standalone Dart packages; led sprint planning, task breakdown and code reviews.",
+    ],
+    tags: ["Flutter", "BLoC", "Freezed", "Design Systems", "Unit Tests", "Agile"],
   },
   {
     title: "Mobile App Developer",
     company: "QIRAT",
     location: "Algeria",
     type: "Full-time",
-    period: "Sep 2024 - Oct 2025",
-    description: "Built Sofa — a cross-platform Flutter video streaming app with 10k+ Play Store downloads. Delivered separate tailored UIs for mobile, tablet, and Android TV (D-pad navigation, Google Cast, subtitles, adaptive streaming). Optimised API calls and added smart caching, cutting data load time from 8–10 s to under 1 s — an 80%+ improvement. Converted all Figma screens to pixel-perfect Flutter UI.",
-    tags: ["Flutter", "Provider", "REST API", "Android TV", "Google Cast", "Adaptive Streaming", "Figma"],
-    color: "secondary"
+    period: "Sep 2024 – Oct 2025",
+    summary: "Sofa — video streaming app with 10k+ Play Store downloads.",
+    highlights: [
+      "Delivered tailored UIs for phone, tablet and Android TV (D-pad navigation, Google Cast, subtitles, adaptive streaming).",
+      "Cut data load time from 8–10 s to under 1 s (80%+) through API optimization and caching.",
+      "Turned every Figma screen into pixel-perfect Flutter UI.",
+    ],
+    tags: ["Flutter", "Provider", "REST API", "Android TV", "Google Cast"],
   },
   {
     title: "Mobile App Developer",
     company: "MSD Consulting",
-    location: "Algeria (Remote)",
+    location: "Remote",
     type: "Contract",
-    period: "Dec 2022 - Aug 2025",
-    description: "French startup studio — shipped 5 Flutter apps across e-commerce, logistics, and job marketplaces. Built Azougui (grocery delivery, Mauritanian market) with real-time inventory, multi-vendor support, and Google & Apple auth — released on both stores. Built Snay3i (job marketplace) with Google Maps, 3-language support (AR/FR/EN), full Firebase suite, and a React/Node.js back-office admin panel. Shipped Mziya, Laffaiire, and Laffaiire-Tech to the Play Store. Configured Flutter flavors (dev/prod) and eliminated Stripe platform fees by migrating to Standard accounts.",
-    tags: ["Flutter", "Firebase", "Google Maps", "Stripe", "GetX", "React", "Node.js", "Flutter Flavors"],
-    color: "accent"
+    period: "Dec 2022 – Aug 2025",
+    summary: "French startup studio — shipped 5 Flutter apps in e-commerce, logistics and jobs.",
+    highlights: [
+      "Built Azougui (grocery delivery) with real-time inventory and Google / Apple sign-in — live on both stores.",
+      "Built Snay3i (job marketplace) with Google Maps, 3 languages, full Firebase suite and a React / Node.js admin panel.",
+      "Shipped Mziya, Laffaiire and Laffaiire-Tech; migrated the codebase to Flutter 3.x with null safety.",
+      "Removed Stripe platform fees by migrating to Standard accounts; added Crashlytics, Remote Config and Analytics across all apps.",
+    ],
+    tags: ["Flutter", "Firebase", "Google Maps", "Stripe", "GetX", "Node.js"],
   },
   {
     title: "Mobile App Developer",
     company: "Intaj Mohtawayat",
     location: "Algeria",
     type: "Full-time",
-    period: "Feb 2024 - Sep 2024",
-    description: "Multinational media company — apps for entertainment, education, and event management. Built D-Futures from scratch using Flutter, MVVM, and REST APIs for full event lifecycle management. Improved stability of Smart Panda and Ramadan Awards apps through bug fixes and performance improvements. Mentored junior Flutter developers and conducted code reviews across product and QA teams.",
-    tags: ["Flutter", "MVVM", "Provider", "REST APIs", "Code Review", "Mentoring"],
-    color: "primary"
+    period: "Feb 2024 – Sep 2024",
+    summary: "Media company — entertainment, education and event apps.",
+    highlights: [
+      "Built D-Futures from scratch (Flutter, MVVM, REST) for full event lifecycle management.",
+      "Improved stability of Smart Panda and Ramadan Awards through bug fixes and performance work.",
+      "Mentored junior Flutter developers and led code reviews across product and QA teams.",
+    ],
+    tags: ["Flutter", "MVVM", "Provider", "Code Review", "Mentoring"],
   },
   {
     title: "Mobile App Developer",
     company: "SARL MCI",
     location: "Algeria",
     type: "Full-time",
-    period: "Apr 2023 - Dec 2023",
-    description: "Real estate company — internal Flutter app for tender management, product & stock tracking, and workforce coordination. Designed and implemented clean GetX state management architecture, integrated REST APIs for live inventory data, and set up GitHub version control workflows for the development team. First professional Flutter project delivering a complete business solution end to end.",
-    tags: ["Flutter", "GetX", "REST APIs", "GitHub", "Dart"],
-    color: "secondary"
-  }
+    period: "Apr 2023 – Dec 2023",
+    summary: "Internal app for tenders, stock tracking and workforce coordination.",
+    highlights: [
+      "Designed the GetX architecture and integrated REST APIs for live inventory data.",
+      "Set up the team's GitHub workflow; delivered the complete business app end to end.",
+    ],
+    tags: ["Flutter", "GetX", "REST APIs", "GitHub"],
+  },
 ];
 
+const ease = [0.16, 1, 0.3, 1];
+
+const Period = ({ experience, className = "" }) => (
+  <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-light-300 ${className}`}>
+    <span className="inline-flex items-center gap-1.5 font-mono text-[13px] font-medium text-light whitespace-nowrap">
+      <Calendar className="w-4 h-4 text-primary" aria-hidden="true" />
+      {experience.period}
+    </span>
+    <span className="inline-flex items-center gap-1.5">
+      <MapPin className="w-4 h-4" aria-hidden="true" />
+      {experience.location} · {experience.type}
+    </span>
+  </div>
+);
+
+// Desktop: zigzag around a centre line; the date sits on the opposite side.
+// Mobile: a single column with the line on the left.
 const ExperienceCard = ({ experience, index }) => {
-  const isEven = index % 2 === 0;
-  
+  const left = index % 2 === 0;
+
   return (
-    <motion.div
-      className={`relative flex flex-col lg:flex-row items-start gap-8 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.15, duration: 0.6 }}
-    >
-      {/* Timeline dot */}
-      <div className="absolute left-0 lg:left-1/2 lg:-translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-dark z-10 hidden lg:block" />
-      
-      {/* Content Card */}
-      <div className={`w-full lg:w-[calc(50%-40px)] ${isEven ? 'lg:pr-0 lg:text-right' : 'lg:pl-0 lg:text-left'}`}>
-        <motion.div
-          className="group relative bg-dark-200/40 backdrop-blur-md rounded-3xl p-6 lg:p-8 border border-white/10 hover:border-primary/40 hover:bg-dark-200/80 transition-all duration-500 shadow-lg hover:shadow-[0_10px_40px_-10px_rgba(0,212,255,0.3)]"
-          whileHover={{ y: -6, scale: 1.02 }}
-        >
-          {/* Subtle glow effect behind card on hover */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
-          
-          {/* Header */}
-          <div className={`relative flex flex-col ${isEven ? 'lg:items-end' : 'lg:items-start'} mb-4 z-10`}>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-3">
-              <Calendar className="w-3 h-3" />
-              {experience.period}
-            </span>
-            
-            <h3 className="text-xl font-bold text-light group-hover:gradient-text-static transition-all">
-              {experience.title}
-            </h3>
-            
-            <div className={`flex flex-wrap items-center gap-3 mt-2 text-sm text-light-300/60 ${isEven ? 'lg:justify-end' : 'lg:justify-start'}`}>
-              <span className="flex items-center gap-1">
-                <Briefcase className="w-4 h-4" />
-                {experience.company}
-              </span>
-              <span className="flex items-center gap-1">
-                <MapPin className="w-4 h-4" />
-                {experience.location}
-              </span>
-              <span className="px-2 py-0.5 rounded bg-dark-300/50 text-xs">
-                {experience.type}
-              </span>
-            </div>
-          </div>
-
-          {/* Description */}
-          <p className={`relative text-light-300/70 text-sm leading-relaxed ${isEven ? 'lg:text-right' : 'lg:text-left'} z-10 mb-4`}>
-            {experience.description}
-          </p>
-
-          {/* Tech tags */}
-          {experience.tags && (
-            <div className={`relative flex flex-wrap gap-1.5 z-10 ${isEven ? 'lg:justify-end' : 'lg:justify-start'}`}>
-              {experience.tags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="px-2 py-0.5 text-xs rounded-md bg-dark-300/60 text-light-300/70 border border-white/5 hover:border-primary/20 hover:text-primary/80 transition-colors duration-200"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </motion.div>
+    <li className="relative grid grid-cols-[20px,1fr] lg:grid-cols-[1fr,56px,1fr] gap-x-4 lg:gap-x-0">
+      {/* Dot on the line */}
+      <div className="relative flex justify-center pt-8 lg:col-start-2 lg:row-start-1">
+        <motion.span
+          className="w-3.5 h-3.5 rounded-full ring-4 ring-dark"
+          initial={{ scale: 0.75, backgroundColor: "#C7C7CC", boxShadow: "0 0 0 0 rgba(0,113,227,0)" }}
+          whileInView={{
+            scale: 1,
+            backgroundColor: "#0071E3",
+            boxShadow: "0 0 0 6px rgba(0,113,227,0.14), 0 0 18px 2px rgba(0,113,227,0.45)",
+          }}
+          viewport={{ once: true, margin: "-40% 0px -40% 0px" }}
+          transition={{ duration: 0.5, ease }}
+          aria-hidden="true"
+        />
       </div>
-      
-      {/* Spacer for alternating layout */}
-      <div className="hidden lg:block w-[calc(50%-40px)]" />
-    </motion.div>
+
+      {/* Date on the opposite side (desktop only) */}
+      <motion.div
+        className={`hidden lg:flex items-start pt-[30px] lg:row-start-1 ${
+          left ? "lg:col-start-3 justify-start pl-2" : "lg:col-start-1 justify-end pr-2"
+        }`}
+        initial={{ opacity: 0, filter: "blur(6px)" }}
+        whileInView={{ opacity: 1, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease, delay: 0.1 }}
+      >
+        <Period experience={experience} className={left ? "" : "justify-end"} />
+      </motion.div>
+
+      {/* Card */}
+      <motion.article
+        className={`surface spotlight p-5 sm:p-7 lg:row-start-1 ${
+          left ? "lg:col-start-1" : "lg:col-start-3"
+        }`}
+        initial={{ opacity: 0, x: left ? -28 : 28, filter: "blur(6px)" }}
+        whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, ease }}
+      >
+        <header className="mb-3">
+          <h3 className="text-xl sm:text-2xl font-bold text-light">{experience.company}</h3>
+          <p className="text-sm text-light-300 mt-0.5">{experience.title}</p>
+          <Period experience={experience} className="lg:hidden mt-2" />
+        </header>
+
+        <p className="text-light font-medium mb-3">{experience.summary}</p>
+
+        <ul className="space-y-2 mb-5">
+          {experience.highlights.map((item) => (
+            <li key={item} className="flex gap-3 text-[15px] text-light-300 leading-relaxed">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" aria-hidden="true" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <ul className="flex flex-wrap gap-1.5" aria-label="Technologies">
+          {experience.tags.map((tag) => (
+            <li key={tag} className="well px-2.5 py-1 text-xs font-medium rounded-md text-light-300">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      </motion.article>
+    </li>
   );
 };
 
 const ExperienceSection = () => {
+  const listRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start 65%", "end 55%"],
+  });
+  const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
+
   return (
-    <section id="experience" className="relative py-14 lg:py-20 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-dark">
-        <motion.div 
-          className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[150px]"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 16,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+    <section id="experience" className="relative py-16 lg:py-28 bg-dark overflow-x-clip">
+      <div className="container max-w-6xl">
+        <SectionHeader index="01" label="Experience" title="Where I've shipped">
+          6 companies across streaming, agrotech, e-commerce, media and
+          logistics — most recent first.
+        </SectionHeader>
 
-      <div className="container relative z-10">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-12 lg:mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.span
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20 mb-6"
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          >
-            <Briefcase className="w-3.5 h-3.5" />
-            Work History
-          </motion.span>
+        <div className="relative" ref={listRef}>
+          {/* Track + scroll-driven fill */}
+          <div
+            className="absolute top-0 bottom-0 left-[9px] lg:left-1/2 lg:-translate-x-1/2 w-px bg-separator"
+            aria-hidden="true"
+          />
+          <motion.div
+            className="absolute top-0 bottom-0 left-[9px] lg:left-1/2 lg:-translate-x-1/2 w-[2px] origin-top bg-gradient-to-b from-primary via-secondary to-primary shadow-[0_0_12px_rgba(0,113,227,0.5)]"
+            style={{ scaleY: fill }}
+            aria-hidden="true"
+          />
 
-          <motion.h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <span className="text-light">Professional </span>
-            <span className="gradient-text-static">Experience</span>
-          </motion.h2>
-
-          <motion.p 
-            className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            Over 3 years of hands-on experience building and shipping mobile apps 
-            for companies across different industries.
-          </motion.p>
-        </motion.div>
-
-        {/* Timeline */}
-        <div className="relative">
-          {/* Center line - hidden on mobile */}
-          <div className="absolute left-0 lg:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-secondary/50 to-primary/50 hidden lg:block lg:-translate-x-1/2" />
-          
-          {/* Experience Cards */}
-          <div className="space-y-12 lg:space-y-0">
+          <ol className="relative space-y-8 lg:space-y-4">
             {experiences.map((experience, index) => (
-              <ExperienceCard key={index} experience={experience} index={index} />
+              <ExperienceCard key={experience.company} experience={experience} index={index} />
             ))}
-          </div>
+          </ol>
         </div>
-
-        {/* Stats */}
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-        >
-          {[
-            { value: "3+", label: "Years Experience" },
-            { value: "6", label: "Companies" },
-            { value: "10+", label: "Apps Published" },
-            { value: "100%", label: "Store Acceptance" },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              className="group text-center p-6 lg:p-8 rounded-3xl bg-dark-200/30 backdrop-blur-sm border border-white/10 transition-all duration-500 hover:bg-dark-200/60 hover:shadow-[0_0_30px_rgba(0,212,255,0.15)] hover:border-primary/30"
-              whileHover={{ scale: 1.05, y: -5 }}
-            >
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold gradient-text-static mb-3 group-hover:scale-110 transition-transform duration-500 inline-block">
-                <AnimatedCounter value={stat.value} duration={1400} />
-              </div>
-              <div className="text-sm lg:text-base font-medium text-light-300/70 group-hover:text-light-300 transition-colors">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

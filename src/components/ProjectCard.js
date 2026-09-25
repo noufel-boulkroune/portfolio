@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, ArrowDown } from "lucide-react";
 import { FaGooglePlay, FaAppStore } from "react-icons/fa";
 import Lightbox from "./Lightbox";
 
@@ -34,6 +34,8 @@ const LazyImage = ({ src, alt, className, onClick }) => {
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
+        loading="lazy"
+        decoding="async"
         onLoad={() => setIsLoaded(true)}
         onError={() => setIsError(true)}
       />
@@ -92,8 +94,12 @@ const ProjectCard = ({ project }) => {
     setLightboxOpen(false);
   }, []);
 
-  // Preload adjacent images
+  // Preload adjacent images once the visitor starts browsing this card,
+  // so the first page load only fetches one screenshot per project.
+  const interacted = useRef(false);
   useEffect(() => {
+    if (currentIndex !== 0) interacted.current = true;
+    if (!interacted.current) return;
     const nextIdx = (currentIndex + 1) % project.images.length;
     const prevIdx = currentIndex === 0 ? project.images.length - 1 : currentIndex - 1;
     [nextIdx, prevIdx].forEach((idx) => {
@@ -111,57 +117,45 @@ const ProjectCard = ({ project }) => {
   return (
     <>
       <motion.article
-        className="group relative bg-dark-200/40 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/10 hover:border-primary/40 hover:bg-dark-200/80 hover:shadow-[0_10px_50px_-10px_rgba(0,212,255,0.2)] focus-within:border-primary/30 focus-within:ring-2 focus-within:ring-primary/20 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-500"
-        initial={{ opacity: 0, y: 40 }}
+        className="surface spotlight overflow-hidden"
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ y: -6, scale: 1.005 }}
-        role="article"
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         aria-labelledby={`project-title-${project.title.replace(/\s+/g, "-").toLowerCase()}`}
       >
-        {/* Glow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
         <div className="relative flex flex-col lg:flex-row">
           {/* ── Content ── */}
           <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col justify-center order-2 lg:order-1">
-            <motion.span
-              className="inline-flex items-center self-start px-4 py-1.5 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20 mb-4"
-              whileHover={{ scale: 1.05 }}
-            >
+            <span className="inline-flex items-center self-start px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-4">
               {project.category}
-            </motion.span>
+            </span>
 
             <h3
               id={`project-title-${project.title.replace(/\s+/g, "-").toLowerCase()}`}
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-light mb-4 group-hover:gradient-text-static transition-all duration-300"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-light mb-3"
             >
               {project.title}
             </h3>
 
-            <p className="text-light-300/70 leading-relaxed mb-6 text-sm sm:text-base">
+            <p className="text-light-300 leading-relaxed mb-6 text-[15px] sm:text-base">
               {project.description}
             </p>
 
             {/* Features */}
             <div className="mb-6">
-              <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">
-                Key Features
+              <h4 className="eyebrow mb-3">
+                What I did
               </h4>
               <ul className="space-y-2">
                 {project.tasks.map((task, idx) => (
-                  <motion.li
+                  <li
                     key={idx}
-                    className="flex items-start gap-3 text-sm text-light-300/80"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
+                    className="flex items-start gap-3 text-sm sm:text-[15px] text-light-300 leading-relaxed"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span className="line-clamp-2">{task}</span>
-                  </motion.li>
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" aria-hidden="true" />
+                    <span>{task}</span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -169,14 +163,14 @@ const ProjectCard = ({ project }) => {
             {/* Skills */}
             {project.skills && (
               <div className="mb-6">
-                <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">
+                <h4 className="eyebrow mb-3">
                   Tech Stack
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {project.skills.map((skill, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 text-xs rounded-full bg-dark-300/50 text-light-300/80 border border-white/5"
+                      className="well px-2.5 py-1 text-xs font-medium rounded-md text-light-300"
                     >
                       {skill}
                     </span>
@@ -187,52 +181,45 @@ const ProjectCard = ({ project }) => {
 
             {/* Store Links */}
             <div className="flex flex-wrap gap-3 mt-auto">
-              {/* Case study shortcut for Amaya AG */}
-              {project.title === "Amaya AG" && (
-                <motion.a
-                  href="#amaya-showcase"
+              {project.caseStudyId && (
+                <a
+                  href={`#${project.caseStudyId}`}
                   onClick={(e) => {
                     e.preventDefault();
-                    const el = document.getElementById("amaya-showcase");
+                    const el = document.getElementById(project.caseStudyId);
                     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-secondary/10 border border-secondary/20 text-secondary hover:bg-secondary/20 hover:border-secondary/40 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  aria-label="Scroll up to see the Amaya AG before/after case study"
+                  className="btn-primary !text-sm !px-5 gap-2"
                 >
-                  <span className="text-sm font-medium">↑ Full Case Study</span>
-                </motion.a>
+                  View case study
+                  <ArrowDown className="w-4 h-4" aria-hidden="true" />
+                </a>
               )}
               {project.playStoreUrl && (
-                <motion.a
+                <a
                   href={project.playStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-dark-200/50 backdrop-blur-md border border-white/10 text-light hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="well inline-flex items-center gap-2 px-5 py-3 rounded-full text-light hover:text-primary"
                   aria-label={`View ${project.title} on Google Play Store (opens in new tab)`}
                 >
                   <FaGooglePlay className="w-4 h-4" aria-hidden="true" />
                   <span className="text-sm font-medium">Play Store</span>
                   <ExternalLink className="w-3 h-3 opacity-50" aria-hidden="true" />
-                </motion.a>
+                </a>
               )}
               {project.appStoreUrl && (
-                <motion.a
+                <a
                   href={project.appStoreUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-dark-200/50 backdrop-blur-md border border-white/10 text-light hover:border-primary/50 hover:text-primary hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="well inline-flex items-center gap-2 px-5 py-3 rounded-full text-light hover:text-primary"
                   aria-label={`View ${project.title} on App Store (opens in new tab)`}
                 >
                   <FaAppStore className="w-4 h-4" aria-hidden="true" />
                   <span className="text-sm font-medium">App Store</span>
                   <ExternalLink className="w-3 h-3 opacity-50" aria-hidden="true" />
-                </motion.a>
+                </a>
               )}
             </div>
           </div>
@@ -242,7 +229,7 @@ const ProjectCard = ({ project }) => {
             <div className="relative flex items-center justify-center">
               {/* Prev */}
               <motion.button
-                className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
+                className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center rounded-full glass text-light hover:text-primary"
                 onClick={prevImage}
                 whileHover={{ scale: 1.1, x: -2 }}
                 whileTap={{ scale: 0.9 }}
@@ -277,14 +264,14 @@ const ProjectCard = ({ project }) => {
                 </PhoneMockup>
 
                 {/* Tap hint */}
-                <p className="text-center text-xs text-light-300/30 mt-3">
+                <p className="text-center text-xs text-light-300/60 mt-3">
                   tap image to expand
                 </p>
               </div>
 
               {/* Next */}
               <motion.button
-                className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 transition-all duration-300"
+                className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center rounded-full glass text-light hover:text-primary"
                 onClick={nextImage}
                 whileHover={{ scale: 1.1, x: 2 }}
                 whileTap={{ scale: 0.9 }}

@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
-import ServicesSection from "./components/ServicesSection";
+// import ServicesSection from "./components/ServicesSection";
 import ExperienceSection from "./components/ExperienceSection";
 import SofaShowcaseSection from "./components/SofaShowcaseSection";
 import AmayaShowcaseSection from "./components/AmayaShowcaseSection";
 import ProjectsSection from "./components/ProjectsSection";
 import LearningProjectsSection from "./components/LearningProjectsSection";
 // import TestimonialsSection from "./components/TestimonialsSection";
-import WhyHireMeSection from "./components/WhyHireMeSection";
+// import WhyHireMeSection from "./components/WhyHireMeSection";
 // import FAQSection from "./components/FAQSection";
 import ContactSection from "./components/ContactSection";
 // import FloatingCTA from "./components/FloatingCTA";
 import projects from "./data/projectsData";
+import useSpotlight from "./hooks/useSpotlight";
 
 // Scroll to top button
 const ScrollToTop = () => {
@@ -24,7 +25,7 @@ const ScrollToTop = () => {
       setIsVisible(window.scrollY > 500);
     };
 
-    window.addEventListener("scroll", toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
@@ -71,6 +72,7 @@ const ScrollToTop = () => {
 
 const Portfolio = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  useSpotlight();
 
   // Disable scroll when menu is open
   useEffect(() => {
@@ -83,12 +85,7 @@ const Portfolio = () => {
 
   return (
     <>
-      <motion.div
-        className="relative bg-dark min-h-screen"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <div className="relative bg-dark min-h-screen">
         {/* Skip to main content link for accessibility */}
         <a
           href="#main-content"
@@ -105,28 +102,16 @@ const Portfolio = () => {
           {/* Hero Section */}
           <HeroSection />
 
-          {/* ── EXPERIENCE (recruiters see this fast) ────────── */}
+          {/* Experience first: it is what recruiters look for */}
           <ExperienceSection />
 
-          {/* ── WORK ─────────────────────────────────────────── */}
-          {/* Sofa - Multi-platform Showcase */}
-          <SofaShowcaseSection />
-
-          {/* Amaya Visit Report - Before / After Case Study */}
-          <AmayaShowcaseSection />
-
-          {/* All Professional Projects */}
+          {/* Professional projects, then the two deep dives they link to */}
           <ProjectsSection projects={projects} />
+          <SofaShowcaseSection />
+          <AmayaShowcaseSection />
 
           {/* Open Source & Practice Projects */}
           <LearningProjectsSection />
-
-          {/* ── SERVICES ─────────────────────────────────────── */}
-          <ServicesSection />
-
-          {/* ── CLOSE ────────────────────────────────────────── */}
-          {/* Why Hire Me */}
-          <WhyHireMeSection />
 
           {/* Contact */}
           <ContactSection />
@@ -137,8 +122,7 @@ const Portfolio = () => {
 
         {/* Scroll to top button */}
         <ScrollToTop />
-
-      </motion.div>
+      </div>
     </>
   );
 };

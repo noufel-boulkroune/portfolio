@@ -1,7 +1,8 @@
 import React, { useState, useCallback, memo } from "react";
+import SectionHeader from "./ui/SectionHeader";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGooglePlay, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { Smartphone, Tablet, Tv, ExternalLink, Star } from "lucide-react";
+import { Smartphone, Tablet, Tv, ExternalLink } from "lucide-react";
 import Lightbox from "./Lightbox";
 
 // Simple image component
@@ -35,6 +36,8 @@ const LazyImage = memo(({ src, alt, className, objectFit = "cover", onClick }) =
         className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
           isLoaded ? "opacity-100" : "opacity-0"
         } ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
+        loading="lazy"
+        decoding="async"
         onLoad={() => setIsLoaded(true)}
         onError={() => setIsError(true)}
       />
@@ -127,7 +130,9 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent, onOpenLight
         {/* Prev button */}
         <button
           onClick={prevImage}
-          className="absolute left-0 sm:left-2 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all active:scale-90"
+          type="button"
+          aria-label="Previous screenshot"
+          className="absolute left-0 sm:left-2 z-10 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full glass text-light hover:text-primary"
         >
           <FaChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
         </button>
@@ -169,7 +174,9 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent, onOpenLight
         {/* Next button */}
         <button
           onClick={nextImage}
-          className="absolute right-0 sm:right-2 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-dark-100/80 backdrop-blur-sm border border-white/10 text-light hover:border-primary/30 hover:text-primary transition-all active:scale-90"
+          type="button"
+          aria-label="Next screenshot"
+          className="absolute right-0 sm:right-2 z-10 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full glass text-light hover:text-primary"
         >
           <FaChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
         </button>
@@ -181,6 +188,8 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent, onOpenLight
           <button
             key={idx}
             onClick={() => goToImage(idx)}
+            type="button"
+            aria-label={`Go to screenshot ${idx + 1}`}
             className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
               idx === currentIndex
                 ? "bg-primary w-4"
@@ -191,7 +200,7 @@ const DeviceCarousel = memo(({ platformKey, images, MockupComponent, onOpenLight
       </div>
 
       {/* Tap hint */}
-      <p className="text-center text-xs text-light-300/25 mt-3">tap image to expand</p>
+      <p className="text-center text-xs text-light-300/60 mt-3">Tap image to expand</p>
     </div>
   );
 });
@@ -205,16 +214,16 @@ const platforms = [
     icon: Smartphone,
     MockupComponent: PhoneMockup,
     images: [
-      "/images/sofa1.png",
-      "/images/sofa2.png",
-      "/images/sofa3.png",
-      "/images/sofa4.png",
-      "/images/sofa7.png",
-      "/images/sofa5.png",
-      "/images/sofa6.png",
-      "/images/sofa8.png",
-      "/images/sofa9.png",
-      "/images/sofa10.png",
+      "/images/sofa1.webp",
+      "/images/sofa2.webp",
+      "/images/sofa3.webp",
+      "/images/sofa4.webp",
+      "/images/sofa7.webp",
+      "/images/sofa5.webp",
+      "/images/sofa6.webp",
+      "/images/sofa8.webp",
+      "/images/sofa9.webp",
+      "/images/sofa10.webp",
     ],
     features: [
       "Custom Video Player",
@@ -230,19 +239,19 @@ const platforms = [
     icon: Tablet,
     MockupComponent: TabletMockup,
     images: [
-      "/images/sofa_tab1.png",
-      "/images/sofa_tab2.png",
-      "/images/sofa_tab3.png",
-      "/images/sofa_tab4.png",
-      "/images/sofa_tab5.png",
-      "/images/sofa_tab6.png",
-      "/images/sofa_tab7.png",
-      "/images/sofa_tab8.png",
-      "/images/sofa_tab9.png",
-      "/images/sofa_tab10.png",
-      "/images/sofa_tab11.png",
-      "/images/sofa_tab12.png",
-      "/images/sofa_tab13.png",
+      "/images/sofa_tab1.webp",
+      "/images/sofa_tab2.webp",
+      "/images/sofa_tab3.webp",
+      "/images/sofa_tab4.webp",
+      "/images/sofa_tab5.webp",
+      "/images/sofa_tab6.webp",
+      "/images/sofa_tab7.webp",
+      "/images/sofa_tab8.webp",
+      "/images/sofa_tab9.webp",
+      "/images/sofa_tab10.webp",
+      "/images/sofa_tab11.webp",
+      "/images/sofa_tab12.webp",
+      "/images/sofa_tab13.webp",
     ],
     features: ["Redesigned Screens", "Enhanced Discovery", "Adaptive Layout"],
   },
@@ -253,16 +262,16 @@ const platforms = [
     icon: Tv,
     MockupComponent: TVMockup,
     images: [
-      "/images/sofa_tv1.png",
-      "/images/sofa_tv2.png",
-      "/images/sofa_tv4.png",
-      "/images/sofa_tv5.png",
-      "/images/sofa_tv3.png",
-      "/images/sofa_tv6.png",
-      "/images/sofa_tv7.png",
-      "/images/sofa_tv8.png",
-      "/images/sofa_tv9.png",
-      "/images/sofa_tv10.png",
+      "/images/sofa_tv1.webp",
+      "/images/sofa_tv2.webp",
+      "/images/sofa_tv4.webp",
+      "/images/sofa_tv5.webp",
+      "/images/sofa_tv3.webp",
+      "/images/sofa_tv6.webp",
+      "/images/sofa_tv7.webp",
+      "/images/sofa_tv8.webp",
+      "/images/sofa_tv9.webp",
+      "/images/sofa_tv10.webp",
     ],
     features: [
       "D-pad Navigation",
@@ -276,89 +285,53 @@ const platforms = [
 // Platform Card
 const PlatformCard = memo(({ platform, index, onOpenLightbox }) => {
   const Icon = platform.icon;
+  const flipped = index % 2 === 1;
 
   return (
     <motion.div
       className={`grid gap-8 lg:gap-12 items-center ${
-        index % 2 === 0
-          ? "lg:grid-cols-[1fr,1.5fr]"
-          : "lg:grid-cols-[1.5fr,1fr]"
+        flipped ? "lg:grid-cols-[1.5fr,1fr]" : "lg:grid-cols-[1fr,1.5fr]"
       }`}
-      initial={{ opacity: 0, y: 60, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* Content */}
-      <motion.div
-        className={`${index % 2 === 1 ? "lg:order-2" : ""}`}
-        initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.6 }}
-      >
-        <motion.div
-          className="flex items-center gap-3 mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <motion.div
-            className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center"
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Icon className="w-5 h-5 text-primary" />
-          </motion.div>
+      <div className={flipped ? "lg:order-2" : ""}>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="well w-11 h-11 rounded-xl flex items-center justify-center">
+            <Icon className="w-5 h-5 text-primary" aria-hidden="true" />
+          </div>
           <div>
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-light">
               {platform.title}
             </h3>
-            <p className="text-sm lg:text-base text-light-300/60">
+            <p className="text-sm lg:text-base text-light-300">
               {platform.subtitle}
             </p>
           </div>
-        </motion.div>
-
-        <div className="space-y-2 mt-6">
-          {platform.features.map((feature, idx) => (
-            <motion.div
-              key={idx}
-              className="flex items-center gap-3 text-light-300/80"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 + idx * 0.1 }}
-            >
-              <motion.span
-                className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 + idx * 0.1, type: "spring" }}
-              />
-              <span className="text-sm lg:text-base">{feature}</span>
-            </motion.div>
-          ))}
         </div>
-      </motion.div>
+
+        <ul className="space-y-2 mt-6">
+          {platform.features.map((feature) => (
+            <li key={feature} className="flex items-center gap-3 text-light-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" aria-hidden="true" />
+              <span className="text-sm lg:text-base">{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Device Carousel */}
-      <motion.div
-        className={`relative ${index % 2 === 1 ? "lg:order-1" : ""}`}
-        initial={{ opacity: 0, x: index % 2 === 0 ? 30 : -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-      >
+      <div className={`relative ${flipped ? "lg:order-1" : ""}`}>
         <DeviceCarousel
           platformKey={platform.key}
           images={platform.images}
           MockupComponent={platform.MockupComponent}
           onOpenLightbox={onOpenLightbox}
         />
-      </motion.div>
+      </div>
     </motion.div>
   );
 });
@@ -379,83 +352,16 @@ const SofaShowcaseSection = () => {
     <>
       <section
         id="sofaShowcaseSection"
-        className="relative py-14 lg:py-20 overflow-hidden"
+        className="relative py-16 lg:py-24 bg-dark overflow-hidden"
       >
-        {/* Background */}
-        <div className="absolute inset-0 bg-dark">
-          <motion.div
-            className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[150px]"
-            animate={{
-              x: [0, -50, 0],
-              y: [0, 50, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]"
-            animate={{
-              x: [0, 30, 0],
-              y: [0, -30, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
-          />
-        </div>
-
         <div className="container relative z-10">
           {/* Header */}
-          <motion.div
-            className="text-center mb-12 lg:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.span
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20 mb-6"
-              initial={{ opacity: 0, scale: 0.8, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            >
-              <Star className="w-3.5 h-3.5" />
-              Project Deep Dive
-            </motion.span>
-
-            <motion.h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              <span className="gradient-text-static">Sofa</span>
-              <span className="text-light"> – Cross-Platform Streaming</span>
-            </motion.h2>
-
-            <motion.p
-              className="text-light-300/70 max-w-3xl mx-auto text-base sm:text-lg lg:text-xl leading-relaxed text-justify"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
-              A video streaming app I built with Flutter that works on phones,
-              tablets, and Android TV. It uses MVVM architecture, connects to REST
-              APIs, supports Google Cast, and adjusts video quality automatically.
-              I brought the loading time down from 8-10 seconds to under 1 second.
-            </motion.p>
-          </motion.div>
+          <SectionHeader index="03" label="Case study · QIRAT" title="Sofa — one codebase, three screens">
+            A Flutter video streaming app for phones, tablets and Android TV,
+            with 10k+ downloads on Google Play. MVVM architecture, REST APIs,
+            Google Cast and adaptive video quality — and data load time cut
+            from 8–10 s to under 1 s.
+          </SectionHeader>
 
           {/* Platform Cards */}
           <div className="space-y-20 lg:space-y-32">
@@ -470,40 +376,22 @@ const SofaShowcaseSection = () => {
           </div>
 
           {/* CTA */}
-          <motion.div
-            className="text-center mt-20 pt-16 border-t border-white/5"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium mb-6">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              10k+ Downloads
+          <div className="surface spotlight flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-20 p-6 sm:p-8">
+            <div>
+              <p className="text-sm font-semibold text-accent mb-1">10k+ downloads</p>
+              <p className="text-xl font-bold text-light">Live on Google Play</p>
             </div>
-
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-light mb-4">
-              Live on Google Play Store
-            </h3>
-
-            <p className="text-light-300/60 mb-8 max-w-lg mx-auto text-base lg:text-lg text-justify">
-              A ready-to-use streaming app that works in multiple languages, made
-              for users in Algeria.
-            </p>
-
-            <motion.a
+            <a
               href="https://play.google.com/store/apps/details?id=com.qirat.sofa&hl=en"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-dark font-semibold hover:shadow-glow transition-all duration-300"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              className="btn-primary inline-flex items-center justify-center gap-2"
             >
-              <FaGooglePlay className="w-5 h-5" />
+              <FaGooglePlay className="w-5 h-5" aria-hidden="true" />
               View on Play Store
-              <ExternalLink className="w-4 h-4" />
-            </motion.a>
-          </motion.div>
+              <ExternalLink className="w-4 h-4" aria-hidden="true" />
+            </a>
+          </div>
         </div>
       </section>
 

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
+import SectionHeader from "./ui/SectionHeader";
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Send, MapPin, Loader2, CheckCircle, XCircle, MessageCircle } from "lucide-react";
+import { Mail, Github, Linkedin, Send, MapPin, Loader2, CheckCircle, XCircle, Download } from "lucide-react";
+import { RESUME_URL } from "./HeroSection";
 import emailjs from "emailjs-com";
 
 const ContactSection = () => {
@@ -94,7 +96,7 @@ const ContactSection = () => {
     {
       icon: MapPin,
       label: "Location",
-      value: "Algeria (Remote)",
+      value: "Algiers, Algeria",
       href: null,
     },
   ];
@@ -102,82 +104,25 @@ const ContactSection = () => {
   return (
     <section
       id="contact"
-      className="relative py-14 lg:py-20 overflow-hidden"
+      className="relative pt-16 lg:pt-24 pb-10 bg-dark-100"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-dark">
-        <motion.div 
-          className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]"
-          animate={{
-            x: [0, 40, -30, 0],
-            y: [0, -50, 40, 0],
-            scale: [1, 1.2, 0.9, 1],
-            opacity: [0.3, 0.6, 0.4, 0.3],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div 
-          className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px]"
-          animate={{
-            x: [0, -40, 30, 0],
-            y: [0, 50, -40, 0],
-            scale: [1, 1.15, 0.95, 1],
-            opacity: [0.3, 0.5, 0.4, 0.3],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-      </div>
-
       <div className="container relative z-10">
         {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.span
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-6"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <MessageCircle className="w-3.5 h-3.5" />
-            Get In Touch
-          </motion.span>
+        <SectionHeader index="06" label="Contact" title="Let's talk">
+          Hiring for a mobile role or have a project to discuss? Email me,
+          message me on LinkedIn, or use the form below.
+        </SectionHeader>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            <span className="text-light">Let's Work </span>
-            <span className="gradient-text-static">Together</span>
-      </h2>
-
-          <p className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg">
-            Have a project in mind? I'd love to hear about it. Send me a message 
-            and I'll get back to you as soon as possible.
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 max-w-6xl mx-auto items-stretch">
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
           {/* Contact Form */}
           <motion.div
-            className="lg:col-span-3 h-full"
+            className="lg:col-span-3"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="relative bg-gradient-to-br from-dark-100 to-dark-200 rounded-3xl p-6 sm:p-8 border border-white/5 shadow-xl focus-within:border-primary/20 focus-within:ring-2 focus-within:ring-primary/10 focus-within:ring-offset-2 focus-within:ring-offset-dark transition-all duration-300 h-full">
+            <div className="surface p-6 sm:p-8">
               <h3 className="text-xl font-semibold text-light mb-6">Send a Message</h3>
           <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form" noValidate>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -201,7 +146,7 @@ const ContactSection = () => {
                       placeholder="John"
                       aria-required="true"
                       aria-describedby="firstName-description"
-                      className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300"
+                      className="w-full px-4 py-3.5 well border border-transparent rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300"
                 />
                 <span id="firstName-description" className="sr-only">Required field</span>
               </div>
@@ -223,7 +168,7 @@ const ContactSection = () => {
                   onChange={handleChange}
                       onKeyDown={(e) => handleKeyDown(e, emailRef)}
                       placeholder="Doe"
-                      className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300"
+                      className="w-full px-4 py-3.5 well border border-transparent rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300"
                 />
               </div>
             </div>
@@ -249,7 +194,7 @@ const ContactSection = () => {
                     aria-required="true"
                     aria-describedby="email-description"
                     autoComplete="email"
-                    className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300"
+                    className="w-full px-4 py-3.5 well border border-transparent rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300"
               />
               <span id="email-description" className="sr-only">Required field, must be a valid email address</span>
             </div>
@@ -270,20 +215,18 @@ const ContactSection = () => {
                 onChange={handleChange}
                     required
                     rows={5}
-                    placeholder="Tell me about your project..."
+                    placeholder="Tell me about the role or project..."
                     aria-required="true"
                     aria-describedby="message-description"
-                    className="w-full px-4 py-3.5 bg-dark-300/50 border border-white/10 rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300 resize-none"
+                    className="w-full px-4 py-3.5 well border border-transparent rounded-xl text-light placeholder-light-300/40 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 hover:border-white/20 transition-all duration-300 resize-none"
               />
               <span id="message-description" className="sr-only">Required field</span>
             </div>
 
                 <motion.button
-              type="submit"
+                  type="submit"
               disabled={isSubmitting}
-                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-dark font-semibold rounded-xl hover:shadow-glow hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-300"
-                  whileHover={{ scale: isSubmitting ? 1 : 1.05, y: -2 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  className="btn-primary w-full sm:w-auto flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
                   aria-label={isSubmitting ? "Sending message" : "Submit contact form"}
                   aria-busy={isSubmitting}
                 >
@@ -334,13 +277,13 @@ const ContactSection = () => {
 
           {/* Contact Info */}
           <motion.div
-            className="lg:col-span-2 space-y-6 h-full flex flex-col"
+            className="lg:col-span-2 space-y-4 order-first"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="space-y-4 flex-1 flex flex-col justify-between">
+            <div className="space-y-3">
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={info.label}
@@ -354,10 +297,9 @@ const ContactSection = () => {
                       href={info.href}
                       target={info.href.startsWith("http") ? "_blank" : undefined}
                       rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="flex items-center gap-4 p-4 bg-dark-100/50 rounded-xl border border-white/5 hover:border-primary/20 hover:bg-dark-100 transition-all duration-300 group"
-                      whileHover={{ scale: 1.02, y: -2 }}
+                      className="surface spotlight flex items-center gap-4 p-4 !rounded-2xl group"
                     >
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <div className="well w-12 h-12 rounded-xl flex items-center justify-center">
                         <info.icon className="w-5 h-5 text-primary" />
                       </div>
                       <div>
@@ -371,10 +313,9 @@ const ContactSection = () => {
                     </motion.a>
                   ) : (
                     <motion.div 
-                      className="flex items-center gap-4 p-4 bg-dark-100/50 rounded-xl border border-white/5"
-                      whileHover={{ scale: 1.02, y: -2 }}
+                      className="surface flex items-center gap-4 p-4 !rounded-2xl"
                     >
-                      <div className="w-12 h-12 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center">
+                      <div className="well w-12 h-12 rounded-xl flex items-center justify-center">
                         <info.icon className="w-5 h-5 text-secondary" />
                       </div>
                       <div>
@@ -389,45 +330,22 @@ const ContactSection = () => {
               ))}
             </div>
 
-            {/* Availability Card */}
-            <motion.div
-              className="p-6 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl border border-primary/20"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
+            {/* Resume */}
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary inline-flex items-center justify-center gap-2 w-full"
             >
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-accent">Available for hire</span>
-              </div>
-              <p className="text-light-300/70 text-sm">
-                I'm open to freelance work and full-time jobs. Let's talk about how I can help turn your app idea into reality.
-              </p>
-            </motion.div>
-
-            {/* Response Time */}
-            <motion.div
-              className="p-6 bg-dark-100/50 rounded-xl border border-white/5"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <Mail className="w-5 h-5 text-primary" />
-                <span className="font-medium text-light">Fast Response Time</span>
-              </div>
-              <p className="text-light-300/60 text-sm">
-                I typically respond to all inquiries within 24 hours during business days.
-              </p>
-            </motion.div>
+              <Download className="w-5 h-5" aria-hidden="true" />
+              Download Resume (PDF)
+            </a>
           </motion.div>
         </div>
 
         {/* Footer */}
         <motion.div
-          className="mt-20 pt-8 border-t border-white/5 text-center"
+          className="mt-16 pt-8 border-t border-white/10 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

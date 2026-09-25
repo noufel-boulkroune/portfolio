@@ -8,7 +8,7 @@ const testimonials = [
     name: "Ahmed Ben",
     role: "CEO",
     company: "Mziya",
-    image: "/images/myImage.jpg", // You can replace with actual client image
+    image: "/images/myImage.webp", // You can replace with actual client image
     content: "Nawfel delivered exceptional work on our delivery app. His ability to quickly understand requirements and implement complex features like payment integration and real-time tracking was impressive. The Stripe fix alone saved us 15% in costs!",
     rating: 5,
     project: "Package Delivery Platform"
@@ -18,7 +18,7 @@ const testimonials = [
     name: "Karim S.",
     role: "Founder",
     company: "Snay3i",
-    image: "/images/myImage.jpg",
+    image: "/images/myImage.webp",
     content: "Working with Nawfel was a great experience. He built our entire job marketplace app from scratch - from translating Figma designs to implementing Firebase backend and Google Maps. The multi-language support he added helped us reach more users.",
     rating: 5,
     project: "Job Marketplace App"
@@ -28,7 +28,7 @@ const testimonials = [
     name: "Mohamed L.",
     role: "Product Manager",
     company: "Azougui",
-    image: "/images/myImage.jpg",
+    image: "/images/myImage.webp",
     content: "Nawfel helped us launch our grocery app on both iOS and Android stores successfully. His attention to detail in localization for our market and the smooth authentication flow he implemented significantly improved our user onboarding.",
     rating: 5,
     project: "Grocery Delivery App"
@@ -38,7 +38,7 @@ const testimonials = [
     name: "Youssef A.",
     role: "CTO",
     company: "Laffaiire",
-    image: "/images/myImage.jpg",
+    image: "/images/myImage.webp",
     content: "The migration to Flutter 3.x and null safety that Nawfel handled was seamless. He also helped us launch a separate tech marketplace app with proper environment management. His code quality and documentation are excellent.",
     rating: 5,
     project: "E-commerce Apps"

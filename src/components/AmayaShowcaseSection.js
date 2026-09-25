@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback, memo } from "react";
+import SectionHeader from "./ui/SectionHeader";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
-  ArrowLeftRight,
   Zap,
   Wrench,
   Sparkles,
@@ -13,41 +13,41 @@ import Lightbox from "./Lightbox";
 
 // ── Image lists ──────────────────────────────────────────────────────────────
 const OLD_IMAGES = [
-  "Screenshot_20260402_211344.jpg",
-  "Screenshot_20260402_211348.jpg",
-  "Screenshot_20260402_211432.jpg",
-  "Screenshot_20260402_211539.jpg",
-  "Screenshot_20260402_211547.jpg",
-  "Screenshot_20260402_211351.jpg",
-  "Screenshot_20260402_211400.jpg",
-  "Screenshot_20260402_211407.jpg",
-  "Screenshot_20260402_211416.jpg",
-  "Screenshot_20260402_211426.jpg",
+  "Screenshot_20260402_211344.webp",
+  "Screenshot_20260402_211348.webp",
+  "Screenshot_20260402_211432.webp",
+  "Screenshot_20260402_211539.webp",
+  "Screenshot_20260402_211547.webp",
+  "Screenshot_20260402_211351.webp",
+  "Screenshot_20260402_211400.webp",
+  "Screenshot_20260402_211407.webp",
+  "Screenshot_20260402_211416.webp",
+  "Screenshot_20260402_211426.webp",
 ].map((n) => `/images/old_amaya_visit_report/${n}`);
 
 const NEW_IMAGES = [
-  "0.jpg",
-  "1.jpg",
-  "2.jpg",
-  "3.jpg",
-  "4.jpg",
-  "5.jpg",
-  "6.jpg",
-  "7.jpg",
-  "8.jpg",
-  "9.jpg",
-  "10.jpg",
-  "11.jpg",
-  "12.jpg",
-  "13.jpg",
-  "14.jpg",
-  "15.jpg",
-  "17.jpg",
-  "18.jpg",
-  "19.jpg",
-  "20.jpg",
-  "21.jpg",
-  "22.jpg",
+  "0.webp",
+  "1.webp",
+  "2.webp",
+  "3.webp",
+  "4.webp",
+  "5.webp",
+  "6.webp",
+  "7.webp",
+  "8.webp",
+  "9.webp",
+  "10.webp",
+  "11.webp",
+  "12.webp",
+  "13.webp",
+  "14.webp",
+  "15.webp",
+  "17.webp",
+  "18.webp",
+  "19.webp",
+  "20.webp",
+  "21.webp",
+  "22.webp",
 ].map((n) => (n.startsWith("/") ? n : `/images/new_amaya_visit_report/${n}`));
 
 // ── Lazy image with blur-up loading ─────────────────────────────────────────
@@ -75,6 +75,8 @@ const LazyImage = memo(({ src, alt, onClick }) => {
         src={src}
         alt={alt}
         className="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+        decoding="async"
         style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.35s ease" }}
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
@@ -153,7 +155,7 @@ const PhoneCarousel = memo(
           {/* Prev */}
           <motion.button
             onClick={() => go(-1)}
-            className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-dark-200/80 border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 transition-colors"
+            className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full glass flex items-center justify-center text-light hover:text-primary"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Previous"
@@ -190,7 +192,7 @@ const PhoneCarousel = memo(
           {/* Next */}
           <motion.button
             onClick={() => go(1)}
-            className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-dark-200/80 border border-white/10 flex items-center justify-center text-light-300 hover:text-primary hover:border-primary/30 transition-colors"
+            className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full glass flex items-center justify-center text-light hover:text-primary"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             aria-label="Next"
@@ -232,18 +234,14 @@ const PhoneCarousel = memo(
 );
 
 // ── Stat card ────────────────────────────────────────────────────────────────
-const StatCard = ({ icon: Icon, value, label, color }) => (
-  <motion.div
-    className="flex flex-col items-center gap-1.5 px-5 py-4 rounded-2xl bg-dark-200/50 border border-white/5 min-w-[100px]"
-    whileHover={{ y: -4, borderColor: "rgba(255,255,255,0.12)" }}
-    transition={{ duration: 0.2 }}
-  >
-    <Icon className={`w-5 h-5 ${color}`} />
-    <span className={`text-2xl font-extrabold ${color}`}>{value}</span>
-    <span className="text-xs text-light-300/50 text-center leading-tight">
-      {label}
-    </span>
-  </motion.div>
+const StatCard = ({ icon: Icon, value, label }) => (
+  <div className="surface spotlight flex items-start gap-3 p-5">
+    <Icon className="w-5 h-5 text-primary flex-shrink-0 mt-1" aria-hidden="true" />
+    <div>
+      <p className="text-xl font-bold text-light">{value}</p>
+      <p className="text-sm text-light-300 leading-snug">{label}</p>
+    </div>
+  </div>
 );
 
 // ── Main Section ─────────────────────────────────────────────────────────────
@@ -267,177 +265,32 @@ const AmayaShowcaseSection = () => {
       <section
         ref={ref}
         id="amaya-showcase"
-        className="relative py-14 lg:py-20 overflow-hidden"
+        className="relative py-16 lg:py-24 bg-dark-100 overflow-hidden"
       >
-        {/* Background */}
-        <div className="absolute inset-0 bg-dark">
-          <motion.div
-            className="absolute top-0 right-0 w-[700px] h-[700px] bg-secondary/5 rounded-full blur-[200px]"
-            animate={{ scale: [1, 1.15, 1], x: [0, 40, 0] }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[180px]"
-            animate={{ scale: [1, 1.2, 1], y: [0, -30, 0] }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
-          />
-        </div>
-
         <div className="container relative z-10">
           {/* ── Header ── */}
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.span
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20 mb-6"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            >
-              <ArrowLeftRight className="w-3.5 h-3.5" />
-              Before vs After
-            </motion.span>
+          <SectionHeader index="04" label="Case study · Amaya AG" title="Visit report: before & after">
+            Data did not load on first run without a pull-to-refresh, and the
+            flow was hard to use in the field. I fixed the loading, rebuilt the
+            UX on a new design system, and added GPS flows, annotated photo
+            capture and 3-language support.
+          </SectionHeader>
 
-            <motion.h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              <span className="text-light">Amaya AG — </span>
-              <span className="gradient-text-static">
-                Visit Report Redesign
-              </span>
-            </motion.h2>
+          {/* ── Results ── */}
+          <div className="grid sm:grid-cols-3 gap-3 sm:gap-4 mb-14">
+            <StatCard icon={Zap} value="~10 s → 1–2 s" label="Page load (cached)" />
+            <StatCard icon={Wrench} value="Fixed" label="First-run data loading" />
+            <StatCard icon={Sparkles} value="New UI" label="Design system, GPS, photo notes, 3 languages" />
+          </div>
 
-            <motion.p
-              className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg"
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
-              Fixed data not loading on first run (required pull-to-refresh) and
-              completely rebuilt the visit-report UX — improved GPS flows, photo
-              capture with annotations, multilingual support, and a brand-new UI
-              system built from scratch.
-            </motion.p>
-          </motion.div>
-          {/* ── Stats + improvements ── */}
-          <motion.div
-            className="flex flex-col items-center gap-6 mb-14"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.5, duration: 0.5 }}
-          >
-            {/* Load-time stats */}
-            <div className="flex flex-wrap justify-center gap-4">
-              <StatCard
-                icon={Zap}
-                value="~2s"
-                label="Load time (cached)"
-                color="text-primary"
-              />
-              <StatCard
-                icon={Zap}
-                value="<10s"
-                label="Load time (first run)"
-                color="text-secondary"
-              />
-            </div>
-
-            {/* What was improved */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <motion.div
-                className="flex items-start gap-3 px-5 py-3.5 rounded-2xl bg-dark-200/50 border border-white/5 max-w-xs"
-                whileHover={{ y: -3, borderColor: "rgba(255,255,255,0.12)" }}
-                transition={{ duration: 0.2 }}
-              >
-                <Sparkles className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-light">
-                    UX enhancement
-                  </p>
-                  <p className="text-xs text-light-300/50 mt-0.5 leading-relaxed">
-                    Rebuilt visit-report UI — GPS flows, photo annotations,
-                    multi-language support
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="flex items-start gap-3 px-5 py-3.5 rounded-2xl bg-dark-200/50 border border-white/5 max-w-xs"
-                whileHover={{ y: -3, borderColor: "rgba(255,255,255,0.12)" }}
-                transition={{ duration: 0.2 }}
-              >
-                <Wrench className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-light">
-                    Fixed data loading
-                  </p>
-                  <p className="text-xs text-light-300/50 mt-0.5 leading-relaxed">
-                    Data no longer requires pull-to-refresh on first run
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-          {/* ── Play Store links ── */}
-          {/* //todo */}
-          {/* <motion.div
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-12"
-            initial={{ opacity: 0, y: 15 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.6, duration: 0.5 }}
-          >
-            <motion.a
-              href="https://play.google.com/store/apps/details?id=ag.amaya.farmer"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-start gap-3 px-5 py-3.5 rounded-2xl bg-dark-200/50 border border-white/5 max-w-xs hover:border-primary/25 hover:bg-dark-200/80 transition-all duration-200 group"
-              whileHover={{ y: -3, borderColor: "rgba(0,212,255,0.25)" }}
-              transition={{ duration: 0.2 }}
-            >
-              <FaGooglePlay className="w-5 h-5 text-primary flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-              <div>
-                <p className="text-sm font-semibold text-light">Amaya Farmer</p>
-                <p className="text-xs text-light-300/50 mt-0.5">Available on Google Play</p>
-              </div>
-            </motion.a>
-            <motion.a
-              href="https://play.google.com/store/apps/details?id=ag.amaya.advisor"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-start gap-3 px-5 py-3.5 rounded-2xl bg-dark-200/50 border border-white/5 max-w-xs hover:border-secondary/25 hover:bg-dark-200/80 transition-all duration-200 group"
-              whileHover={{ y: -3, borderColor: "rgba(139,92,246,0.25)" }}
-              transition={{ duration: 0.2 }}
-            >
-              <FaGooglePlay className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
-              <div>
-                <p className="text-sm font-semibold text-light">Amaya Advisor</p>
-                <p className="text-xs text-light-300/50 mt-0.5">Available on Google Play</p>
-              </div>
-            </motion.a>
-          </motion.div> */}
           {/* ── Before / After grid ── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 xl:gap-20 items-start">
             {/* BEFORE */}
             <motion.div
               className="flex flex-col items-center gap-6 w-full"
-              initial={{ opacity: 0, x: -50 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{
-                delay: 0.4,
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Phone — responsive, generous max-width */}
               <div className="w-full max-w-[260px] sm:max-w-[310px] md:max-w-[340px] lg:max-w-[380px] xl:max-w-[420px] 2xl:max-w-[460px] mx-auto">
@@ -445,11 +298,11 @@ const AmayaShowcaseSection = () => {
                   images={OLD_IMAGES}
                   label="Before"
                   accent="gray"
-                  labelColor="text-light-300/50"
+                  labelColor="text-light-300"
                   onOpenLightbox={(i) => openLightbox(OLD_IMAGES, i)}
                 />
               </div>
-              <p className="text-sm text-light-300/40 text-center max-w-xs leading-relaxed">
+              <p className="text-sm text-light-300 text-center max-w-xs leading-relaxed">
                 Original visit-report screens — basic layout, limited
                 navigation, single language, data requires pull-to-refresh on
                 first run
@@ -459,13 +312,9 @@ const AmayaShowcaseSection = () => {
             {/* AFTER */}
             <motion.div
               className="flex flex-col items-center gap-6 w-full"
-              initial={{ opacity: 0, x: 50 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{
-                delay: 0.5,
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="w-full max-w-[260px] sm:max-w-[310px] md:max-w-[340px] lg:max-w-[380px] xl:max-w-[420px] 2xl:max-w-[460px] mx-auto">
                 <PhoneCarousel
@@ -476,7 +325,7 @@ const AmayaShowcaseSection = () => {
                   onOpenLightbox={(i) => openLightbox(NEW_IMAGES, i)}
                 />
               </div>
-              <p className="text-sm text-light-300/40 text-center max-w-xs leading-relaxed">
+              <p className="text-sm text-light-300 text-center max-w-xs leading-relaxed">
                 Rebuilt from scratch — new design system, fixed data loading,
                 GPS flows, photo annotations, 3-language support
               </p>

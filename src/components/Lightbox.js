@@ -135,7 +135,7 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
 
   const content = (
     <motion.div
-      className="fixed inset-0 z-[200] bg-black/96 backdrop-blur-lg"
+      className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-lg"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -278,6 +278,10 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
                 display: "block",
               }}
               onLoad={() => setLoaded(true)}
+              // A cached image can finish before the reset effect runs; catch it here.
+              ref={(el) => {
+                if (el && el.complete && el.naturalWidth > 0) setLoaded(true);
+              }}
               draggable={false}
             />
           </motion.div>

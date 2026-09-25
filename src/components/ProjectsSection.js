@@ -1,130 +1,51 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Briefcase } from "lucide-react";
+import React, { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import SectionHeader from "./ui/SectionHeader";
 import ProjectCard from "./ProjectCard";
 
-const ProjectsSection = ({ projects }) => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
+const INITIAL_COUNT = 4;
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 60, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
+const ProjectsSection = ({ projects }) => {
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? projects : projects.slice(0, INITIAL_COUNT);
+  const hiddenCount = projects.length - INITIAL_COUNT;
 
   return (
-    <section
-      id="projects"
-      className="relative py-14 lg:py-20 overflow-hidden"
-    >
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-dark">
-        <motion.div 
-          className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px]"
-          animate={{
-            x: [0, 40, -30, 0],
-            y: [0, -30, 40, 0],
-            scale: [1, 1.2, 0.9, 1],
-            opacity: [0.5, 0.8, 0.6, 0.5],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div 
-          className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[120px]"
-          animate={{
-            x: [0, -30, 40, 0],
-            y: [0, 50, -40, 0],
-            scale: [1, 1.3, 0.95, 1],
-            opacity: [0.5, 0.7, 0.6, 0.5],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        />
-      </div>
+    <section id="projects" className="relative py-16 lg:py-24 bg-dark-100">
+      <div className="container">
+        <SectionHeader index="02" label="Projects" title="Professional work">
+          Production apps I built or led, live on the Play Store and App
+          Store. Tap any screenshot to view it full size.
+        </SectionHeader>
 
-      <div className="container relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-12 lg:mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.span
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 mb-6"
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          >
-            <Briefcase className="w-3.5 h-3.5" />
-            Featured Work
-          </motion.span>
+        <div className="space-y-8 lg:space-y-10">
+          {visible.map((project) => (
+            <ProjectCard key={project.title} project={project} />
+          ))}
+        </div>
 
-          <motion.h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <span className="text-light">Professional </span>
-            <span className="gradient-text-static">Projects</span>
-          </motion.h2>
-
-          <motion.p 
-            className="text-light-300/70 max-w-2xl mx-auto text-base sm:text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            Real-world mobile applications I've built and published, showcasing
-            cross-platform development expertise with Flutter.
-          </motion.p>
-        </motion.div>
-
-        {/* Projects Grid */}
-        <motion.div 
-          className="space-y-8 lg:space-y-12"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {projects.map((project) => (
-              <motion.div
-                key={project.title}
-                variants={itemVariants}
-              >
-                <ProjectCard project={project} />
-              </motion.div>
-            ))}
-        </motion.div>
+        {hiddenCount > 0 && (
+          <div className="text-center mt-10">
+            <button
+              type="button"
+              onClick={() => setShowAll((prev) => !prev)}
+              className="btn-secondary inline-flex items-center gap-2"
+              aria-expanded={showAll}
+            >
+              {showAll ? (
+                <>
+                  <ChevronUp className="w-5 h-5" aria-hidden="true" />
+                  Show fewer projects
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="w-5 h-5" aria-hidden="true" />
+                  Show {hiddenCount} more projects
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
