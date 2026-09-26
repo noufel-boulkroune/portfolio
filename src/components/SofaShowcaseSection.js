@@ -9,12 +9,14 @@ import Lightbox from "./Lightbox";
 const LazyImage = memo(({ src, alt, className, objectFit = "cover", onClick }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
+  const Wrapper = onClick ? "button" : "div";
 
   return (
-    <div
-      className={`relative overflow-hidden bg-dark-200 ${className}`}
+    <Wrapper
+      className={`relative block overflow-hidden bg-dark-200 ${className}`}
       onClick={onClick}
-      style={{ cursor: onClick ? "pointer" : "default" }}
+      style={{ cursor: onClick ? "zoom-in" : "default" }}
+      {...(onClick && { type: "button", "aria-label": `${alt} — view full size` })}
     >
       {!isLoaded && !isError && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -41,7 +43,7 @@ const LazyImage = memo(({ src, alt, className, objectFit = "cover", onClick }) =
         onLoad={() => setIsLoaded(true)}
         onError={() => setIsError(true)}
       />
-    </div>
+    </Wrapper>
   );
 });
 
@@ -352,7 +354,7 @@ const SofaShowcaseSection = () => {
     <>
       <section
         id="sofaShowcaseSection"
-        className="relative py-16 lg:py-24 bg-dark overflow-hidden"
+        className="relative py-16 lg:py-24 bg-dark-100 overflow-hidden"
       >
         <div className="container relative z-10">
           {/* Header */}

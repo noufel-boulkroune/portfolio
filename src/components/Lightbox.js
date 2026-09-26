@@ -23,6 +23,14 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
   const [dragOrigin, setDragOrigin] = useState({ x: 0, y: 0 });
   const [loaded, setLoaded] = useState(false);
   const touchRef = useRef(null);
+  const closeRef = useRef(null);
+
+  // ── Focus: move into the dialog, give it back to the opener on close ─────
+  useEffect(() => {
+    const opener = document.activeElement;
+    closeRef.current?.focus({ preventScroll: true });
+    return () => opener?.focus?.({ preventScroll: true });
+  }, []);
 
   // ── Lock scroll ───────────────────────────────────────────────────────────
   useEffect(() => {
@@ -136,6 +144,9 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
   const content = (
     <motion.div
       className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-lg"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Screenshot viewer"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -153,6 +164,8 @@ const Lightbox = ({ images, initialIndex = 0, onClose }) => {
 
       {/* ── X close button — always top-right, always visible ────────────── */}
       <button
+        ref={closeRef}
+        type="button"
         className="absolute top-4 right-4 z-[220] w-10 h-10 flex items-center justify-center rounded-full bg-black/80 border border-white/25 text-white hover:bg-white/20 hover:border-white/50 transition-all shadow-lg"
         onClick={(e) => { e.stopPropagation(); onClose(); }}
         aria-label="Close"

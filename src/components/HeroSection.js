@@ -16,6 +16,7 @@ const stats = [
   { value: "3+", label: "Years in mobile" },
   { value: "10+", label: "Apps shipped to stores" },
   { value: "10k+", label: "Downloads on Sofa" },
+  { value: "80%+", label: "Faster load on Sofa" },
   { value: "83%", label: "Faster load at Amaya" },
 ];
 
@@ -74,7 +75,7 @@ const HeroSection = () => {
   return (
     <section
       id="about"
-      className="relative overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 bg-gradient-to-b from-dark-100 to-dark"
+      className="relative overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 bg-dark-100"
     >
       {/* Backdrop: dotted grid + one slow aurora, both behind everything */}
       <div className="absolute inset-0 hero-grid pointer-events-none" aria-hidden="true" />
@@ -198,11 +199,11 @@ const HeroSection = () => {
 
         {/* Key numbers */}
         <motion.ul
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-14 lg:mt-20"
+          className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 mt-14 lg:mt-20"
           {...fadeUp(0.55)}
         >
           {stats.map((stat) => (
-            <li key={stat.label} className="glass-tile rounded-2xl p-5 text-center lg:text-left">
+            <li key={stat.label} className="glass-tile rounded-2xl p-5 text-center lg:text-left last:col-span-2 md:last:col-span-1">
               <div className="text-3xl sm:text-4xl font-bold gradient-text-static tabular-nums">
                 {stat.value}
               </div>

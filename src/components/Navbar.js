@@ -17,6 +17,7 @@ const sectionToLink = {
   projects: "projects",
   sofaShowcaseSection: "sofaShowcaseSection",
   "amaya-showcase": "sofaShowcaseSection",
+  "side-projects": "projects",
   contact: "contact",
 };
 
@@ -68,7 +69,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled || isMenuOpen
-            ? "py-3 glass-strong !border-x-0 !border-t-0 !shadow-none"
+            ? "py-3 glass-strong !border-0 !shadow-none"
             : "py-5 bg-transparent"
         }`}
         aria-label="Main navigation"
@@ -132,12 +133,19 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }) => {
             </button>
           </div>
         </div>
-        {/* Reading progress */}
-        <motion.div
-          className="absolute left-0 right-0 bottom-0 h-[2px] origin-left bg-gradient-to-r from-primary via-secondary to-[#3AC3FF]"
-          style={{ scaleX: progress, opacity: scrolled ? 1 : 0 }}
+        {/* Divider + reading progress: same line, same 2px, so the blue
+            fill sits exactly on the grey track. */}
+        <div
+          className="absolute left-0 right-0 bottom-0 h-[2px] transition-opacity duration-300"
+          style={{ opacity: scrolled || isMenuOpen ? 1 : 0 }}
           aria-hidden="true"
-        />
+        >
+          <div className="absolute inset-0 bg-black/[0.06]" />
+          <motion.div
+            className="absolute inset-0 origin-left bg-gradient-to-r from-primary via-secondary to-[#3AC3FF]"
+            style={{ scaleX: progress }}
+          />
+        </div>
       </nav>
 
       {/* Mobile menu */}

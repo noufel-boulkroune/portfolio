@@ -43,10 +43,10 @@ const projects = [
     description:
       "Agrotech platform — 3 interconnected Flutter apps (Advisor, Farmer, Sales) for farm and land management. Built for field use in areas with no internet connection.",
     tasks: [
-      "Built the design system from scratch — typography, color, grid, and 40+ reusable components — then used it to redesign 50+ screens across all three apps (visit-report flows, Sales orders/invoices/home, onboarding).",
+      "Built the design system from scratch — typography, color, grid, and 40+ reusable components — then used it to redesign 40+ screens across all three apps (visit-report flows, Sales orders/invoices/home, onboarding).",
       "Built offline-first map navigation (Flutter, BLoC, Freezed) with GeoJSON/MBTiles tile rendering, zoom levels 0–13, Crashlytics error tracking, and unit-tested state flows.",
-      "Led a full redesign of the visit-report module (Flutter + BLoC) — rebuilt GPS/map flows, photo capture with annotations, multi-language localisation, and offline-safe form state handling.",
-      "Added local-first offline data sync (ordered sync coordinator for field data) and multi-layer caching, cutting page load from ~10 s to 1-2 s cached.",
+      "Led a full redesign of the visit-report module (Flutter + BLoC) — rebuilt GPS/map flows, photo capture with annotations, multi-language localization, and offline-safe form state handling.",
+      "Added local-first offline data sync (ordered sync coordinator for field data) and multi-layer caching, cutting page load from ~10 s to 1–2 s cached.",
       "Refactored shared logic into independent Dart packages (date_utils, validation_utils, network_utils); led sprint planning, task breakdown, and code reviews in an Agile workflow.",
     ],
     skills: [
@@ -89,10 +89,10 @@ const projects = [
     description:
       "A cross-platform video streaming app for an Algerian startup, built with Flutter — 10k+ downloads on the Play Store. Delivers a Netflix-like experience across mobile, tablet, and Android TV, featuring Google Cast, multi-language subtitles, and adaptive video quality.",
     tasks: [
-      "Led Flutter development for cross-platform video streaming app (Android, iOS, Android TV) — 10k+ Play Store downloads",
-      "Reduced initial data load time from 8–10 seconds to under 1 second (80%+ improvement) via API optimisation and smart caching",
-      "Built streaming features: Google Cast, multi-language subtitles, adaptive video quality based on network conditions",
-      "Extended platform to Android TV with tailored layouts, D-pad remote navigation, and voice search support",
+      "Led Flutter development for cross-platform video streaming app (Android, iOS, Android TV) — 10k+ Play Store downloads.",
+      "Reduced initial data load time from 8–10 seconds to under 1 second (80%+ improvement) via API optimization and smart caching.",
+      "Built streaming features: Google Cast, multi-language subtitles, adaptive video quality based on network conditions.",
+      "Extended platform to Android TV with tailored layouts, D-pad remote navigation, and voice search support.",
     ],
     skills: [
       "Flutter",
@@ -117,6 +117,8 @@ const projects = [
   },
   {
     title: "Azougui",
+    // No longer listed on the stores (links 404 as of Sep 2026).
+    delisted: true,
     category: "Grocery Delivery App",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.azougui.mrkt.app&hl=en",
@@ -124,10 +126,10 @@ const projects = [
     description:
       "A modern grocery shopping app built for the Mauritanian market. Users can browse products from their favorite stores and supermarkets, place orders online, and receive fast delivery at home.",
     tasks: [
-      "Customized and localized the app for Mauritanian market with Arabic and French language support",
-      "Implemented product filtering by store to enhance navigation and shopping experience",
-      "Integrated Google and Apple authentication for secure login experience",
-      "Published on both Google Play Store and Apple App Store",
+      "Customized and localized the app for Mauritanian market with Arabic and French language support.",
+      "Implemented product filtering by store to enhance navigation and shopping experience.",
+      "Integrated Google and Apple authentication for secure login experience.",
+      "Published on both Google Play Store and Apple App Store.",
     ],
     skills: ["Flutter", "Firebase", "REST API", "iOS", "Android"],
     images: [
@@ -138,16 +140,18 @@ const projects = [
   },
   {
     title: "Snay3i",
+    // No longer listed on the stores (links 404 as of Sep 2026).
+    delisted: true,
     category: "Job Marketplace App",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.snay3i.app",
     description:
       "A job marketplace connecting service providers with customers for home, automotive, and professional services. Built from scratch with Flutter, Firebase, Google Maps, and a React/Node.js back-office admin panel.",
     tasks: [
-      "Integrated full Firebase suite: Realtime Database, Auth, Cloud Functions, Storage, Messaging, Crashlytics, Analytics",
-      "Implemented Google Maps for location-based service discovery and real-time provider tracking",
-      "Built 3-language support (Arabic, French, English) for broader market reach across North Africa",
-      "Created React/Node.js back-office system for admin management and service moderation",
+      "Integrated full Firebase suite: Realtime Database, Auth, Cloud Functions, Storage, Messaging, Crashlytics, Analytics.",
+      "Implemented Google Maps for location-based service discovery and real-time provider tracking.",
+      "Built 3-language support (Arabic, French, English) for broader market reach across North Africa.",
+      "Created React/Node.js back-office system for admin management and service moderation.",
     ],
     skills: [
       "Flutter",
@@ -165,32 +169,36 @@ const projects = [
   },
   {
     title: "Mziya",
+    // No longer listed on the stores (links 404 as of Sep 2026).
+    delisted: true,
     category: "Parcel Delivery Platform",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.alamaralabs.mziya",
     description:
       "A cost-effective package delivery platform connecting shippers with travelers locally and internationally. Makes deliveries simpler, faster, and more affordable.",
     tasks: [
-      "Resolved Stripe payment integration issue, reducing operational costs by 15%",
-      "Developed Favourite Trajectory feature for efficient route management and repeat deliveries",
-      "Enhanced in-app messaging system for seamless sender-traveller communication",
-      "Implemented real-time push notifications for live package tracking updates",
+      "Resolved Stripe payment integration issue, reducing operational costs by 15%.",
+      "Developed Favourite Trajectory feature for efficient route management and repeat deliveries.",
+      "Enhanced in-app messaging system for seamless sender-traveler communication.",
+      "Implemented real-time push notifications for live package tracking updates.",
     ],
     skills: ["Flutter", "Firebase", "Stripe", "Push Notifications"],
     images: ["/images/mziya1.webp", "/images/mziya3.webp", "/images/mziya2.webp"],
   },
   {
     title: "Laffaiire",
+    // No longer listed on the stores (links 404 as of Sep 2026).
+    delisted: true,
     category: "E-commerce App",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.laffaiire.app",
     description:
       "A user-friendly app for buying and selling clothing with powerful search, multi-language support (EN/FR/AR), and secure payments.",
     tasks: [
-      "Migrated app to Flutter 3.x with null safety support",
-      "Implemented city and town filtering for product searches",
-      "Integrated secure online payments and Google authentication",
-      "Launched on Play Store with separate dev/prod environments",
+      "Migrated app to Flutter 3.x with null safety support.",
+      "Implemented city and town filtering for product searches.",
+      "Integrated secure online payments and Google authentication.",
+      "Launched on Play Store with separate dev/prod environments.",
     ],
     skills: ["Flutter", "Firebase", "Payment Gateway", "REST API"],
     images: [
@@ -201,16 +209,18 @@ const projects = [
   },
   {
     title: "Laffaiire-Tech",
+    // No longer listed on the stores (links 404 as of Sep 2026).
+    delisted: true,
     category: "Tech Marketplace App",
     playStoreUrl:
       "https://play.google.com/store/apps/details?id=com.laffaiire.tech.app",
     description:
       "A specialized e-commerce platform for buying and selling tech devices, rebranded from Laffaiire with tech-focused identity.",
     tasks: [
-      "Merged Laffaiire app into Laffaiire-Tech with updated branding",
-      "Configured Flutter flavors for separate dev/prod environments",
-      "Implemented Google Authentication via Firebase",
-      "Published on Play Store with full documentation",
+      "Merged Laffaiire app into Laffaiire-Tech with updated branding.",
+      "Configured Flutter flavors for separate dev/prod environments.",
+      "Implemented Google Authentication via Firebase.",
+      "Published on Play Store with full documentation.",
     ],
     skills: ["Flutter", "Firebase", "REST API", "CI/CD"],
     images: ["/images/laffaiire_tech.webp", "/images/laffaiire_tech3.webp"],

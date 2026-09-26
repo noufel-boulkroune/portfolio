@@ -245,6 +245,8 @@ const ProjectCardMini = ({ project, index }) => {
                     setDirection(idx > currentImageIndex ? 1 : -1);
                     setCurrentImageIndex(idx);
                   }}
+                  type="button"
+                  aria-label={`Show ${project.title} screenshot ${idx + 1}`}
                   className={`w-1 h-1 rounded-full transition-all ${
                     idx === currentImageIndex
                       ? "bg-primary w-3"
@@ -310,10 +312,10 @@ const LearningProjectsSection = () => {
   const hiddenCount = projectsData.length - INITIAL_COUNT;
 
   return (
-    <section id="side-projects" className="relative py-16 lg:py-24 bg-dark">
+    <section id="side-projects" className="relative py-16 lg:py-24 bg-dark-100">
       <div className="container relative z-10">
         {/* Header */}
-        <SectionHeader index="05" label="Open source" title="Side projects">
+        <SectionHeader index="05" label="Personal" title="Side projects">
           Personal projects built to try new patterns and architectures.
         </SectionHeader>
 
@@ -351,12 +353,12 @@ const LearningProjectsSection = () => {
             {showAll ? (
               <>
                 <ChevronUp className="w-4 h-4" />
-                Show Less
+                Show fewer projects
               </>
             ) : (
               <>
                 <ChevronDown className="w-4 h-4" />
-                Show {hiddenCount} More Projects
+                Show {hiddenCount} more projects
               </>
             )}
           </button>

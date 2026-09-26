@@ -124,7 +124,7 @@ const ContactSection = () => {
           >
             <div className="surface p-6 sm:p-8">
               <h3 className="text-xl font-semibold text-light mb-6">Send a Message</h3>
-          <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-6" aria-label="Contact form">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* First Name */}
                   <div className="relative">

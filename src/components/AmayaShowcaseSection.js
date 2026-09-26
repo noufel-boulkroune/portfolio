@@ -55,11 +55,14 @@ const LazyImage = memo(({ src, alt, onClick }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
+  const Wrapper = onClick ? "button" : "div";
+
   return (
-    <div
-      className="absolute inset-0 bg-dark-200"
+    <Wrapper
+      className="absolute inset-0 block w-full bg-dark-200"
       onClick={onClick}
-      style={{ cursor: onClick ? "pointer" : "default" }}
+      style={{ cursor: onClick ? "zoom-in" : "default" }}
+      {...(onClick && { type: "button", "aria-label": `${alt} — view full size` })}
     >
       {!loaded && !error && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -89,7 +92,7 @@ const LazyImage = memo(({ src, alt, onClick }) => {
           </span>
         </div>
       )}
-    </div>
+    </Wrapper>
   );
 });
 

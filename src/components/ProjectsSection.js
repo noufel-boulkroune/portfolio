@@ -14,8 +14,8 @@ const ProjectsSection = ({ projects }) => {
     <section id="projects" className="relative py-16 lg:py-24 bg-dark-100">
       <div className="container">
         <SectionHeader index="02" label="Projects" title="Professional work">
-          Production apps I built or led, live on the Play Store and App
-          Store. Tap any screenshot to view it full size.
+          Production apps I built or led and shipped to the Play Store and
+          App Store. Tap any screenshot to view it full size.
         </SectionHeader>
 
         <div className="space-y-8 lg:space-y-10">

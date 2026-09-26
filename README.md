@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Nawfel Boulkroune — Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal portfolio of a Flutter mobile developer: experience, shipped apps, and two case studies.
 
-## Available Scripts
+**Live:** [noufelboulkroune.vercel.app](https://noufelboulkroune.vercel.app/)
 
-In the project directory, you can run:
+## What's inside
 
-### `npm start`
+- **Experience** — scroll-driven timeline of six roles, most recent first.
+- **Professional projects** — apps shipped to the Play Store and App Store, each with a screenshot carousel and a full-screen, zoomable viewer.
+- **Case studies** — Sofa (phone, tablet and Android TV from one Flutter codebase) and Amaya AG (visit-report redesign, before and after).
+- **Side projects** and a **contact form** (EmailJS).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+React 19 (Create React App) · Tailwind CSS · Framer Motion · Vercel Analytics
 
-### `npm test`
+## Notes on performance
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Screenshots are served as resized WebP (the originals were ~120 MB; what the site loads is ~6 MB, and only on demand).
+- Below-the-fold images load lazily; the hero photo is preloaded with high priority.
+- Looping motion is kept to CSS transforms, and all animation respects `prefers-reduced-motion`.
 
-### `npm run build`
+## Running locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+npm start          # http://localhost:3000
+npm test           # smoke tests
+npm run build      # production build in ./build
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The contact form needs three EmailJS keys in `.env`:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+REACT_APP_EMAILJS_USER_ID=...
+REACT_APP_EMAILJS_SERVICE_ID=...
+REACT_APP_EMAILJS_TEMPLATE_ID=...
+```
 
-### `npm run eject`
+## Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+src/
+  components/        page sections (Hero, Experience, Projects, case studies, Contact)
+  components/ui/     shared pieces (SectionHeader, WordReveal)
+  hooks/             useSpotlight (cursor light on cards)
+  data/              projectsData.js — project content lives here
+public/
+  images/            WebP screenshots, og-image.jpg for link previews
+  Doc/               resume PDF
+```

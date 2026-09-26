@@ -52,7 +52,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg);
+  background-color: var(--bg-100);
 }
 
 body {
@@ -60,7 +60,7 @@ body {
   /* Rule 15: platform system font first. */
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter",
                system-ui, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--bg);
+  background-color: var(--bg-100);
   color: var(--text);
   overflow-x: hidden;
   /* Rule 15: leading tracks size inversely -- body is comfortable, not loose. */

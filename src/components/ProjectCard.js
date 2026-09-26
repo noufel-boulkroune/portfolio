@@ -4,16 +4,19 @@ import { ChevronLeft, ChevronRight, ExternalLink, ArrowDown } from "lucide-react
 import { FaGooglePlay, FaAppStore } from "react-icons/fa";
 import Lightbox from "./Lightbox";
 
-// Simple image with fade-in on load
+// Simple image with fade-in on load. When it opens the lightbox it is a
+// real <button>, so keyboard and screen-reader users can open it too.
 const LazyImage = ({ src, alt, className, onClick }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
+  const Wrapper = onClick ? "button" : "div";
 
   return (
-    <div
-      className={`relative overflow-hidden bg-dark-200 ${className}`}
+    <Wrapper
+      className={`relative block overflow-hidden bg-dark-200 ${className}`}
       onClick={onClick}
-      style={{ cursor: onClick ? "pointer" : "default" }}
+      style={{ cursor: onClick ? "zoom-in" : "default" }}
+      {...(onClick && { type: "button", "aria-label": `${alt} — view full size` })}
     >
       {!isLoaded && !isError && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -39,7 +42,7 @@ const LazyImage = ({ src, alt, className, onClick }) => {
         onLoad={() => setIsLoaded(true)}
         onError={() => setIsError(true)}
       />
-    </div>
+    </Wrapper>
   );
 };
 
@@ -195,7 +198,23 @@ const ProjectCard = ({ project }) => {
                   <ArrowDown className="w-4 h-4" aria-hidden="true" />
                 </a>
               )}
-              {project.playStoreUrl && (
+              {project.delisted && (
+                <span className="well inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-light-300">
+                  {project.appStoreUrl ? (
+                    <>
+                      <FaGooglePlay className="w-4 h-4" aria-hidden="true" />
+                      <FaAppStore className="w-4 h-4" aria-hidden="true" />
+                      Previously on Google Play &amp; App Store
+                    </>
+                  ) : (
+                    <>
+                      <FaGooglePlay className="w-4 h-4" aria-hidden="true" />
+                      Previously on Google Play
+                    </>
+                  )}
+                </span>
+              )}
+              {project.playStoreUrl && !project.delisted && (
                 <a
                   href={project.playStoreUrl}
                   target="_blank"
@@ -208,7 +227,7 @@ const ProjectCard = ({ project }) => {
                   <ExternalLink className="w-3 h-3 opacity-50" aria-hidden="true" />
                 </a>
               )}
-              {project.appStoreUrl && (
+              {project.appStoreUrl && !project.delisted && (
                 <a
                   href={project.appStoreUrl}
                   target="_blank"
@@ -265,7 +284,7 @@ const ProjectCard = ({ project }) => {
 
                 {/* Tap hint */}
                 <p className="text-center text-xs text-light-300/60 mt-3">
-                  tap image to expand
+                  Tap image to expand
                 </p>
               </div>
 

@@ -56,7 +56,7 @@ const experiences = [
     period: "Dec 2022 – Aug 2025",
     summary: "French startup studio — shipped 5 Flutter apps in e-commerce, logistics and jobs.",
     highlights: [
-      "Built Azougui (grocery delivery) with real-time inventory and Google / Apple sign-in — live on both stores.",
+      "Built Azougui (grocery delivery) with real-time inventory and Google / Apple sign-in — released on both stores.",
       "Built Snay3i (job marketplace) with Google Maps, 3 languages, full Firebase suite and a React / Node.js admin panel.",
       "Shipped Mziya, Laffaiire and Laffaiire-Tech; migrated the codebase to Flutter 3.x with null safety.",
       "Removed Stripe platform fees by migrating to Standard accounts; added Crashlytics, Remote Config and Analytics across all apps.",
@@ -191,7 +191,7 @@ const ExperienceSection = () => {
   const fill = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
 
   return (
-    <section id="experience" className="relative py-16 lg:py-28 bg-dark overflow-x-clip">
+    <section id="experience" className="relative py-16 lg:py-28 bg-dark-100 overflow-x-clip">
       <div className="container max-w-6xl">
         <SectionHeader index="01" label="Experience" title="Where I've shipped">
           6 companies across streaming, agrotech, e-commerce, media and
@@ -199,16 +199,19 @@ const ExperienceSection = () => {
         </SectionHeader>
 
         <div className="relative" ref={listRef}>
-          {/* Track + scroll-driven fill */}
+          {/* Track + scroll-driven fill. The wrapper does the positioning so
+              the fill's inline scaleY transform can't undo the centering, and
+              both lines share one width so the fill covers the track exactly. */}
           <div
-            className="absolute top-0 bottom-0 left-[9px] lg:left-1/2 lg:-translate-x-1/2 w-px bg-separator"
+            className="absolute top-0 bottom-0 left-[9px] lg:left-1/2 lg:-translate-x-1/2 w-[2px]"
             aria-hidden="true"
-          />
-          <motion.div
-            className="absolute top-0 bottom-0 left-[9px] lg:left-1/2 lg:-translate-x-1/2 w-[2px] origin-top bg-gradient-to-b from-primary via-secondary to-primary shadow-[0_0_12px_rgba(0,113,227,0.5)]"
-            style={{ scaleY: fill }}
-            aria-hidden="true"
-          />
+          >
+            <div className="absolute inset-0 rounded-full bg-black/[0.07]" />
+            <motion.div
+              className="absolute inset-0 rounded-full origin-top bg-gradient-to-b from-primary via-secondary to-primary shadow-[0_0_12px_rgba(0,113,227,0.5)]"
+              style={{ scaleY: fill }}
+            />
+          </div>
 
           <ol className="relative space-y-8 lg:space-y-4">
             {experiences.map((experience, index) => (

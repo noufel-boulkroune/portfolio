@@ -8,11 +8,10 @@ import { motion } from "framer-motion";
 // className goes on each word (not the wrapper) so effects like gradient
 // text, which clip to their own glyphs, still apply to the animated words.
 const WordReveal = ({ text, delay = 0, stagger = 0.08, className = "" }) => (
-  <span aria-label={text}>
+  <span>
     {text.split(" ").map((word, i) => (
       <motion.span
         key={`${word}-${i}`}
-        aria-hidden="true"
         className={`inline-block whitespace-pre ${className}`}
         initial={{ opacity: 0, y: "0.35em", filter: "blur(10px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}

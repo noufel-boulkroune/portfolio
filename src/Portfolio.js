@@ -85,7 +85,7 @@ const Portfolio = () => {
 
   return (
     <>
-      <div className="relative bg-dark min-h-screen">
+      <div className="relative bg-dark-100 min-h-screen">
         {/* Skip to main content link for accessibility */}
         <a
           href="#main-content"
